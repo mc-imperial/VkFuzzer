@@ -6,6 +6,8 @@ import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
 import tool.serialization.vulkan.PolymorphicVulkanConfigMixIn;
+import tool.utils.cmdline.CmdLineArgsParser;
+import tool.utils.cmdline.CmdLineOptions;
 
 import java.io.*;
 
@@ -89,14 +91,14 @@ public class Fuzzer {
 //        }
 
 
-//        CmdLineArgsParser cmdLineArgsParser = new CmdLineArgsParser();
-//        CmdLineOptions options = null;
-//
-//        try {
-//            options = cmdLineArgsParser.parseArguments(args);
-//        } catch (RuntimeException exception) {
-//            cmdLineArgsParser.printHelp();
-//            System.exit(1);
-//        }
+        CmdLineArgsParser cmdLineArgsParser = new CmdLineArgsParser();
+        CmdLineOptions options = null;
+
+        try {
+            options = cmdLineArgsParser.parseArguments(args);
+        } catch (RuntimeException exception) {
+            cmdLineArgsParser.printHelp();
+            System.exit(1);
+        }
     }
 }
