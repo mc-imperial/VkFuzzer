@@ -5,6 +5,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
+import tool.fuzzer.ProgramGenerator;
 import tool.serialization.vulkan.PolymorphicVulkanConfigMixIn;
 import tool.utils.cmdline.CmdLineArgsParser;
 import tool.utils.cmdline.CmdLineOptions;
@@ -100,5 +101,8 @@ public class Fuzzer {
             cmdLineArgsParser.printHelp();
             System.exit(1);
         }
+
+        ProgramGenerator generator = new ProgramGenerator();
+        generator.generatePrograms(options.getSamples());
     }
 }
