@@ -15,10 +15,6 @@ public class VkApplicationInfoConfig extends Config {
     private int applicationVersion;
     private int engineVersion;
 
-    public VkApplicationInfoConfig() {
-
-    }
-
     public String getVariableName() {
         return variableName;
     }

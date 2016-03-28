@@ -102,7 +102,7 @@ public class Fuzzer {
             System.exit(1);
         }
 
-        ProgramGenerator generator = new ProgramGenerator();
+        ProgramGenerator generator = new ProgramGenerator(options.getLibrary());
         generator.generatePrograms(options.getSamples());
     }
 }

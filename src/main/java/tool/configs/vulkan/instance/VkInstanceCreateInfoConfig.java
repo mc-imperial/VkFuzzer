@@ -16,10 +16,6 @@ public class VkInstanceCreateInfoConfig extends Config {
     private int enabledLayerCount;
     private int enabledExtensionCount;
 
-    public VkInstanceCreateInfoConfig() {
-
-    }
-
     public String getVariableName() {
         return variableName;
     }

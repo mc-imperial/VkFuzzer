@@ -9,10 +9,6 @@ public class VkCreateInstanceConfig {
     private String result;
     private String alloc;
 
-    public VkCreateInstanceConfig() {
-
-    }
-
     public String getInstanceName() {
         return instanceName;
     }
