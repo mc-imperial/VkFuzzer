@@ -32,7 +32,6 @@ public class CmdLineArgsParser {
             CommandLineParser parser = new DefaultParser();
             CommandLine line = parser.parse(options, args);
 
-            // Get
             try {
                 String outputFolder = line.getOptionValue(OUTPUT_OPTION);
                 int samples = Integer.parseInt(line.getOptionValue(SAMPLE_OPTION));
