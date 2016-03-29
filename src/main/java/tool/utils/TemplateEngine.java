@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
+import tool.Main;
 import tool.configs.Config;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class TemplateEngine {
 
     public TemplateEngine(final String templateFolder, final Class classForLoading) {
         engineConfig = new Configuration(ENGINE_VERSION);
-        engineConfig.setClassForTemplateLoading(classForLoading, templateFolder);
+        engineConfig.setClassForTemplateLoading(classForLoading.getClass(), templateFolder);
         engineConfig.setDefaultEncoding(TEMPLATE_ENCODING);
         root = new HashMap<>();
     }

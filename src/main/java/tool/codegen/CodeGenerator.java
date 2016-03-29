@@ -30,7 +30,7 @@ public abstract class CodeGenerator {
 
     public abstract Config generateConfig();
 
-    public String getTemplate() {
+    public String getTemplateName() {
         return  template;
     }
 }

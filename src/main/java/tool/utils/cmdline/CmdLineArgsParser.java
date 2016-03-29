@@ -15,7 +15,7 @@ public class CmdLineArgsParser {
             "Samples size is not a number";
     private final String ILLEGAL_ARGUMENT_MSG =
             "Library specified is not supported";
-    private final String USAGE_MSG = "java -jar Fuzzer-X.Y-SNAPSHOT.jar";
+    private final String USAGE_MSG = "java -jar Main-X.Y-SNAPSHOT.jar";
     private final String OUTPUT_ARG_NAME = "path";
     private final String OUTPUT_OPTION_DESC =
             "Specifies the output path folder for the generated programs";

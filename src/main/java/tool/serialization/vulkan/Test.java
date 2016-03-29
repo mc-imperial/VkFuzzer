@@ -56,12 +56,12 @@ public class Test {
 //        }
 
 //        Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
-//        cfg.setClassForTemplateLoading(Fuzzer.class.getClass(), "/templates/vulkan");
+//        cfg.setClassForTemplateLoading(Main.class.getClass(), "/templates/vulkan");
 //        cfg.setDefaultEncoding("UTF-8");
 //
 //        try {
-//            Template temp1 = cfg.getTemplate("instance/VkApplicationInfo.ftl");
-//            Template temp2 = cfg.getTemplate("instance/VkCreateInstance.ftl");
+//            Template temp1 = cfg.getTemplateName("instance/VkApplicationInfo.ftl");
+//            Template temp2 = cfg.getTemplateName("instance/VkCreateInstance.ftl");
 //
 //            Map<String, Config> root = new HashMap<>();
 //            StringWriter writer = new StringWriter();

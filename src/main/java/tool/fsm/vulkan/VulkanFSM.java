@@ -5,7 +5,7 @@ import org.statefulj.fsm.TooBusyException;
 import org.statefulj.fsm.model.State;
 import org.statefulj.fsm.model.impl.StateImpl;
 import org.statefulj.persistence.memory.MemoryPersisterImpl;
-import tool.Fuzzer;
+import tool.Main;
 import tool.fsm.ExitCondition;
 import tool.fsm.FuzzerFSM;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
@@ -32,7 +32,7 @@ public class VulkanFSM implements FuzzerFSM {
     public VulkanFSM() {
         states = new LinkedList<>();
         entity = new VulkanEntity();
-        templateEngine = new TemplateEngine(TEMPLATE_FOLDER, Fuzzer.class);
+        templateEngine = new TemplateEngine(TEMPLATE_FOLDER, Main.class);
         exitCondition = new ExitCondition();
         generateCodeAction = new GenerateCodeAction<>(templateEngine,
                 exitCondition);

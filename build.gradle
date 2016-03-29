@@ -21,7 +21,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "tool.Fuzzer"
+        attributes "Main-Class": "tool.Main"
     }
 
     from {

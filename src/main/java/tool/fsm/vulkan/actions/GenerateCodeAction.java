@@ -22,11 +22,11 @@ public class GenerateCodeAction<T extends VulkanEntity> implements Action<T> {
 
     @Override
     public void execute(T stateful, String event, Object... args) throws RetryException {
-        if (!stateful.getCurrentState().equals(VulkanState.STOP.toString())) {
+        if (!stateful.didReachStop()) {
             // Generate code
 //            VulkanCodeGenerator generator =
 //                    (VulkanCodeGenerator)stateful.getCurrentCodeGenerator();
-//            templateEngine.generateCode(generator.getTemplate(),
+//            templateEngine.generateCode(generator.getTemplateName(),
 //                    generator.generateConfig());
         } else {
             // Hit stop. Now exit
