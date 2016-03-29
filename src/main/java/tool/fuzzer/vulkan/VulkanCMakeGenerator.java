@@ -13,6 +13,7 @@ import java.io.Writer;
 
 /**
  * Created by constantinos on 29/03/2016.
+ * Generates the CMake file
  */
 public class VulkanCMakeGenerator implements CMakeGenerator {
     private final String TEMPLATE_FOLDER = "/templates/vulkan";
@@ -44,11 +45,11 @@ public class VulkanCMakeGenerator implements CMakeGenerator {
         cMakeConfig.setExecutables(configs);
 
         try {
-            Writer writer = new FileWriter(new File(path + CMAKE_NAME));
+            Writer writer = new FileWriter(new File(path + "/" + CMAKE_NAME));
             templateEngine.generateCode(TEMPLATE_NAME, cMakeConfig, writer);
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
     }

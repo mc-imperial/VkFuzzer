@@ -9,6 +9,8 @@ import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
 
 /**
@@ -22,6 +24,7 @@ public class VulkanEntity {
     private final RandomStringGenerator randomStringGenerator;
     private final FreshMap freshMap;
     private final VulkanGlobalState globalState;
+    private final Writer writer;
 
     public VulkanEntity() {
         codeGenerators = new HashMap<>();
@@ -29,10 +32,15 @@ public class VulkanEntity {
         randomStringGenerator = new RandomStringGenerator();
         freshMap = new FreshMap();
         globalState = new VulkanGlobalState();
+        writer = new StringWriter();
     }
 
     public CodeGenerator getCurrentCodeGenerator() {
         return codeGenerators.get(state);
+    }
+
+    public Writer getWriter() {
+        return  writer;
     }
 
     public boolean didReachStop() {
