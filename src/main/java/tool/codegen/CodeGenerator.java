@@ -13,23 +13,24 @@ public abstract class CodeGenerator {
     protected final RandomNumberGanerator randomNumberGanerator;
     protected final RandomStringGenerator randomStringGenerator;
     protected final FreshMap freshMap;
-    private final Coverage coverage;
+    protected final Coverage coverage;
+    protected final String template;
 
     public CodeGenerator(final RandomStringGenerator randomStringGenerator,
                          final RandomNumberGanerator randomNumberGanerator,
                          final FreshMap freshMap,
-                         final Coverage coverage) {
+                         final Coverage coverage,
+                         final String template) {
         this.randomStringGenerator = randomStringGenerator;
         this.randomNumberGanerator = randomNumberGanerator;
         this.freshMap = freshMap;
         this.coverage = coverage;
+        this.template = template;
     }
 
-    public Config generateConfig() {
-        return coverage.createGoodConfig() ?
-                generateGoodConfig() : generateBadConfig();
-    }
+    public abstract Config generateConfig();
 
-    public abstract Config generateGoodConfig();
-    public abstract Config generateBadConfig();
+    public String getTemplate() {
+        return  template;
+    }
 }

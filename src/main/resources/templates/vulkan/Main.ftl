@@ -31,6 +31,6 @@
 
 int main(int argc, char *argv[])
 {
-${body}
+${config.body}
     return 0;
 }

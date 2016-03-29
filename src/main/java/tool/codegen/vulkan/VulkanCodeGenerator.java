@@ -17,8 +17,10 @@ public abstract class VulkanCodeGenerator extends CodeGenerator {
                                final RandomNumberGanerator randomNumberGanerator,
                                final FreshMap freshMap,
                                final Coverage coverage,
+                               final String template,
                                final VulkanGlobalState globalState) {
-        super(randomStringGenerator, randomNumberGanerator, freshMap, coverage);
+        super(randomStringGenerator, randomNumberGanerator, freshMap, coverage,
+                template);
         this.globalState = globalState;
     }
 }

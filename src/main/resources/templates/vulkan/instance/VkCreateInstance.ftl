@@ -1,6 +1,6 @@
 
-    // ID: ${id}
+    // ID: ${config.id}
     // Create instance
-    VkInstance ${instanceName};
-    VkResult ${result} = vkCreateInstance(&${instanceInfo}, ${alloc}, &${instanceName});
-    assert(${result} == VK_SUCCESS);
+    VkInstance ${config.instanceName};
+    VkResult ${config.result} = vkCreateInstance(&${config.instanceCreateInfo}, ${config.alloc}, &${config.instanceName});
+    assert(${config.result} == VK_SUCCESS);

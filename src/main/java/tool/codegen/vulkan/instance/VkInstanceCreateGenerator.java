@@ -16,18 +16,14 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator{
                                      final RandomNumberGanerator randomNumberGanerator,
                                      final FreshMap freshMap,
                                      final Coverage coverage,
+                                     final String template,
                                      final VulkanGlobalState globalState) {
         super(randomStringGenerator, randomNumberGanerator, freshMap, coverage,
-                globalState);
+                template, globalState);
     }
 
     @Override
-    public Config generateGoodConfig() {
-        return null;
-    }
-
-    @Override
-    public Config generateBadConfig() {
-        return null;
+    public Config generateConfig() {
+        return new Config();
     }
 }
