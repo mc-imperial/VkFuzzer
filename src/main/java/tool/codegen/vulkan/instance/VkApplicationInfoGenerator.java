@@ -2,6 +2,7 @@ package tool.codegen.vulkan.instance;
 
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.utils.FreshMap;
@@ -16,10 +17,9 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
                                       final RandomNumberGanerator randomNumberGanerator,
                                       final FreshMap freshMap,
                                       final Coverage coverage,
-                                      final String template,
                                       final VulkanGlobalState globalState) {
         super(randomStringGenerator, randomNumberGanerator, freshMap, coverage,
-                template, globalState);
+                VulkanTemplates.VK_APPLICATION_INFO, globalState);
     }
 
     @Override

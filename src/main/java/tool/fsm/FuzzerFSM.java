@@ -5,5 +5,5 @@ package tool.fsm;
  */
 public interface FuzzerFSM {
     public void reset();
-    public String generate();
+    public void generate();
 }

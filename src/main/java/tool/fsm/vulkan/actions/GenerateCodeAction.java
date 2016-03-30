@@ -2,7 +2,9 @@ package tool.fsm.vulkan.actions;
 
 import org.statefulj.fsm.RetryException;
 import org.statefulj.fsm.model.Action;
+import tool.Main;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.VulkanTemplates;
 import tool.fsm.ExitCondition;
 import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.states.VulkanState;
@@ -15,9 +17,9 @@ public class GenerateCodeAction<T extends VulkanEntity> implements Action<T> {
     private final TemplateEngine templateEngine;
     private final ExitCondition exitCondition;
 
-    public GenerateCodeAction(final TemplateEngine templateEngine,
-                              final ExitCondition exitCondition) {
-        this.templateEngine = templateEngine;
+    public GenerateCodeAction(final ExitCondition exitCondition) {
+        this.templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
+                Main.class);
         this.exitCondition = exitCondition;
     }
 

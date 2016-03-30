@@ -1,6 +1,7 @@
 package tool.fuzzer.vulkan;
 
 import tool.Main;
+import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.vulkan.cmake.CMakeConfig;
 import tool.configs.vulkan.cmake.ExecutableConfig;
 import tool.fuzzer.CMakeGenerator;
@@ -16,13 +17,13 @@ import java.io.Writer;
  * Generates the CMake file
  */
 public class VulkanCMakeGenerator implements CMakeGenerator {
-    private final String TEMPLATE_FOLDER = "/templates/vulkan";
     private final String TEMPLATE_NAME = "CMakeLists.ftl";
     private final String CMAKE_NAME = "CMakeLists.txt";
     private final TemplateEngine templateEngine;
 
     public VulkanCMakeGenerator() {
-        templateEngine = new TemplateEngine(TEMPLATE_FOLDER, Main.class);
+        templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
+                Main.class);
     }
 
     @Override

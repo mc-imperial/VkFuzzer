@@ -1,6 +1,8 @@
 package tool.fuzzer;
 
+import tool.fsm.Entity;
 import tool.fsm.FuzzerFSM;
+import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.VulkanFSM;
 import tool.fuzzer.vulkan.VulkanCMakeGenerator;
 import tool.fuzzer.vulkan.VulkanTestRunnerGenerator;
@@ -12,6 +14,7 @@ import tool.fuzzer.vulkan.VulkanTestRunnerGenerator;
 public class ProgramGenerator {
     private final Library library;
     private FuzzerFSM fsm;
+    private Entity entity;
     private CMakeGenerator cMakeGenerator;
     private TestRunnerGenerator testRunnerGenerator;
 
@@ -23,8 +26,9 @@ public class ProgramGenerator {
     // Generate programs
     public void generatePrograms(final int size, final String outputFolder) {
         for (int i = 0; i < size; ++i) {
-//            fsm.generate();
-//            fsm.reset();
+            fsm.generate();
+            entity.reset();
+            fsm.reset();
         }
 
         cMakeGenerator.generateCMakeFile(size, outputFolder);
@@ -34,7 +38,8 @@ public class ProgramGenerator {
     // Initialise platform specific classes
     private void init() {
         if (library == Library.VULKAN) {
-            fsm = new VulkanFSM();
+            entity = new VulkanEntity();
+            fsm = new VulkanFSM((VulkanEntity)entity);
             cMakeGenerator = new VulkanCMakeGenerator();
             testRunnerGenerator = new VulkanTestRunnerGenerator();
         }

@@ -1,4 +1,6 @@
-package tool.codegen.coverage;
+package tool.codegen.coverage.types;
+
+import tool.codegen.coverage.Coverage;
 
 import java.util.Random;
 
