@@ -26,11 +26,6 @@ public class VulkanEntity implements Entity {
         reset();
     }
 
-    // Get current State
-    public String getState() {
-        return state;
-    }
-
     // Returns the Codegenerator used by the FSM action to generate configs
     public CodeGenerator getCurrentCodeGenerator() {
         return codeGenerators.get(state);
