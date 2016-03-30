@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * Base class for configs
  */
 public class Config {
-    protected ArrayList<Integer> dependencies;
-    protected int id;
-    protected boolean isBad;
+    private ArrayList<Integer> dependencies;
+    private int id;
+    private boolean isBad;
 
     public Config() {
         dependencies = new ArrayList<>();
