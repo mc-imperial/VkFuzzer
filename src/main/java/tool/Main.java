@@ -19,7 +19,6 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println(options.getOutputFolder());
         ProgramGenerator generator = new ProgramGenerator(options.getLibrary());
         generator.generatePrograms(options.getSamples(),
                 options.getOutputFolder());

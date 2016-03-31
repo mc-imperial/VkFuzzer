@@ -11,6 +11,7 @@ import tool.utils.RandomStringGenerator;
  * Created by constantinos on 27/03/2016.
  */
 public abstract class VulkanCodeGenerator extends CodeGenerator {
+    private final String ID = "id";
     protected final VulkanGlobalState globalState;
 
     public VulkanCodeGenerator(final RandomStringGenerator randomStringGenerator,
@@ -22,5 +23,9 @@ public abstract class VulkanCodeGenerator extends CodeGenerator {
         super(randomStringGenerator, randomNumberGanerator, freshMap, coverage,
                 template);
         this.globalState = globalState;
+    }
+
+    protected int generateConfigId() {
+        return freshMap.getFreshId(ID);
     }
 }

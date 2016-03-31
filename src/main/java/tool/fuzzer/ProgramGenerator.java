@@ -20,15 +20,15 @@ public class ProgramGenerator {
 
     public ProgramGenerator(final Library library) {
         this.library = library;
-        init();
+        reset();
     }
 
     // Generate programs
     public void generatePrograms(final int size, final String outputFolder) {
         for (int i = 0; i < size; ++i) {
             fsm.generate();
-            entity.reset();
-            fsm.reset();
+            entity.saveGeneratedProgram(outputFolder + "/Program" + i +".cpp");
+            reset();
         }
 
         cMakeGenerator.generateCMakeFile(size, outputFolder);
@@ -36,7 +36,7 @@ public class ProgramGenerator {
     }
 
     // Initialise platform specific classes
-    private void init() {
+    private void reset() {
         if (library == Library.VULKAN) {
             entity = new VulkanEntity();
             fsm = new VulkanFSM((VulkanEntity)entity);

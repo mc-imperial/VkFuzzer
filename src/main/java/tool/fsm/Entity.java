@@ -9,5 +9,5 @@ public interface Entity {
     public void reset();
     public boolean didReachStop();
     public CodeGenerator getCurrentCodeGenerator();
-    public String getGeneratedProgram();
+    public void saveGeneratedProgram(final String output);
 }

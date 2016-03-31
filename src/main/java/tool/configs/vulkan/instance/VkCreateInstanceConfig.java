@@ -1,5 +1,6 @@
 package tool.configs.vulkan.instance;
 
+import tool.codegen.vulkan.VulkanReturnCodes;
 import tool.configs.Config;
 
 /**
@@ -10,6 +11,7 @@ public class VkCreateInstanceConfig extends Config {
     private String instanceCreateInfo;
     private String result;
     private String alloc;
+    private String expected = VulkanReturnCodes.VK_SUCCESS;
 
     public String getInstanceName() {
         return instanceName;
@@ -41,5 +43,13 @@ public class VkCreateInstanceConfig extends Config {
 
     public void setAlloc(String alloc) {
         this.alloc = alloc;
+    }
+
+    public String getExpected() {
+        return expected;
+    }
+
+    public void setExpected(String expected) {
+        this.expected = expected;
     }
 }

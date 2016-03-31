@@ -1,14 +1,19 @@
 package tool.fsm.vulkan;
 
 import org.statefulj.persistence.annotations.State;
+import tool.Main;
 import tool.codegen.CodeGenerator;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.VulkanTemplates;
+import tool.configs.Config;
+import tool.configs.vulkan.MainConfig;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
 import tool.fsm.vulkan.states.VulkanState;
+import tool.serialization.vulkan.VulkanStateSerializer;
+import tool.utils.TemplateEngine;
 
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -41,10 +46,24 @@ public class VulkanEntity implements Entity {
         return state.equals(VulkanState.STOP.toString());
     }
 
-    // Retuns generated program
+    // Saves the generated program to the specified ppath
     @Override
-    public String getGeneratedProgram() {
-        return null;
+    public void saveGeneratedProgram(final String output) {
+        try {
+            TemplateEngine engine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
+                    Main.class);
+            FileWriter fileWriter = new FileWriter(new File(output));
+            MainConfig config = new MainConfig();
+            config.setBody(writer.toString());
+            engine.generateCode(VulkanTemplates.MAIN, config, fileWriter);
+
+            VulkanStateSerializer serializer = new VulkanStateSerializer();
+            serializer.serializeState(globalState, fileWriter);
+
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

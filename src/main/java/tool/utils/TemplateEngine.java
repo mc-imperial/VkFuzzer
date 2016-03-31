@@ -4,7 +4,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
-import tool.Main;
 import tool.configs.Config;
 
 import java.io.IOException;
@@ -19,6 +18,7 @@ public class TemplateEngine {
     private final Version ENGINE_VERSION = Configuration.VERSION_2_3_23;
     private final String TEMPLATE_ENCODING = "UTF-8";
     private final String CONFIG_NAME = "config";
+    private final String NUMBER_FORMAT = "computer";
     private final Configuration engineConfig;
     private final Map<String, Config> root;
 
@@ -26,6 +26,7 @@ public class TemplateEngine {
         engineConfig = new Configuration(ENGINE_VERSION);
         engineConfig.setClassForTemplateLoading(classForLoading.getClass(), templateFolder);
         engineConfig.setDefaultEncoding(TEMPLATE_ENCODING);
+        engineConfig.setNumberFormat(NUMBER_FORMAT);
         root = new HashMap<>();
     }
 

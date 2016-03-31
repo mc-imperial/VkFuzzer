@@ -6,6 +6,7 @@ package tool.codegen.vulkan;
 public class VulkanTemplates {
     public static final String TEMPLATE_FOLDER = "/templates/vulkan";
     public static final String SCRIPT_FOLDER = "/scripts";
+    public static final String MAIN = "Main.ftl";
     public static final String VK_APPLICATION_INFO =
             "instance/VkApplicationInfo.ftl";
     public static final String VK_INSTANCE_CREATE_INFO =

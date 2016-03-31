@@ -20,7 +20,7 @@ public class SimpleCoverage implements Coverage {
     }
 
     @Override
-    public boolean createGoodConfig() {
+    public boolean createBadConfig() {
         boolean badConfig = random.nextGaussian() <= badConfigChance;
         badConfigChance += incrementValue;
         return badConfig;

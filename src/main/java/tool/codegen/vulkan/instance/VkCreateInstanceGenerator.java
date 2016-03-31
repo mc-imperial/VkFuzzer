@@ -5,14 +5,24 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
+import tool.configs.vulkan.instance.VkApplicationInfoConfig;
+import tool.configs.vulkan.instance.VkCreateInstanceConfig;
+import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
+import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
+
+import java.util.ArrayList;
 
 /**
  * Created by constantinos on 27/03/2016.
  */
 public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
+    private final String RESULT_NAME = "result";
+    private final String ALLOC = "NULL";
+    private final String INSTANCE_NAME = "instance";
+
     public VkCreateInstanceGenerator(final RandomStringGenerator randomStringGenerator,
                                      final RandomNumberGanerator randomNumberGanerator,
                                      final FreshMap freshMap,
@@ -24,6 +34,27 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
 
     @Override
     public Config generateConfig() {
-        return new Config();
+        VkCreateInstanceConfig config = new VkCreateInstanceConfig();
+        ArrayList<Config> configs =
+                globalState.getConfig(VulkanState.VK_INSTANCE_CREATE_INFO);
+
+        config.setId(generateConfigId());
+        config.setInstanceName(INSTANCE_NAME + freshMap.getFreshId(INSTANCE_NAME));
+        config.setAlloc(ALLOC);
+        config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
+
+        VkInstanceCreateInfoConfig instanceCreateInfoConfig;
+        if (configs.size() > 1) {
+            instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)
+                    configs.get(randomNumberGanerator.randomNumber(configs.size()));
+        } else {
+            instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)configs.get(0);
+            config.setInstanceCreateInfo(instanceCreateInfoConfig.getVariableName());
+        }
+
+        config.setBad(instanceCreateInfoConfig.isBad());
+        config.addDependency(instanceCreateInfoConfig.getId());
+
+        return config;
     }
 }
