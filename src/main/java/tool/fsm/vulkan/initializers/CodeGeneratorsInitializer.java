@@ -1,4 +1,4 @@
-package tool.fsm.vulkan;
+package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;

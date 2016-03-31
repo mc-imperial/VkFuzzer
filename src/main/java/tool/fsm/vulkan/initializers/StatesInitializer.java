@@ -1,4 +1,4 @@
-package tool.fsm.vulkan.states;
+package tool.fsm.vulkan.initializers;
 
 import org.statefulj.fsm.model.State;
 import org.statefulj.fsm.model.impl.StateImpl;
@@ -7,6 +7,7 @@ import tool.fsm.ExitCondition;
 import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
 import tool.fsm.vulkan.events.VulkanEvent;
+import tool.fsm.vulkan.states.VulkanState;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,10 +28,18 @@ public class StatesInitializer {
         this.exitCondition = exitCondition;
     }
 
+    public StatesInitializer(final ExitCondition exitCondition,
+                             final LinkedList<State<VulkanEntity>> states) {
+        this.states = states;
+        generateCodeAction = new GenerateCodeAction<>(exitCondition);
+        this.exitCondition = exitCondition;
+    }
+
     public MemoryPersisterImpl<VulkanEntity> getPersister() {
         return persister;
     }
 
+    // Initializes states
     public void initializeStates() {
         String event = VulkanEvent.GENERATE_PROGRAM.toString();
 

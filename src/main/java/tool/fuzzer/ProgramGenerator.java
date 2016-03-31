@@ -25,9 +25,12 @@ public class ProgramGenerator {
 
     // Generate programs
     public void generatePrograms(final int size, final String outputFolder) {
+        String basePath = outputFolder + "/Program";
+
         for (int i = 0; i < size; ++i) {
+            String programSource = basePath + i + ".cpp";
             fsm.generate();
-            entity.saveGeneratedProgram(outputFolder + "/Program" + i +".cpp");
+            entity.saveGeneratedProgram(programSource);
             reset();
         }
 

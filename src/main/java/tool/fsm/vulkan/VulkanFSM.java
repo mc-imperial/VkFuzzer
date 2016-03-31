@@ -5,7 +5,7 @@ import org.statefulj.fsm.TooBusyException;
 import tool.fsm.ExitCondition;
 import tool.fsm.FuzzerFSM;
 import tool.fsm.vulkan.events.VulkanEvent;
-import tool.fsm.vulkan.states.StatesInitializer;
+import tool.fsm.vulkan.initializers.StatesInitializer;
 
 /**
  * Created by constantinos on 29/03/2016.
@@ -22,14 +22,7 @@ public class VulkanFSM implements FuzzerFSM {
         reset();
     }
 
-    @Override
-    public void reset() {
-        exitCondition = new ExitCondition();
-        statesInitializer = new StatesInitializer(exitCondition);
-        statesInitializer.initializeStates();
-        fsm = new FSM<>(statesInitializer.getPersister());
-    }
-
+    // Loops to generate code
     @Override
     public void generate()  {
         try {
@@ -38,7 +31,15 @@ public class VulkanFSM implements FuzzerFSM {
                 fsm.onEvent(entity, event);
             }
         } catch (TooBusyException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
+    }
+
+    // Reset the FSM
+    private void reset() {
+        exitCondition = new ExitCondition();
+        statesInitializer = new StatesInitializer(exitCondition);
+        statesInitializer.initializeStates();
+        fsm = new FSM<>(statesInitializer.getPersister());
     }
 }

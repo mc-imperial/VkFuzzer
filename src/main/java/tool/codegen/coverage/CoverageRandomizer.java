@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * Randomizes Coverage objects
  */
 public class CoverageRandomizer {
-    private final double SIMPLE_INITIAL_BOUND = 0.2;
-    private final double SIMPLE_INCREMENT_BOUND = 0.05;
+    private final double SIMPLE_INITIAL_BOUND = 0.02;
+    private final double SIMPLE_INCREMENT_BOUND = 0.01;
     private final Random random;
     private final CoverageType[] types;
 
@@ -36,10 +36,8 @@ public class CoverageRandomizer {
     // Creates a random simple coverage object
     private Coverage randomSimpleCoverage() {
         // Randomise
-        double initialChance = ThreadLocalRandom.current()
-                .nextDouble(SIMPLE_INITIAL_BOUND);
-        double incrementValue = ThreadLocalRandom.current()
-                .nextDouble(SIMPLE_INCREMENT_BOUND);
+        double initialChance = random.nextDouble() * SIMPLE_INITIAL_BOUND;
+        double incrementValue = random.nextDouble() * SIMPLE_INCREMENT_BOUND;
 
         return new SimpleCoverage(initialChance, incrementValue);
     }

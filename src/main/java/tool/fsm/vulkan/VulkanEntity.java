@@ -2,13 +2,12 @@ package tool.fsm.vulkan;
 
 import org.statefulj.persistence.annotations.State;
 import tool.Main;
-import tool.codegen.CodeGenerator;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
-import tool.configs.Config;
 import tool.configs.vulkan.MainConfig;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
+import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.serialization.vulkan.VulkanStateSerializer;
 import tool.utils.TemplateEngine;
@@ -25,49 +24,47 @@ public class VulkanEntity implements Entity {
     private String state;
     private Writer writer;
     private VulkanGlobalState globalState;
+    private TemplateEngine templateEngine;
     private HashMap<String, VulkanCodeGenerator> codeGenerators;
 
     public VulkanEntity() {
         reset();
     }
 
-    // Returns the Codegenerator used by the FSM action to generate configs
-    public CodeGenerator getCurrentCodeGenerator() {
-        return codeGenerators.get(state);
-    }
+    // Generates code if it has not reached the stop state
+    @Override
+    public boolean generateStateCode() {
+        if (!state.equals(VulkanState.STOP.toString())) {
+            VulkanCodeGenerator generator = codeGenerators.get(state);
+            templateEngine.generateCode(generator.getTemplateName(),
+                    generator.generateConfig(), writer);
 
-    // Returns the writer used by the FSM action to append the generated program
-    public Writer getWriter() {
-        return  writer;
-    }
+            return true;
+        }
 
-    // Signals end of FSM
-    public boolean didReachStop() {
-        return state.equals(VulkanState.STOP.toString());
+        return false;
     }
 
     // Saves the generated program to the specified ppath
     @Override
     public void saveGeneratedProgram(final String output) {
         try {
-            TemplateEngine engine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
-                    Main.class);
             FileWriter fileWriter = new FileWriter(new File(output));
             MainConfig config = new MainConfig();
             config.setBody(writer.toString());
-            engine.generateCode(VulkanTemplates.MAIN, config, fileWriter);
+            templateEngine.generateCode(VulkanTemplates.MAIN, config, fileWriter);
 
             VulkanStateSerializer serializer = new VulkanStateSerializer();
             serializer.serializeState(globalState, fileWriter);
 
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
-    @Override
-    public void reset() {
+    // Initializes the entity
+    private void reset() {
         globalState = new VulkanGlobalState();
 
         CodeGeneratorsInitializer initializer =
@@ -75,5 +72,8 @@ public class VulkanEntity implements Entity {
         codeGenerators = initializer.initializeCodeGenerators();
 
         writer = new StringWriter();
+
+        this.templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
+                Main.class);
     }
 }
