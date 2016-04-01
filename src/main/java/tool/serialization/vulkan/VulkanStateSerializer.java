@@ -1,7 +1,9 @@
 package tool.serialization.vulkan;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
+import tool.serialization.StateSerializer;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -10,19 +12,22 @@ import java.util.Base64;
 
 /**
  * Created by constantinos on 31/03/2016.
+ * Serializes a collection of config primitives to a Base64 string
  */
-public class VulkanStateSerializer {
+public class VulkanStateSerializer implements StateSerializer {
     private final ObjectMapper objectMapper;
 
     public VulkanStateSerializer() {
         objectMapper = new ObjectMapper();
     }
 
+    // Serializes the state into Base64
     public void serializeState(final VulkanGlobalState globalState,
                                final Writer writer) {
         StringWriter stringWriter = new StringWriter();
 
         try {
+            objectMapper.addMixIn(Config.class, PolymorphicVulkanConfigMixIn.class);
             objectMapper.writeValue(stringWriter, globalState.getConfigs());
 
             writer.append("\nStates //");
@@ -41,15 +46,4 @@ public class VulkanStateSerializer {
             System.err.println(exception.getMessage());
         }
     }
-
-//    public HashMap<VulkanState, ArrayList<Config>> deserialize(String content) throws Exception {
-//        try {
-//
-//            return deserialized;
-//        } catch (IOException exception) {
-//            System.err.println(exception.getMessage());
-//        }
-//
-//        throw new Exception();
-//    }
 }
