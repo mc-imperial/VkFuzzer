@@ -1,10 +1,9 @@
-package tool.fsm.initializers;
+package tool.fsm.vulkan.initializers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
 
 /**

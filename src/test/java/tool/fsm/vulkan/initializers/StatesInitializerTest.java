@@ -1,10 +1,9 @@
-package tool.fsm.initializers;
+package tool.fsm.vulkan.initializers;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tool.fsm.ExitCondition;
-import tool.fsm.vulkan.initializers.StatesInitializer;
 
 /**
  * Created by constantinos on 31/03/2016.

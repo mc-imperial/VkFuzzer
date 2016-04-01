@@ -21,7 +21,7 @@ public class VulkanGlobalState {
         ArrayList<Config> stateConfigs = configs.getOrDefault(state,
                 new ArrayList<>());
         stateConfigs.add(config);
-        configs.put(state, stateConfigs);
+        configs.putIfAbsent(state, stateConfigs);
     }
 
     // Returns the array of configs
