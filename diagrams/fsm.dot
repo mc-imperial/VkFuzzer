@@ -1,0 +1,196 @@
+digraph graphname
+{
+	a[label="vkEnumerateInstanceExtensionProperties()"];
+	b[label="vkEnumerateInstanceLayerProperties()"];
+
+	c[label="VkApplicationInfo"];
+	d[label="VkInstanceCreateInfo"];
+	e[label="vkCreateInstance()"];
+
+	f[label="vkEnumeratePhysicalDevices()"];
+
+	g[label="vkGetPhysicalDeviceMemoryProperties()"];
+	h[label="vkGetPhysicalDeviceProperties()"];
+	i[label="vkGetPhysicalDeviceQueueFamilyProperties()"];
+	j[label="vkEnumerateDeviceExtensionProperties()"];
+	k[label="vkEnumerateDeviceLayerProperties()"];
+	l[label="Identify which queues support graphics/memory/compute"];
+
+	m[label="VkDeviceQueueCreateInfo"];
+	n[label="VkDeviceCreateInfo"];
+	o[label="vkCreateDevice()"];
+
+	p[label="Time to randomly initialize resources"];
+
+	q[label="vkGetDeviceQueue()"];
+	r[label="VkCommandPoolCreateInfo"];
+	s[label="vkCreateCommandPool()"];
+	t[label="VkCommandBufferAllocateInfo"];
+	u[label="vkAllocateCommandBuffers()"];
+
+	v[label="VkShaderModuleCreateInfo"];
+	w[label="vkCreateShaderModule()"];
+
+	x[label="VkSubpassDescription"];
+	y[label="VkRenderPassCreateInfo"];
+	z[label="vkCreateRenderPass()"];
+
+	x[label="VkSubpassDescription"];
+	y[label="VkRenderPassCreateInfo"];
+	z[label="vkCreateRenderPass()"];
+
+	aa[label="VkPipelineCacheCreateInfo"];
+	ab[label="vkCreatePipelineCache()"];
+
+	ac[label="VkPipelineLayoutCreateInfo"];
+	ad[label="vkCreatePipelineLayout()"];
+
+	ae[label="VkDynamicState"];
+	af[label="VkPipelineVertexInputStateCreateInfo"];
+	ag[label="VkPipelineInputAssemblyStateCreateInfo"];
+	ah[label="VkPipelineRasterizationStateCreateInfo"];
+	ai[label="VkPipelineColorBlendStateCreateInfo"];
+	aj[label="VkPipelineViewportStateCreateInfo"];
+	ak[label="VkPipelineDepthStencilStateCreateInfo"];
+	al[label="VkPipelineMultisampleStateCreateInfo"];
+	am[label="VkGraphicsPipelineCreateInfo"];
+	an[label="vkCreateGraphicsPipelines()"];
+
+	ao[label="Compute Pipeline"];
+
+	ap[label="VkImage"];
+
+	aq[label="VkImageView"];
+
+	a -> b;
+	b -> c;
+
+	subgraph cluster_0
+	{
+		label = "Instance Creation";
+		c -> d;
+		d -> e;
+	}
+
+	subgraph cluster_1
+	{
+		label = "For each Instance";
+		e -> f;
+	}
+
+	subgraph cluster_2
+	{
+		label = "For each enumerated physical device of an instance";
+		f -> g;
+		g -> h;
+		h -> i;
+		i -> j;
+		j -> k;
+		k -> l;
+	}
+
+	subgraph cluster_3
+	{
+		label = "Logical Device creation according to queue capabilities";
+		l -> m;
+		m -> n;
+		n -> o;
+	}
+
+	o -> p;
+
+	subgraph cluster_4
+	{
+		label = "Resources";
+		p -> q;
+		p -> r;
+		p -> v;
+		p -> x;
+		p -> ao;
+		p -> ap;
+		p -> aq;
+
+		subgraph cluster_5
+		{
+			label = "Command Buffer & Command Pool";
+			r -> s;
+			s -> t;
+			t -> u;
+		}
+
+		subgraph cluster_6
+		{
+			label = "Create Shaders";
+			v -> w;
+		}
+
+		subgraph cluster_7
+		{
+			label = "Graphics Pipeline & Renderpasses Resources";
+
+			subgraph cluster_8
+			{
+				label = "Renderpass";
+				x -> y;
+				y -> z;
+			}
+
+			z -> aa;
+
+			subgraph cluster_9
+			{
+				label = "Graphics Pipeline Resources";
+
+				subgraph cluster_10
+				{
+					label = "Graphics Pipeline Cache";
+					aa -> ab;
+				}
+
+				ab -> ac;
+
+				subgraph cluster_11
+				{
+					label = "Graphics Pipeline Layout";
+					ac -> ad;
+				}
+
+				ad -> ae;
+
+				subgraph cluster_12
+				{
+					label = "Graphics Pipeline";
+					ae -> af;
+					af -> ag;
+					ag -> ah;
+					ah -> ai;
+					ai -> aj;
+					aj -> ak;
+					ak -> al;
+					al -> am;
+					am -> an;
+				}
+			}
+		}
+
+		subgraph cluster_13
+		{
+			label = "Compute Pipeline";
+			ao;
+		}
+
+		subgraph cluster_14
+		{
+			label = "VkImage";
+			ap;
+		}
+
+		subgraph cluster_15
+		{
+			label = "VkImageView";
+			aq;
+		}
+	}
+
+
+}
