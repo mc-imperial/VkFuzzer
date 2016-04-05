@@ -30,7 +30,7 @@ public class VulkanStateSerializer implements StateSerializer {
             objectMapper.addMixIn(Config.class, PolymorphicVulkanConfigMixIn.class);
             objectMapper.writeValue(stringWriter, globalState.getConfigs());
 
-            writer.append("\n//States //");
+            writer.append("\n//States #");
             writer.append(Base64.getEncoder().encodeToString(
                     stringWriter.toString().getBytes()));
 //            Pattern p = Pattern.compile("()States \\/\\/()");

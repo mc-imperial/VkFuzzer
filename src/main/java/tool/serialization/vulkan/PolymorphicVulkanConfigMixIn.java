@@ -2,6 +2,8 @@ package tool.serialization.vulkan;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import tool.configs.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesConfig;
+import tool.configs.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesConfig;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
@@ -17,11 +19,15 @@ import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
 @JsonSubTypes(
 {
         @JsonSubTypes.Type(value = VkApplicationInfoConfig.class,
-        name = "VkApplicationInfoConfig"),
+                name = "VkApplicationInfoConfig"),
         @JsonSubTypes.Type(value = VkInstanceCreateInfoConfig.class,
-        name = "VkInstanceCreateInfoConfig"),
+                name = "VkInstanceCreateInfoConfig"),
         @JsonSubTypes.Type(value = VkCreateInstanceConfig.class,
-        name = "VkCreateInstanceConfig")
+                name = "VkCreateInstanceConfig"),
+        @JsonSubTypes.Type(value = VkEnumerateInstanceExtensionPropertiesConfig.class,
+                name = "VkEnumerateInstanceExtensionPropertiesConfig"),
+        @JsonSubTypes.Type(value = VkEnumerateInstanceLayerPropertiesConfig.class,
+                name = "VkEnumerateInstanceLayerPropertiesConfig")
 })
 public abstract class PolymorphicVulkanConfigMixIn {
 }
