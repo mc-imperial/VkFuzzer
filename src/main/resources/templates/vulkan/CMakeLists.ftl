@@ -3,7 +3,7 @@ project (VulkanPrograms)
 
 # Add compile flags and defines
 set(CMAKE_C_FLAGS "${config.cFlags} -DVK_PROTOTYPES")
-set(CMAKE_CXX_FLAGS "${config.cppFlags} -std=c++11 -DVK_PROTOTYPES")
+set(CMAKE_CXX_FLAGS "${config.cppFlags} -DVK_PROTOTYPES")
 
 set(VULKAN_SDK_ROOT "C:/VulkanSDK/1.0.3.1/")
 
@@ -14,7 +14,6 @@ endif()
 
 # Copy test runner
 file(COPY "TestRunner.py" DESTINATION "${config.binaryFolder}")
-
 <#list config.executables as executable>
 
 # Create executable
