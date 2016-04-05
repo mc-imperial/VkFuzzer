@@ -57,6 +57,7 @@ file by setting the VULKAN_SDK_ROOT variable to the path of the LnarG SDK root.
 Make sure you generate the 64 bit binaries of the programs.
 
 Once you have generated the project open it through Visual Studio.
+
 * Select Build Solution from the Build section of the menu bar
 * python TestRunner.py
 
