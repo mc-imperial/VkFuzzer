@@ -8,6 +8,7 @@ import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
 import tool.fsm.vulkan.events.VulkanEvent;
 import tool.fsm.vulkan.states.VulkanState;
+import tool.fsm.vulkan.transitions.SimpleTransition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +50,12 @@ public class StatesInitializer {
         State<VulkanEntity> stop =
                 new StateImpl<>(VulkanState.STOP.toString(), true);
 
+        //VkEnumerateInstanceProperties
+        State<VulkanEntity> vkEnumerateInstanceExtensionProperties =
+                new StateImpl<>(VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES.toString());
+        State<VulkanEntity> vkEnumerateInstanceLayerProperties =
+                new StateImpl<>(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES.toString());
+
         // States for a call to vkCreateInstance() and its prerequisites
         State<VulkanEntity> vkApplicationInfo =
                 new StateImpl<>(VulkanState.VK_APPLICATION_INFO.toString());
@@ -58,18 +65,37 @@ public class StatesInitializer {
                 new StateImpl<>(VulkanState.VK_CREATE_INSTANCE.toString());
 
         // Define transitions
-        start.addTransition(event, vkApplicationInfo, generateCodeAction);
-        vkApplicationInfo.addTransition(event, vkInstanceCreateInfo, generateCodeAction);
-        vkInstanceCreateInfo.addTransition(event, vkCreateInstance, generateCodeAction);
-        vkCreateInstance.addTransition(event, stop, generateCodeAction);
+        start.addTransition(event, vkEnumerateInstanceExtensionProperties, generateCodeAction);
+        vkEnumerateInstanceExtensionProperties.addTransition(event,
+                new SimpleTransition<>(generateCodeAction,
+                        vkEnumerateInstanceExtensionProperties,
+                        vkEnumerateInstanceLayerProperties));
+        vkEnumerateInstanceLayerProperties.addTransition(event,
+                new SimpleTransition<>(generateCodeAction,
+                        vkEnumerateInstanceLayerProperties,
+                        vkApplicationInfo));
+        vkApplicationInfo.addTransition(event,
+                new SimpleTransition<>(generateCodeAction,
+                        vkApplicationInfo,
+                        vkInstanceCreateInfo));
+        vkInstanceCreateInfo.addTransition(event,
+                new SimpleTransition<>(generateCodeAction,
+                        vkInstanceCreateInfo,
+                        vkCreateInstance));
+        vkCreateInstance.addTransition(event,
+                new SimpleTransition<>(generateCodeAction,
+                        vkCreateInstance,
+                        stop));
 
         // Add to states
         states.add(start);
         states.add(stop);
+        states.add(vkEnumerateInstanceExtensionProperties);
+        states.add(vkEnumerateInstanceLayerProperties);
         states.add(vkApplicationInfo);
         states.add(vkInstanceCreateInfo);
         states.add(vkCreateInstance);
 
-        persister = new MemoryPersisterImpl<VulkanEntity>(states, start);
+        persister = new MemoryPersisterImpl<>(states, start);
     }
 }

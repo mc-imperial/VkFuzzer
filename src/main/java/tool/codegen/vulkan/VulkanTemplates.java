@@ -7,6 +7,11 @@ public class VulkanTemplates {
     public static final String TEMPLATE_FOLDER = "/templates/vulkan";
     public static final String SCRIPT_FOLDER = "/scripts";
     public static final String MAIN = "Main.ftl";
+
+    public static final String VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES =
+            "enumeration/VkEnumerateInstanceExtensionProperties.ftl";
+    public static final String VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES =
+            "enumeration/VkEnumerateInstanceLayerProperties.ftl";
     public static final String VK_APPLICATION_INFO =
             "instance/VkApplicationInfo.ftl";
     public static final String VK_INSTANCE_CREATE_INFO =

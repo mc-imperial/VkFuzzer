@@ -53,14 +53,10 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator {
         config.setEnabledLayerNames(LAYER_NAMES);
         config.setEnabledLayerCount(LAYER_COUNT);
 
-        VkApplicationInfoConfig appInfo;
-        if (configs.size() > 1) {
-            appInfo = (VkApplicationInfoConfig)configs.get(randomNumberGanerator.randomNumber(configs.size()));
-        } else {
-            appInfo = (VkApplicationInfoConfig)configs.get(0);
-            config.setApplicationInfo(appInfo.getVariableName());
-        }
+        VkApplicationInfoConfig appInfo = (VkApplicationInfoConfig)
+                configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
+        config.setApplicationInfo(appInfo.getVariableName());
         config.setBad(appInfo.isBad());
 
         globalState.addConfig(VulkanState.VK_INSTANCE_CREATE_INFO, config);

@@ -43,15 +43,10 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
         config.setAlloc(ALLOC);
         config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
 
-        VkInstanceCreateInfoConfig instanceCreateInfoConfig;
-        if (configs.size() > 1) {
-            instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)
-                    configs.get(randomNumberGanerator.randomNumber(configs.size()));
-        } else {
-            instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)configs.get(0);
-            config.setInstanceCreateInfo(instanceCreateInfoConfig.getVariableName());
-        }
+        VkInstanceCreateInfoConfig instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)
+                        configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
+        config.setInstanceCreateInfo(instanceCreateInfoConfig.getVariableName());
         config.setBad(instanceCreateInfoConfig.isBad());
         config.addDependency(instanceCreateInfoConfig.getId());
 

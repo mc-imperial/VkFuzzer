@@ -1,13 +1,14 @@
 
     // ID: ${config.id}
-    // Enumerate Instance Layer Properties
-    std::vector<VkLayerProperties> ${config.instanceLayerProperties};
-    uint32_t ${config.instanceLayerCount} = 0;
+    // Enumerate Instance extensions
+    std::vector<VkExtensionProperties> ${config.instanceExtensionProperties};
+    uint32_t ${config.instanceExtensionCount} = 0;
     VkResult ${config.result};
 
     do
     {
-        ${config.result} = vkEnumerateInstanceLayerProperties(&${config.instanceLayerCount}, NULL);
+        ${config.result} = vkEnumerateInstanceExtensionProperties(
+                NULL, &${config.instanceExtensionCount}, NULL);
 
         // Check that the return code is one of the acceptable ones
         assert((${config.result} == VK_SUCCESS)
@@ -21,16 +22,16 @@
             return 0;
         }
 
-        if(${config.instanceLayerCount} == 0)
+        if(${config.instanceExtensionCount} == 0)
         {
             std::cout << "No instance layers found." << std::endl;
             break;
         }
 
-        ${config.instanceLayerProperties}.resize(${config.instanceLayerCount});
+        ${config.instanceExtensionProperties}.resize(${config.instanceExtensionCount});
 
-        ${config.result} = vkEnumerateInstanceLayerProperties(&${config.instanceLayerCount},
-                ${config.instanceLayerProperties}.data());
+        ${config.result} = vkEnumerateInstanceExtensionProperties(NULL,
+                &${config.instanceExtensionCount}, ${config.instanceExtensionProperties}.data());
 
         // Check that the return code is one of the acceptable ones
         assert((${config.result} == VK_SUCCESS)

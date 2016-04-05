@@ -2,6 +2,8 @@ package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
+import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
@@ -37,6 +39,26 @@ public class CodeGeneratorsInitializer {
         CoverageRandomizer randomizer = new CoverageRandomizer();
 
         // Now populate the hashmap
+        generators.put(
+                VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES.toString(),
+                new VkEnumerateInstanceExtensionPropertiesGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState
+                ));
+
+        generators.put(
+                VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES.toString(),
+                new VkEnumerateInstanceLayerPropertiesGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState
+                ));
+
         generators.put(
                 VulkanState.VK_APPLICATION_INFO.toString(),
                 new VkApplicationInfoGenerator(

@@ -20,6 +20,10 @@ public class RandomNumberGanerator {
 
     // Returns a random number from 0 to maxValue - 1
     public int randomNumber(int maxValue) {
+        if (maxValue <= 0) {
+            return 0;
+        }
+
         return random.nextInt(maxValue);
     }
 }
