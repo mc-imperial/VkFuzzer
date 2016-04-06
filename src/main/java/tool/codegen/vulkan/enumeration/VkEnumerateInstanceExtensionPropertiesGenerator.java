@@ -36,6 +36,7 @@ public class VkEnumerateInstanceExtensionPropertiesGenerator extends VulkanCodeG
         VkEnumerateInstanceExtensionPropertiesConfig config =
                 new VkEnumerateInstanceExtensionPropertiesConfig();
 
+        // Create variable names
         config.setId(generateConfigId());
         config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
         config.setInstanceExtensionCount(INSTANCE_EXTENSION_COUNT_NAME +

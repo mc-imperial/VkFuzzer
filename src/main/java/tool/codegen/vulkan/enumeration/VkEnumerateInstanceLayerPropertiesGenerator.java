@@ -36,6 +36,7 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
         VkEnumerateInstanceLayerPropertiesConfig config =
                 new VkEnumerateInstanceLayerPropertiesConfig();
 
+        // Create variable names
         config.setId(generateConfigId());
         config.setInstanceLayerCount(INSTANCE_LAYER_COUNT_NAME +
                 freshMap.getFreshId(INSTANCE_LAYER_COUNT_NAME));

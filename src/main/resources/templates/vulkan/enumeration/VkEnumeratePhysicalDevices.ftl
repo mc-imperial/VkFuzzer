@@ -1,16 +1,43 @@
 
-    // ${config.id}
+    // ID: ${config.id}
     // Get number of available GPUs
     std::vector<VkPhysicalDevice> ${config.gpus};
     uint32_t ${config.gpuCount} = 0;
-    VkResult ${config.result} = vkEnumeratePhysicalDevices(${config.instance}, &${config.gpuCount}, NULL);
 
-    assert(${config.result} == VK_SUCCESS);
-    assert(${config.gpuCount} > 0);
+    do
+    {
+        VkResult ${config.result} = vkEnumeratePhysicalDevices(${config.instance},
+                &${config.gpuCount}, NULL);
 
-    gpus.resize(${config.gpuCount});
-    gpuProperties.resize(${config.gpuCount});
+        assert((${config.result} == VK_SUCCESS)
+                || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY)
+                || (${config.result} == VK_ERROR_INITIALIZATION_FAILED));
 
-    // Get information of available GPUs
-    ${config.result} = vkEnumeratePhysicalDevices(${config.instance}, &${config.gpuCount}, ${config.gpus}.data());
-    assert(${config.result} == VK_SUCCESS);
+        gpus.resize(${config.gpuCount});
+        gpuProperties.resize(${config.gpuCount});
+
+        // Get information of available GPUs
+        ${config.result} = vkEnumeratePhysicalDevices(${config.instance},
+                &${config.gpuCount}, ${config.gpus}.data());
+
+        assert((${config.result} == VK_SUCCESS)
+                || (${config.result} == VK_INCOMPLETE)
+                || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY)
+                || (${config.result} == VK_ERROR_INITIALIZATION_FAILED));
+    }
+    while(${config.result} == VK_INCOMPLETE);
+
+    assert((${config.result} == ${config.returnCode});
+
+    <#if config.checkOther>
+    // Compare gpus with previous calls to vkEnumeratePhysicalDevices
+    // with the same instance
+    <#list config.otherDeviceVectors as otherDeviceVector>
+    assert(${config.gpus}.size() == ${otherDeviceVector}.size());
+    assert(std::equal(${config.gpus}.begin(), ${config.gpus}.end(),
+            ${otherDeviceVector}.begin()));
+
+    </#list>
+    </#if>

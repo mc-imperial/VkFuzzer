@@ -3,7 +3,6 @@ package tool.fsm.vulkan.initializers;
 import org.statefulj.fsm.model.State;
 import org.statefulj.fsm.model.impl.StateImpl;
 import org.statefulj.persistence.memory.MemoryPersisterImpl;
-import sun.awt.image.ImageWatched;
 import tool.fsm.ExitCondition;
 import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
@@ -12,7 +11,6 @@ import tool.fsm.vulkan.states.VulkanState;
 import tool.fsm.vulkan.transitions.SimpleTransition;
 import tool.fsm.vulkan.transitions.TransitionType;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -80,7 +78,7 @@ public class StatesInitializer {
                 new LinkedList<>(states.values());
 
         persister = new MemoryPersisterImpl<>(fsmStates,
-                fsmStates.get(0));
+                states.get(VulkanState.START));
     }
 
     private void createStates() {
@@ -111,6 +109,7 @@ public class StatesInitializer {
                                 generateCodeAction,
                                 fsmState,
                                 nextFsmState));
+                break;
             case SEQUENTIAL:
                 fsmState.addTransition(event, nextFsmState, generateCodeAction);
         }

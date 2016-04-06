@@ -43,6 +43,7 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator {
         ArrayList<Config> configs =
                 globalState.getConfig(VulkanState.VK_APPLICATION_INFO);
 
+        // Generate random variable names and values
         config.setId(generateConfigId());
         config.setVariableName(VAR_NAME + freshMap.getFreshId(VAR_NAME));
         config.setType(TYPE);
@@ -53,14 +54,15 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator {
         config.setEnabledLayerNames(LAYER_NAMES);
         config.setEnabledLayerCount(LAYER_COUNT);
 
+        // Choose random VkApplicationInfoConfig
         VkApplicationInfoConfig appInfo = (VkApplicationInfoConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
         config.setApplicationInfo(appInfo.getVariableName());
         config.setBad(appInfo.isBad());
+        config.addDependency(appInfo.getId());
 
         globalState.addConfig(VulkanState.VK_INSTANCE_CREATE_INFO, config);
-        config.addDependency(appInfo.getId());
 
         return config;
     }

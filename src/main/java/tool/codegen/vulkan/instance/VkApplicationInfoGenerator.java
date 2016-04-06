@@ -34,6 +34,7 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
         VkApplicationInfoConfig config = new VkApplicationInfoConfig();
         boolean isBad = coverage.createBadConfig();
 
+        // Create random variable names and values
         config.setId(generateConfigId());
         config.setNext(NEXT);
         config.setType(TYPE);

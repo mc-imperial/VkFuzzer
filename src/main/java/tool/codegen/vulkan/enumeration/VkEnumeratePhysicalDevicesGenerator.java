@@ -1,8 +1,8 @@
 package tool.codegen.vulkan.enumeration;
 
-import com.sun.org.apache.regexp.internal.RE;
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.VulkanReturnCodes;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
@@ -38,24 +38,59 @@ public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
         VkEnumeratePhysicalDevicesConfig config =
                 new VkEnumeratePhysicalDevicesConfig();
 
+        // Create names for variables
         config.setId(generateConfigId());
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
         config.setGpus(GPUS + freshMap.getFreshId(GPUS));
         config.setGpuCount(GPU_COUNT + freshMap.getFreshId(GPU_COUNT));
 
+        // Choose a random instance config
         ArrayList<Config> instances =
                 globalState.getConfig(VulkanState.VK_CREATE_INSTANCE);
 
         VkCreateInstanceConfig instanceConfig = (VkCreateInstanceConfig)
                 instances.get(randomNumberGanerator.randomNumber(instances.size()));
 
+        // Add expected return code
+        if (instanceConfig.isBad()) {
+            config.setReturnCode(VulkanReturnCodes.VK_ERROR_INITIALIZATION_FAILED);
+        } else {
+            config.setReturnCode(VulkanReturnCodes.VK_SUCCESS);
+        }
+
+        config.addDependency(instanceConfig.getId());
         config.setInstance(instanceConfig.getInstanceName());
         config.setBad(instanceConfig.isBad());
-        config.addDependency(instanceConfig.getId());
+
+        // Check if other calls were made with the same instance
+        // and compare them
+        ArrayList<String> otherPhysicalDevices = findOtherCalls(config, instanceConfig);
+        config.setCheckOther(!otherPhysicalDevices.isEmpty());
+        config.setOtherDeviceVectors(otherPhysicalDevices);
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
                 config);
 
         return config;
+    }
+
+    // Finds and returns an ArrayList with previous configs that shared the same instance
+    private ArrayList<String> findOtherCalls(VkEnumeratePhysicalDevicesConfig config,
+                                    VkCreateInstanceConfig instanceConfig) {
+        ArrayList<Config> configs =
+                globalState.getConfig(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES);
+
+        ArrayList<String> otherPhysicalDevices = new ArrayList<>();
+
+        for (int i = 0; i < configs.size(); ++i) {
+            VkEnumeratePhysicalDevicesConfig physicalDevicesConfig =
+                    (VkEnumeratePhysicalDevicesConfig) configs.get(i);
+            if (physicalDevicesConfig.getInstance()
+                    .equals(instanceConfig.getInstanceName())) {
+                otherPhysicalDevices.add(physicalDevicesConfig.getGpus());
+            }
+        }
+
+        return otherPhysicalDevices;
     }
 }

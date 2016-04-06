@@ -35,14 +35,17 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
     @Override
     public Config generateConfig() {
         VkCreateInstanceConfig config = new VkCreateInstanceConfig();
+
         ArrayList<Config> configs =
                 globalState.getConfig(VulkanState.VK_INSTANCE_CREATE_INFO);
 
+        // Create random variable names
         config.setId(generateConfigId());
         config.setInstanceName(INSTANCE_NAME + freshMap.getFreshId(INSTANCE_NAME));
         config.setAlloc(ALLOC);
         config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
 
+        // Choose a random VkInstanceCreateInfoConfig
         VkInstanceCreateInfoConfig instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)
                         configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
