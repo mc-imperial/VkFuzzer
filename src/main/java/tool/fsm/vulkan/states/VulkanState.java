@@ -13,5 +13,7 @@ public enum VulkanState {
     VK_INSTANCE_CREATE_INFO,
     VK_CREATE_INSTANCE,
 
+    VK_ENUMERATE_PHYSICAL_DEVICES,
+
     STOP
 }

@@ -6,6 +6,7 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesConfig;
+import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
@@ -41,6 +42,9 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
         config.setInstanceLayerProperties(INSTANCE_LAYER_PROPERTIES_NAME +
                 freshMap.getFreshId(INSTANCE_LAYER_PROPERTIES_NAME));
         config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
+
+        globalState.addConfig(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
+                config);
 
         return config;
     }

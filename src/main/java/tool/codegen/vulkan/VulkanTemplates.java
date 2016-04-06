@@ -18,4 +18,6 @@ public class VulkanTemplates {
             "instance/VkInstanceCreateInfo.ftl";
     public static final String VK_CREATE_INSTANCE =
             "instance/VkCreateInstance.ftl";
+    public static final String VK_ENUMERATE_PHYSICAL_DEVICES =
+            "enumeration/VkEnumeratePhysicalDevices.ftl";
 }

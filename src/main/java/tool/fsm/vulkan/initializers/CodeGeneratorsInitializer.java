@@ -4,6 +4,7 @@ import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
+import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
@@ -80,6 +81,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_CREATE_INSTANCE.toString(),
                 new VkCreateInstanceGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES.toString(),
+                new VkEnumeratePhysicalDevicesGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

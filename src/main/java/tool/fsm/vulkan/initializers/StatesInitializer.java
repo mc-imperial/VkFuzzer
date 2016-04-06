@@ -3,15 +3,19 @@ package tool.fsm.vulkan.initializers;
 import org.statefulj.fsm.model.State;
 import org.statefulj.fsm.model.impl.StateImpl;
 import org.statefulj.persistence.memory.MemoryPersisterImpl;
+import sun.awt.image.ImageWatched;
 import tool.fsm.ExitCondition;
 import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
 import tool.fsm.vulkan.events.VulkanEvent;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.fsm.vulkan.transitions.SimpleTransition;
+import tool.fsm.vulkan.transitions.TransitionType;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by constantinos on 30/03/2016.
@@ -19,18 +23,18 @@ import java.util.List;
  */
 public class StatesInitializer {
     private final ExitCondition exitCondition;
-    private List<State<VulkanEntity>> states;
+    private Map<VulkanState, State<VulkanEntity>> states;
     private MemoryPersisterImpl<VulkanEntity> persister;
     private GenerateCodeAction<VulkanEntity> generateCodeAction;
 
     public StatesInitializer(final ExitCondition exitCondition) {
-        states = new LinkedList<>();
+        states = new HashMap<>();
         generateCodeAction = new GenerateCodeAction<>(exitCondition);
         this.exitCondition = exitCondition;
     }
 
     public StatesInitializer(final ExitCondition exitCondition,
-                             final LinkedList<State<VulkanEntity>> states) {
+                             final Map<VulkanState, State<VulkanEntity>> states) {
         this.states = states;
         generateCodeAction = new GenerateCodeAction<>(exitCondition);
         this.exitCondition = exitCondition;
@@ -42,60 +46,73 @@ public class StatesInitializer {
 
     // Initializes states
     public void initializeStates() {
+        createStates();
+
+        defineTransition(VulkanState.START,
+                VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES,
+                TransitionType.SEQUENTIAL);
+
+        defineTransition(VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES,
+                VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
+                VulkanState.VK_APPLICATION_INFO,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_APPLICATION_INFO,
+                VulkanState.VK_INSTANCE_CREATE_INFO,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_INSTANCE_CREATE_INFO,
+                VulkanState.VK_CREATE_INSTANCE,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_CREATE_INSTANCE,
+                VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
+                VulkanState.STOP,
+                TransitionType.REPEATING);
+
+        LinkedList<State<VulkanEntity>> fsmStates =
+                new LinkedList<>(states.values());
+
+        persister = new MemoryPersisterImpl<>(fsmStates,
+                fsmStates.get(0));
+    }
+
+    private void createStates() {
+        VulkanState vulkanStates[] = VulkanState.values();
+
+        // Initialize everything except last state
+        for (int i = 0; i < vulkanStates.length - 1; ++i) {
+            VulkanState state = vulkanStates[i];
+            states.put(state, new StateImpl<>(state.toString()));
+        }
+
+        // Add STOP state
+        VulkanState stopState = vulkanStates[vulkanStates.length - 1];
+        states.put(stopState, new StateImpl<>(stopState.toString(), true));
+    }
+
+    private void defineTransition(VulkanState state,
+                                  VulkanState nextState,
+                                  TransitionType transitionType) {
         String event = VulkanEvent.GENERATE_PROGRAM.toString();
+        State<VulkanEntity> fsmState = states.get(state);
+        State<VulkanEntity> nextFsmState = states.get(nextState);
 
-        // Initial and stopping states
-        State<VulkanEntity> start =
-                new StateImpl<>(VulkanState.START.toString());
-        State<VulkanEntity> stop =
-                new StateImpl<>(VulkanState.STOP.toString(), true);
-
-        //VkEnumerateInstanceProperties
-        State<VulkanEntity> vkEnumerateInstanceExtensionProperties =
-                new StateImpl<>(VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES.toString());
-        State<VulkanEntity> vkEnumerateInstanceLayerProperties =
-                new StateImpl<>(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES.toString());
-
-        // States for a call to vkCreateInstance() and its prerequisites
-        State<VulkanEntity> vkApplicationInfo =
-                new StateImpl<>(VulkanState.VK_APPLICATION_INFO.toString());
-        State<VulkanEntity> vkInstanceCreateInfo =
-                new StateImpl<>(VulkanState.VK_INSTANCE_CREATE_INFO.toString());
-        State<VulkanEntity> vkCreateInstance =
-                new StateImpl<>(VulkanState.VK_CREATE_INSTANCE.toString());
-
-        // Define transitions
-        start.addTransition(event, vkEnumerateInstanceExtensionProperties, generateCodeAction);
-        vkEnumerateInstanceExtensionProperties.addTransition(event,
-                new SimpleTransition<>(generateCodeAction,
-                        vkEnumerateInstanceExtensionProperties,
-                        vkEnumerateInstanceLayerProperties));
-        vkEnumerateInstanceLayerProperties.addTransition(event,
-                new SimpleTransition<>(generateCodeAction,
-                        vkEnumerateInstanceLayerProperties,
-                        vkApplicationInfo));
-        vkApplicationInfo.addTransition(event,
-                new SimpleTransition<>(generateCodeAction,
-                        vkApplicationInfo,
-                        vkInstanceCreateInfo));
-        vkInstanceCreateInfo.addTransition(event,
-                new SimpleTransition<>(generateCodeAction,
-                        vkInstanceCreateInfo,
-                        vkCreateInstance));
-        vkCreateInstance.addTransition(event,
-                new SimpleTransition<>(generateCodeAction,
-                        vkCreateInstance,
-                        stop));
-
-        // Add to states
-        states.add(start);
-        states.add(stop);
-        states.add(vkEnumerateInstanceExtensionProperties);
-        states.add(vkEnumerateInstanceLayerProperties);
-        states.add(vkApplicationInfo);
-        states.add(vkInstanceCreateInfo);
-        states.add(vkCreateInstance);
-
-        persister = new MemoryPersisterImpl<>(states, start);
+        switch (transitionType) {
+            case REPEATING:
+                fsmState.addTransition(event,
+                        new SimpleTransition<>(
+                                generateCodeAction,
+                                fsmState,
+                                nextFsmState));
+            case SEQUENTIAL:
+                fsmState.addTransition(event, nextFsmState, generateCodeAction);
+        }
     }
 }

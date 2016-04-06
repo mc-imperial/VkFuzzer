@@ -50,6 +50,8 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
         config.setBad(instanceCreateInfoConfig.isBad());
         config.addDependency(instanceCreateInfoConfig.getId());
 
+        globalState.addConfig(VulkanState.VK_CREATE_INSTANCE, config);
+
         return config;
     }
 }
