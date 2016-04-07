@@ -3,10 +3,11 @@
     // Get number of available GPUs
     std::vector<VkPhysicalDevice> ${config.gpus};
     uint32_t ${config.gpuCount} = 0;
+    VkResult ${config.result};
 
     do
     {
-        VkResult ${config.result} = vkEnumeratePhysicalDevices(${config.instance},
+        ${config.result} = vkEnumeratePhysicalDevices(${config.instance},
                 &${config.gpuCount}, NULL);
 
         assert((${config.result} == VK_SUCCESS)
