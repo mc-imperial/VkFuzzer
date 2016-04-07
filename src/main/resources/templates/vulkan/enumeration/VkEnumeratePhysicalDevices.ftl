@@ -14,8 +14,7 @@
                 || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY)
                 || (${config.result} == VK_ERROR_INITIALIZATION_FAILED));
 
-        gpus.resize(${config.gpuCount});
-        gpuProperties.resize(${config.gpuCount});
+        ${config.gpus}.resize(${config.gpuCount});
 
         // Get information of available GPUs
         ${config.result} = vkEnumeratePhysicalDevices(${config.instance},
