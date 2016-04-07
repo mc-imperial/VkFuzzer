@@ -29,7 +29,7 @@
     }
     while(${config.result} == VK_INCOMPLETE);
 
-    assert((${config.result} == ${config.returnCode});
+    assert(${config.result} == ${config.returnCode});
 
     <#if config.checkOther>
     // Compare gpus with previous calls to vkEnumeratePhysicalDevices
