@@ -32,7 +32,7 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public ArrayList<Config> generateConfig() {
+    public Config generateConfig() {
         ArrayList<Config> configs = new ArrayList<>();
 
         VkApplicationInfoConfig config = new VkApplicationInfoConfig();
@@ -63,8 +63,7 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
         }
 
         globalState.addConfig(VulkanState.VK_APPLICATION_INFO, config);
-        configs.add(config);
 
-        return configs;
+        return config;
     }
 }

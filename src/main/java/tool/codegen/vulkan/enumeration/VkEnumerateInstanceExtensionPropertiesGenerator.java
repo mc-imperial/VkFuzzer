@@ -34,9 +34,7 @@ public class VkEnumerateInstanceExtensionPropertiesGenerator extends VulkanCodeG
     }
 
     @Override
-    public ArrayList<Config> generateConfig() {
-        ArrayList<Config> configs = new ArrayList<>();
-
+    public Config generateConfig() {
         VkEnumerateInstanceExtensionPropertiesConfig config =
                 new VkEnumerateInstanceExtensionPropertiesConfig();
 
@@ -50,8 +48,7 @@ public class VkEnumerateInstanceExtensionPropertiesGenerator extends VulkanCodeG
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES,
                 config);
-        configs.add(config);
 
-        return configs;
+        return config;
     }
 }

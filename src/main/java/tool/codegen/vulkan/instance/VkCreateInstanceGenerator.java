@@ -32,9 +32,7 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public ArrayList<Config> generateConfig() {
-        ArrayList<Config> configs = new ArrayList<>();
-
+    public Config generateConfig() {
         VkCreateInstanceConfig config = new VkCreateInstanceConfig();
 
         ArrayList<Config> instanceCreateInfos =
@@ -55,8 +53,7 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
         config.addDependency(instanceCreateInfoConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_INSTANCE, config);
-        configs.add(config);
 
-        return configs;
+        return config;
     }
 }

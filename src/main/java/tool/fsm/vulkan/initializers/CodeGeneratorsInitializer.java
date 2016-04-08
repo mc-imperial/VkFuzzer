@@ -2,6 +2,7 @@ package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.deviceproperties.DevicePropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
@@ -90,6 +91,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES.toString(),
                 new VkEnumeratePhysicalDevicesGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.GET_DEVICE_PROPERTIES.toString(),
+                new DevicePropertiesGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

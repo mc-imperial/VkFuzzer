@@ -71,6 +71,10 @@ public class StatesInitializer {
                 TransitionType.REPEATING);
 
         defineTransition(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
+                VulkanState.GET_DEVICE_PROPERTIES,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.GET_DEVICE_PROPERTIES,
                 VulkanState.STOP,
                 TransitionType.REPEATING);
 

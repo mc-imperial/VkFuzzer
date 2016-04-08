@@ -34,9 +34,7 @@ public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public ArrayList<Config> generateConfig() {
-        ArrayList<Config> configs = new ArrayList<>();
-
+    public Config generateConfig() {
         VkEnumeratePhysicalDevicesConfig config =
                 new VkEnumeratePhysicalDevicesConfig();
 
@@ -66,8 +64,7 @@ public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
                 config);
-        configs.add(config);
 
-        return configs;
+        return config;
     }
 }

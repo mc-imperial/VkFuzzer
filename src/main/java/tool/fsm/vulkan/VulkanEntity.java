@@ -37,10 +37,8 @@ public class VulkanEntity implements Entity {
     public boolean generateStateCode() {
         if (!state.equals(VulkanState.STOP.toString())) {
             VulkanCodeGenerator generator = codeGenerators.get(state);
-            for (Config config : generator.generateConfig()) {
-                templateEngine.generateCode(generator.getTemplateName(),
-                        config, writer);
-            }
+            templateEngine.generateCode(generator.getTemplateName(),
+                    generator.generateConfig(), writer);
 
             return true;
         }

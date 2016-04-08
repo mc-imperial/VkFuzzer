@@ -34,9 +34,7 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
     }
 
     @Override
-    public ArrayList<Config> generateConfig() {
-        ArrayList<Config> configs = new ArrayList<>();
-
+    public Config generateConfig() {
         VkEnumerateInstanceLayerPropertiesConfig config =
                 new VkEnumerateInstanceLayerPropertiesConfig();
 
@@ -50,8 +48,7 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
                 config);
-        configs.add(config);
 
-        return configs;
+        return config;
     }
 }
