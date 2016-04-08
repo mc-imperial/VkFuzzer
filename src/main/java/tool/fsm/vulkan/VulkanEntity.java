@@ -4,6 +4,7 @@ import org.statefulj.persistence.annotations.State;
 import tool.Main;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
+import tool.configs.Config;
 import tool.configs.vulkan.MainConfig;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
@@ -36,8 +37,10 @@ public class VulkanEntity implements Entity {
     public boolean generateStateCode() {
         if (!state.equals(VulkanState.STOP.toString())) {
             VulkanCodeGenerator generator = codeGenerators.get(state);
-            templateEngine.generateCode(generator.getTemplateName(),
-                    generator.generateConfig(), writer);
+            for (Config config : generator.generateConfig()) {
+                templateEngine.generateCode(generator.getTemplateName(),
+                        config, writer);
+            }
 
             return true;
         }

@@ -37,10 +37,12 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public Config generateConfig() {
+    public ArrayList<Config> generateConfig() {
+        ArrayList<Config> configs = new ArrayList<>();
+
         VkInstanceCreateInfoConfig config = new VkInstanceCreateInfoConfig();
 
-        ArrayList<Config> configs =
+        ArrayList<Config> appInfos =
                 globalState.getConfig(VulkanState.VK_APPLICATION_INFO);
 
         // Generate random variable names and values
@@ -56,14 +58,15 @@ public class VkInstanceCreateGenerator extends VulkanCodeGenerator {
 
         // Choose random VkApplicationInfoConfig
         VkApplicationInfoConfig appInfo = (VkApplicationInfoConfig)
-                configs.get(randomNumberGanerator.randomNumber(configs.size()));
+                appInfos.get(randomNumberGanerator.randomNumber(appInfos.size()));
 
         config.setApplicationInfo(appInfo.getVariableName());
         config.setBad(appInfo.isBad());
         config.addDependency(appInfo.getId());
 
         globalState.addConfig(VulkanState.VK_INSTANCE_CREATE_INFO, config);
+        configs.add(config);
 
-        return config;
+        return configs;
     }
 }

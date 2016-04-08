@@ -30,14 +30,3 @@
     while(${config.result} == VK_INCOMPLETE);
 
     assert(${config.result} == ${config.returnCode});
-
-    <#if config.checkOther>
-    // Compare gpus with previous calls to vkEnumeratePhysicalDevices
-    // with the same instance
-    <#list config.otherDeviceVectors as otherDeviceVector>
-    assert(${config.gpus}.size() == ${otherDeviceVector}.size());
-    assert(std::equal(${config.gpus}.begin(), ${config.gpus}.end(),
-            ${otherDeviceVector}.begin()));
-
-    </#list>
-    </#if>

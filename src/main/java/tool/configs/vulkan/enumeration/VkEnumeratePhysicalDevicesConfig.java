@@ -2,8 +2,6 @@ package tool.configs.vulkan.enumeration;
 
 import tool.configs.Config;
 
-import java.util.ArrayList;
-
 /**
  * Created by constantinos on 06/04/2016.
  */
@@ -13,12 +11,6 @@ public class VkEnumeratePhysicalDevicesConfig extends Config {
     private String result;
     private String instance;
     private String returnCode;
-    private boolean checkOther;
-    private ArrayList<String> otherDeviceVectors;
-
-    public VkEnumeratePhysicalDevicesConfig() {
-        otherDeviceVectors = new ArrayList<>();
-    }
 
     public String getGpus() {
         return gpus;
@@ -58,21 +50,5 @@ public class VkEnumeratePhysicalDevicesConfig extends Config {
 
     public void setReturnCode(String returnCode) {
         this.returnCode = returnCode;
-    }
-
-    public boolean isCheckOther() {
-        return checkOther;
-    }
-
-    public void setCheckOther(boolean checkOther) {
-        this.checkOther = checkOther;
-    }
-
-    public ArrayList<String> getOtherDeviceVectors() {
-        return otherDeviceVectors;
-    }
-
-    public void setOtherDeviceVectors(ArrayList<String> otherDeviceVectors) {
-        this.otherDeviceVectors = otherDeviceVectors;
     }
 }

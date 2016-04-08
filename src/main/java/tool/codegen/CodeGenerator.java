@@ -6,6 +6,8 @@ import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
+import java.util.ArrayList;
+
 /**
  * Created by constantinos on 27/03/2016.
  */
@@ -28,7 +30,7 @@ public abstract class CodeGenerator {
         this.template = template;
     }
 
-    public abstract Config generateConfig();
+    public abstract ArrayList<Config> generateConfig();
 
     public String getTemplateName() {
         return  template;

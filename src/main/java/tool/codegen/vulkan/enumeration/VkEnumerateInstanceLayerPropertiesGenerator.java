@@ -11,6 +11,8 @@ import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
+import java.util.ArrayList;
+
 /**
  * Created by constantinos on 05/04/2016.
  */
@@ -32,7 +34,9 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
     }
 
     @Override
-    public Config generateConfig() {
+    public ArrayList<Config> generateConfig() {
+        ArrayList<Config> configs = new ArrayList<>();
+
         VkEnumerateInstanceLayerPropertiesConfig config =
                 new VkEnumerateInstanceLayerPropertiesConfig();
 
@@ -46,7 +50,8 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
                 config);
+        configs.add(config);
 
-        return config;
+        return configs;
     }
 }

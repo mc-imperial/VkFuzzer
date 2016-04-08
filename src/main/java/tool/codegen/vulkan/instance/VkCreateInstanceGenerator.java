@@ -5,7 +5,6 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
 import tool.fsm.vulkan.states.VulkanState;
@@ -33,10 +32,12 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public Config generateConfig() {
+    public ArrayList<Config> generateConfig() {
+        ArrayList<Config> configs = new ArrayList<>();
+
         VkCreateInstanceConfig config = new VkCreateInstanceConfig();
 
-        ArrayList<Config> configs =
+        ArrayList<Config> instanceCreateInfos =
                 globalState.getConfig(VulkanState.VK_INSTANCE_CREATE_INFO);
 
         // Create random variable names
@@ -47,14 +48,15 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
 
         // Choose a random VkInstanceCreateInfoConfig
         VkInstanceCreateInfoConfig instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)
-                        configs.get(randomNumberGanerator.randomNumber(configs.size()));
+                        instanceCreateInfos.get(randomNumberGanerator.randomNumber(instanceCreateInfos.size()));
 
         config.setInstanceCreateInfo(instanceCreateInfoConfig.getVariableName());
         config.setBad(instanceCreateInfoConfig.isBad());
         config.addDependency(instanceCreateInfoConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_INSTANCE, config);
+        configs.add(config);
 
-        return config;
+        return configs;
     }
 }

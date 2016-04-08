@@ -34,7 +34,9 @@ public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public Config generateConfig() {
+    public ArrayList<Config> generateConfig() {
+        ArrayList<Config> configs = new ArrayList<>();
+
         VkEnumeratePhysicalDevicesConfig config =
                 new VkEnumeratePhysicalDevicesConfig();
 
@@ -62,35 +64,10 @@ public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
         config.setInstance(instanceConfig.getInstanceName());
         config.setBad(instanceConfig.isBad());
 
-        // Check if other calls were made with the same instance
-        // and compare them
-        ArrayList<String> otherPhysicalDevices = findOtherCalls(config, instanceConfig);
-        config.setCheckOther(!otherPhysicalDevices.isEmpty());
-        config.setOtherDeviceVectors(otherPhysicalDevices);
-
         globalState.addConfig(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
                 config);
+        configs.add(config);
 
-        return config;
-    }
-
-    // Finds and returns an ArrayList with previous configs that shared the same instance
-    private ArrayList<String> findOtherCalls(VkEnumeratePhysicalDevicesConfig config,
-                                    VkCreateInstanceConfig instanceConfig) {
-        ArrayList<Config> configs =
-                globalState.getConfig(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES);
-
-        ArrayList<String> otherPhysicalDevices = new ArrayList<>();
-
-        for (int i = 0; i < configs.size(); ++i) {
-            VkEnumeratePhysicalDevicesConfig physicalDevicesConfig =
-                    (VkEnumeratePhysicalDevicesConfig) configs.get(i);
-            if (physicalDevicesConfig.getInstance()
-                    .equals(instanceConfig.getInstanceName())) {
-                otherPhysicalDevices.add(physicalDevicesConfig.getGpus());
-            }
-        }
-
-        return otherPhysicalDevices;
+        return configs;
     }
 }

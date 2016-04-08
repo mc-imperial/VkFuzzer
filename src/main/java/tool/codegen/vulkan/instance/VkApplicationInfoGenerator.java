@@ -11,6 +11,8 @@ import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
+import java.util.ArrayList;
+
 /**
  * Created by constantinos on 27/03/2016.
  */
@@ -30,7 +32,9 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
     }
 
     @Override
-    public Config generateConfig() {
+    public ArrayList<Config> generateConfig() {
+        ArrayList<Config> configs = new ArrayList<>();
+
         VkApplicationInfoConfig config = new VkApplicationInfoConfig();
         boolean isBad = coverage.createBadConfig();
 
@@ -59,7 +63,8 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
         }
 
         globalState.addConfig(VulkanState.VK_APPLICATION_INFO, config);
+        configs.add(config);
 
-        return config;
+        return configs;
     }
 }
