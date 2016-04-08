@@ -5,7 +5,7 @@ project (VulkanPrograms)
 set(CMAKE_C_FLAGS "${config.cFlags} -DVK_PROTOTYPES")
 set(CMAKE_CXX_FLAGS "${config.cppFlags} -DVK_PROTOTYPES")
 
-set(VULKAN_SDK_ROOT "C:/VulkanSDK/1.0.3.1/")
+set(VULKAN_SDK_ROOT "C:/VulkanSDK/1.0.8.0/")
 
 # Set platform specific library includes and libraries
 if(WIN32)

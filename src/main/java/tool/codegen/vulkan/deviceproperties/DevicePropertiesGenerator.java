@@ -69,7 +69,7 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
 
         devicesConfig.setId(generateConfigId());
         devicesConfig.setDevices(devices);
-        
+
         return devicesConfig;
     }
 }

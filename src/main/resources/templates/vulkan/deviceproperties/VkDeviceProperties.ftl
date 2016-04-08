@@ -35,11 +35,11 @@
 
         extensions.resize(extensionCount);
 
-        vkEnumerateDeviceExtensionProperties(device, &extensionCount, extensions.data());
+        vkEnumerateDeviceExtensionProperties(device, NULL, &extensionCount, extensions.data());
 
         // Enumerate layers
         uint32_t layerCount = 0;
-        vkEnumerateDeviceLayerProperties(device, &layerCount, NULL);
+        vkEnumerateDeviceLayerProperties(device, NULL, &layerCount, NULL);
 
         layers.resize(layerCount);
 
