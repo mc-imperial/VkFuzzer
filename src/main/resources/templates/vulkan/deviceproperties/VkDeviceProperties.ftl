@@ -31,7 +31,7 @@
 
         // Eumerate extesions
         uint32_t extensionCount = 0;
-        vkEnumerateDeviceExtensionProperties(device, &extensionCount, NULL);
+        vkEnumerateDeviceExtensionProperties(device, NULL, &extensionCount, NULL);
 
         extensions.resize(extensionCount);
 
@@ -39,7 +39,7 @@
 
         // Enumerate layers
         uint32_t layerCount = 0;
-        vkEnumerateDeviceLayerProperties(device, NULL, &layerCount, NULL);
+        vkEnumerateDeviceLayerProperties(device, &layerCount, NULL);
 
         layers.resize(layerCount);
 
