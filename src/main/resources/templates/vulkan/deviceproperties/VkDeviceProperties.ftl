@@ -77,6 +77,7 @@
                     || (vkQueueFamilyproperties.queueFlags & VK_QUEUE_TRANSFER_BIT)
                     || (vkQueueFamilyproperties.queueFlags & VK_QUEUE_SPARSE_BINDING_BIT));
 
+            // Allow only valid queue bits
             assert((vkQueueFamilyproperties.queueFlags >= VK_QUEUE_GRAPHICS_BIT)
                     && (vkQueueFamilyproperties.queueFlags <= VK_QUEUE_SPARSE_BINDING_BIT)
                     && (vkQueueFamilyproperties.queueFlags != 0x00000003)
