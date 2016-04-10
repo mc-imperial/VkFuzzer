@@ -33,8 +33,6 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
 
     @Override
     public Config generateConfig() {
-        ArrayList<Config> configs = new ArrayList<>();
-
         VkApplicationInfoConfig config = new VkApplicationInfoConfig();
         boolean isBad = coverage.createBadConfig();
 
