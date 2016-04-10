@@ -2,7 +2,7 @@ package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
-import tool.codegen.vulkan.deviceproperties.DevicePropertiesGenerator;
+import tool.codegen.vulkan.device.DevicePropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;

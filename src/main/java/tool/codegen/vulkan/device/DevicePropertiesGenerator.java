@@ -1,12 +1,12 @@
-package tool.codegen.vulkan.deviceproperties;
+package tool.codegen.vulkan.device;
 
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.deviceproperties.DevicePropertiesConfig;
-import tool.configs.vulkan.deviceproperties.DevicesConfig;
+import tool.configs.vulkan.device.DevicePropertiesConfig;
+import tool.configs.vulkan.device.DevicesConfig;
 import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;

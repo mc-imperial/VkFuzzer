@@ -1,4 +1,4 @@
-package tool.configs.vulkan.deviceproperties;
+package tool.configs.vulkan.device;
 
 import tool.configs.Config;
 
