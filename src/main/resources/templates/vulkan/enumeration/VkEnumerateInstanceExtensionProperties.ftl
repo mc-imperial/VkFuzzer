@@ -17,7 +17,7 @@
 
         if(${config.result} != VK_SUCCESS)
         {
-            std::cerr << "Failed to enumerate instance layer properties."
+            std::cerr << "Failed to enumerate instance extension properties."
                     << "Error code " << ${config.result} << "." << std::endl;
             return 0;
         }
@@ -43,7 +43,7 @@
 
     if(${config.result} != VK_SUCCESS)
     {
-        std::cerr << "Failed to enumerate instance layer properties."
+        std::cerr << "Failed to enumerate instance extension properties."
                 << "Error code " << ${config.result} << "." << std::endl;
         return 0;
     }
