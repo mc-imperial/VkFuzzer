@@ -40,10 +40,10 @@ def runPrograms(executables):
 		resultMessage = ""
 		if process.returncode == 0:
 			resultMessage = "SUCCESS"
-			succeeded.append(file)
+			succeeded.append(executables[i])
 		else:
 			resultMessage = "FAILURE"
-			failed.append(file)
+			failed.append(executables[i])
 
 		results.write(resultMessage + "\n\n")
 		print resultMessage
@@ -76,7 +76,7 @@ def printSummary(executables, succeeded, failed):
 		print "==================="
 
 		for program in failed:
-			print program
+			print str(program)
 
 		print "==================="
 

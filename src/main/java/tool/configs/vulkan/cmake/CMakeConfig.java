@@ -11,6 +11,9 @@ public class CMakeConfig extends Config {
     private String cFlags = "${CMAKE_C_FLAGS}";
     private String cppFlags = "${CMAKE_CXX_FLAGS}";
     private String binaryFolder = "${CMAKE_BINARY_DIR}";
+    private String major = "${MAJOR}";
+    private String vulkanLoaderName = "${VULKAN_LOADER_NAME}";
+    private String vulkanLoader = "${VULKAN_LOADER}";
 
     public Config[] getExecutables() {
         return executables;
@@ -50,5 +53,29 @@ public class CMakeConfig extends Config {
 
     public void setBinaryFolder(String binaryFolder) {
         this.binaryFolder = binaryFolder;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getVulkanLoaderName() {
+        return vulkanLoaderName;
+    }
+
+    public void setVulkanLoaderName(String vulkanLoaderName) {
+        this.vulkanLoaderName = vulkanLoaderName;
+    }
+
+    public String getVulkanLoader() {
+        return vulkanLoader;
+    }
+
+    public void setVulkanLoader(String vulkanLoader) {
+        this.vulkanLoader = vulkanLoader;
     }
 }
