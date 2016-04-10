@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     // ID: ${config.id}
     // Get number of available GPUs
     std::vector<VkPhysicalDevice> ${config.gpus};
@@ -30,3 +32,4 @@
     while(${config.result} == VK_INCOMPLETE);
 
     assert(${config.result} == ${config.returnCode});
+    </#if>

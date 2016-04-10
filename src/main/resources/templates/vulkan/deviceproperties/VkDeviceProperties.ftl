@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     // ID: ${config.id}
     <#list config.devices as device>
     std::vector<VkPhysicalDeviceMemoryProperties> ${device.deviceMemoryProperties};
@@ -43,11 +45,12 @@
 
             // Allow only valid queue bits
             assert((vkQueueFamilyproperties.queueFlags >= VK_QUEUE_GRAPHICS_BIT)
-                    && (vkQueueFamilyproperties.queueFlags <= VK_QUEUE_SPARSE_BINDING_BIT)
-                    && (vkQueueFamilyproperties.queueFlags != 0x00000003)
-                    && (vkQueueFamilyproperties.queueFlags != 0x00000005)
-                    && (vkQueueFamilyproperties.queueFlags != 0x00000006)
-                    && (vkQueueFamilyproperties.queueFlags != 0x00000007));
+                    // Checks for upper bound
+                    && (vkQueueFamilyproperties.queueFlags <=
+                            (VK_QUEUE_GRAPHICS_BIT
+                            | VK_QUEUE_COMPUTE_BIT
+                            | VK_QUEUE_TRANSFER_BIT
+                            | VK_QUEUE_SPARSE_BINDING_BIT)));
         }
 
         // Enumerate extensions
@@ -147,3 +150,4 @@
     }
 
     </#list>
+    </#if>
