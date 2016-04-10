@@ -148,7 +148,7 @@
                 return 0;
             }
 
-            if(extensionCount == 0)
+            if(layerCount == 0)
             {
                 std::cout << "No instance layers found." << std::endl;
                 break;
