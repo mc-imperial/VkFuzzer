@@ -22,49 +22,13 @@
         vkGetPhysicalDeviceProperties(device, &properties);
 
         // Enumerate device family queues
-        VkResult result;
-        do
-        {
-            uint32_t queueCount = 0;
-            result = vkGetPhysicalDeviceQueueFamilyProperties(device, &queueCount, NULL);
+        uint32_t queueCount = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &queueCount, NULL);
 
-            // Check that the return code is one of the acceptable ones
-            assert((result == VK_SUCCESS)
-                    || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
-                    || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+        queueFamilyProperties.resize(queueCount);
 
-            if(result != VK_SUCCESS)
-            {
-                std::cerr << "Failed to enumerate device family queue properties."
-                        << "Error code " << result << "." << std::endl;
-                return 0;
-            }
-
-            if(queueCount == 0)
-            {
-                std::cout << "No device family queues found." << std::endl;
-                break;
-            }
-
-            queueFamilyProperties.resize(queueCount);
-
-            result = vkGetPhysicalDeviceQueueFamilyProperties(device,
-                    &queueCount, queueFamilyProperties.data());
-
-            // Check that the return code is one of the acceptable ones
-            assert((result== VK_SUCCESS)
-                    || (result == VK_INCOMPLETE)
-                    || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
-                    || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
-        }
-        while(result == VK_INCOMPLETE);
-
-        if(result != VK_SUCCESS)
-        {
-            std::cerr << "Failed to enumerate device family queue properties."
-                    << "Error code " << result << "." << std::endl;
-            return 0;
-        }
+        vkGetPhysicalDeviceQueueFamilyProperties(device,
+                &queueCount, queueFamilyProperties.data());
 
         // All Vulkan implementations must expose at least one queue,
         // each of which has at least one queue capability bit set.
@@ -87,6 +51,7 @@
         }
 
         // Enumerate extensions
+        VkResult result;
         do
         {
             uint32_t extensionCount = 0;
