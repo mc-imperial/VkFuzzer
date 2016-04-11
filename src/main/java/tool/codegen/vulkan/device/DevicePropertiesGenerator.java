@@ -62,6 +62,7 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
             config.setDeviceLayerProperties(DEVICE_LAYER_PROPERTIES +
                     freshMap.getFreshId(DEVICE_LAYER_PROPERTIES));
             config.setDevices(physicalDevicesConfig.getGpus());
+            config.setBad(physicalDevice.isBad());
 
             devices.add(config);
             devicesConfig.addDependency(config.getId());

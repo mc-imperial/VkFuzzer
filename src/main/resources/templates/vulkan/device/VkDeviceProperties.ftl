@@ -1,8 +1,8 @@
 
-    <#if config.isBad()>
-    <#else>
     // ID: ${config.id}
     <#list config.devices as device>
+    <#if device.isBad()>
+    <#else>
     std::vector<VkPhysicalDeviceMemoryProperties> ${device.deviceMemoryProperties};
     std::vector<VkPhysicalDeviceFeatures> ${device.deviceFeatures};
     std::vector<VkPhysicalDeviceProperties> ${device.deviceProperties};
@@ -148,6 +148,5 @@
         ${device.deviceExtensionProperties}.push_back(extensions);
         ${device.deviceLayerProperties}.push_back(layers);
     }
-
-    </#list>
     </#if>
+    </#list>
