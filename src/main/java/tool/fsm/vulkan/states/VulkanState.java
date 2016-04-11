@@ -15,6 +15,7 @@ public enum VulkanState {
 
     VK_ENUMERATE_PHYSICAL_DEVICES,
     GET_DEVICE_PROPERTIES,
+    VK_CREATE_DEVICE,
 
     STOP
 }

@@ -28,9 +28,15 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 int main(int argc, char *argv[])
 {
+    // Set seed for random operations
+    srand(static_cast<unsigned>(time(0)));
+
 ${config.body}
+
     return 0;
 }

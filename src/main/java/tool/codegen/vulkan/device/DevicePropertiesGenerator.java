@@ -71,6 +71,8 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
         devicesConfig.setId(generateConfigId());
         devicesConfig.setDevices(devices);
 
+        globalState.addConfig(VulkanState.GET_DEVICE_PROPERTIES, devicesConfig);
+
         return devicesConfig;
     }
 }

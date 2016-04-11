@@ -22,4 +22,6 @@ public class VulkanTemplates {
             "enumeration/VkEnumeratePhysicalDevices.ftl";
     public static final String GET_DEVICE_PROPERTIES =
             "device/VkDeviceProperties.ftl";
+    public static final String VK_CREATE_DEVICE =
+            "device/VkCreateDevice.ftl";
 }
