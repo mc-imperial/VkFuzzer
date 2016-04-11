@@ -4,53 +4,69 @@
     <#list devicePropertiesConfig.devices as deviceProperties>
     <#if deviceProperties.isBad()>
     <#else>
-    std::vector<VkDevice> logicalDevices;
-
-    for (std::vector<VkQueueFamilyProperties> vkQueueFamilyProperties :
-            ${deviceProperties.deviceQueueFamilyProperties})
+    for (int i = 0; i < ${deviceProperties.devices}.size(); ++i)
     {
-        VkDeviceQueueCreateInfo queueInfo = {};
-
-        bool found = false;
-        for (unsigned int i = 0; i < info.queue_count; i++)
+        for (int j = 0; j < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++j)
         {
-            if (info.queue_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+            std::vector<VkDevice> logicalDevices;
+            VkDeviceQueueCreateInfo queueInfo = {};
+            std::vector<float> queuePriorities;
+
+            bool found = false;
+            for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++k)
             {
-                queueInfo.queueFamilyIndex = i;
-                found = true;
-                break;
+                if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+                {
+                    queueInfo.queueFamilyIndex = k;
+                    queuePriorities.resize(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
+                    found = true;
+                    break;
+                }
             }
+
+            // If no graphics queue found then stop
+            // assert(found);
+
+            for (int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++k)
+            {
+                queuePriorities.push_back(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
+            }
+
+            queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+            queueInfo.pNext = NULL;
+            queueInfo.queueCount = 1;
+            queueInfo.pQueuePriorities = queuePriorities.data();
+
+            VkDeviceCreateInfo deviceInfo = {};
+            deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+            deviceInfo.flags = 0;
+            deviceInfo.pNext = NULL;
+            deviceInfo.queueCreateInfoCount = 1;
+            deviceInfo.pQueueCreateInfos = &queueInfo;
+            deviceInfo.enabledExtensionCount = 0;
+            deviceInfo.ppEnabledExtensionNames = NULL;
+            deviceInfo.enabledLayerCount = 0;
+            deviceInfo.ppEnabledLayerNames = NULL;
+            deviceInfo.pEnabledFeatures = NULL;
+
+            VkDevice device;
+            VkResult res = vkCreateDevice(${deviceProperties.devices}[i], &deviceInfo, NULL, &device);
+
+            // Check result
+            assert((res == VK_SUCCESS)
+                    || (res == VK_ERROR_OUT_OF_HOST_MEMORY)
+                    || (res == VK_ERROR_OUT_OF_DEVICE_MEMORY)
+                    || (res == VK_ERROR_INITIALIZATION_FAILED)
+                    || (res == VK_ERROR_LAYER_NOT_PRESENT)
+                    || (res == VK_ERROR_EXTENSION_NOT_PRESENT)
+                    || (res == VK_ERROR_FEATURE_NOT_PRESENT)
+                    || (res == VK_ERROR_TOO_MANY_OBJECTS)
+                    || (res == VK_ERROR_DEVICE_LOST));
+
+            assert(res == VK_SUCCESS);
+
+            logicalDevices.push_back(device);
         }
-
-        // If no graphics queue found then stop
-        assert(found);
-
-        std::vector<float> queuePriorities;
-        queuePriorities.resize(1);
-
-        for (int i = 0; i < queuePriorities.size(); ++i)
-        {
-            queuePriorities[i] = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-        }
-
-        queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-        queueInfo.pNext = NULL;
-        queueInfo.queueCount = 1;
-        queueInfo.pQueuePriorities = queuePriorities;
-
-        VkDeviceCreateInfo deviceInfo = {};
-        deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-        deviceInfo.pNext = NULL;
-        deviceInfo.queueCreateInfoCount = 1;
-        deviceInfo.pQueueCreateInfos = &queueInfo;
-        deviceInfo.enabledExtensionCount = 0;
-        deviceInfo.ppEnabledExtensionNames = NULL;
-        deviceInfo.enabledLayerCount = 0;
-        deviceInfo.ppEnabledLayerNames = NULL;
-        deviceInfo.pEnabledFeatures = NULL;
-        VkDevice device;
-        VkResult res = vkCreateDevice(info.gpus[0], &device_info, NULL, &device);
-        assert(res == VK_SUCCESS);
     }
 
     </#if>
