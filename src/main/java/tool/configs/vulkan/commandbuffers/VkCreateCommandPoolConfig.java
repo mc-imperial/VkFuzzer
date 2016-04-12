@@ -12,6 +12,9 @@ public class VkCreateCommandPoolConfig extends Config {
     private String logicalDevice;
     private String result;
     private String commandPool;
+    private String randomIndex;
+    private String randomQueueIndex;
+    private String randomDevice;
 
     public String getCmdPoolCreateInfo() {
         return cmdPoolCreateInfo;
@@ -59,5 +62,29 @@ public class VkCreateCommandPoolConfig extends Config {
 
     public void setCommandPool(String commandPool) {
         this.commandPool = commandPool;
+    }
+
+    public String getRandomIndex() {
+        return randomIndex;
+    }
+
+    public void setRandomIndex(String randomIndex) {
+        this.randomIndex = randomIndex;
+    }
+
+    public String getRandomQueueIndex() {
+        return randomQueueIndex;
+    }
+
+    public void setRandomQueueIndex(String randomQueueIndex) {
+        this.randomQueueIndex = randomQueueIndex;
+    }
+
+    public String getRandomDevice() {
+        return randomDevice;
+    }
+
+    public void setRandomDevice(String randomDevice) {
+        this.randomDevice = randomDevice;
     }
 }

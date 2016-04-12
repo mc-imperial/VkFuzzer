@@ -1,4 +1,7 @@
 
+
+    <#if config.isBad()>
+    <#else>
     // ID: ${config.id}
     <#list config.devices as device>
     <#if device.isBad()>
@@ -150,3 +153,4 @@
     }
     </#if>
     </#list>
+    </#if>

@@ -1,11 +1,13 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     <#list config.devicePropertiesConfigs as devicePropertiesConfig>
     <#list devicePropertiesConfig.devices as deviceProperties>
     <#if deviceProperties.isBad()>
     <#else>
-    std::vector<VkDevice> ${config.logicalDevices}${deviceProperties?index};
-    std::vector<int> ${config.queueIndex}${deviceProperties?index};
+    std::vector<VkDevice> ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index};
+    std::vector<int> ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index};
 
     for (int i = 0; i < ${deviceProperties.devices}.size(); ++i)
     {
@@ -21,10 +23,16 @@
                 {
                     queueInfo.queueFamilyIndex = k;
                     queuePriorities.resize(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
-                    queueIndex${deviceProperties?index}.push_back(k);
+                    ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(k);
                     found = true;
                     break;
                 }
+            }
+
+            // If no queue was found that supports graphics then indicate that with a negative index
+            if (!found)
+            {
+                ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(-1);
             }
 
             // If no graphics queue found then stop
@@ -68,10 +76,11 @@
 
             assert(res == VK_SUCCESS);
 
-            logicalDevices.push_back(device);
+            ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(device);
         }
     }
 
     </#if>
     </#list>
     </#list>
+    </#if>

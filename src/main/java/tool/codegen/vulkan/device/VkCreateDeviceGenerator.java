@@ -43,6 +43,14 @@ public class VkCreateDeviceGenerator extends VulkanCodeGenerator {
         config.setQueueIndex(QUEUE_INDEX +
                 freshMap.getFreshId(QUEUE_INDEX));
 
+        // Check if all configs are bad
+        boolean allBadConfigs = true;
+        for (Config theConfig : enumeratedPhysicalDeviceProperties) {
+            allBadConfigs = allBadConfigs && theConfig.isBad();
+        }
+
+        config.setBad(allBadConfigs);
+
         globalState.addConfig(VulkanState.VK_CREATE_DEVICE, config);
 
         return config;

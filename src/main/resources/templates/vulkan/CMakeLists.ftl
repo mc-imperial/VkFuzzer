@@ -21,7 +21,7 @@ else()
 endif()
 
 if(WIN32)
-    include_directories("C:/VulkanSDK/1.0.8.0/Include")
+    include_directories("$ENV{VULKAN_SDK}/Include")
 else()
     include_directories("/usr/include/vulkan")
 endif()

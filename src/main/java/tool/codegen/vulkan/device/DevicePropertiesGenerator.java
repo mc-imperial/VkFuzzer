@@ -42,6 +42,7 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
         DevicesConfig devicesConfig = new DevicesConfig();
 
         ArrayList<Config> devices = new ArrayList<>();
+        boolean allBadConfigs = true;
         for (Config physicalDevice : physicalDevices) {
             DevicePropertiesConfig config = new DevicePropertiesConfig();
 
@@ -66,10 +67,12 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
 
             devices.add(config);
             devicesConfig.addDependency(config.getId());
+            allBadConfigs = allBadConfigs && config.isBad();
         }
 
         devicesConfig.setId(generateConfigId());
         devicesConfig.setDevices(devices);
+        devicesConfig.setBad(allBadConfigs);
 
         globalState.addConfig(VulkanState.GET_DEVICE_PROPERTIES, devicesConfig);
 

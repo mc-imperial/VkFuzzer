@@ -3,6 +3,7 @@ import os
 import re
 import sys
 from subprocess import Popen, PIPE
+from time import sleep
 
 PROGRAM_NAME = r'Program*'
 WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
@@ -53,6 +54,8 @@ def runPrograms(executables):
 		results.write(stdout + "\n")
 		results.write("STDERR:\n")
 		results.write(stderr + "\n")
+
+		sleep(1)
 
 	print "===================\n"
 	return (succeeded, failed)
