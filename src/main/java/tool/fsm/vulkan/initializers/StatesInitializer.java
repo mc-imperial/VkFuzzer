@@ -79,6 +79,10 @@ public class StatesInitializer {
                 TransitionType.REPEATING);
 
         defineTransition(VulkanState.VK_CREATE_DEVICE,
+                VulkanState.VK_CREATE_COMMAND_POOL,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_CREATE_COMMAND_POOL,
                 VulkanState.STOP,
                 TransitionType.REPEATING);
 

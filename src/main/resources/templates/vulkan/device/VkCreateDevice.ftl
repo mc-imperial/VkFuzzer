@@ -4,11 +4,13 @@
     <#list devicePropertiesConfig.devices as deviceProperties>
     <#if deviceProperties.isBad()>
     <#else>
+    std::vector<VkDevice> ${config.logicalDevices}${deviceProperties?index};
+    std::vector<int> ${config.queueIndex}${deviceProperties?index};
+
     for (int i = 0; i < ${deviceProperties.devices}.size(); ++i)
     {
         for (int j = 0; j < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++j)
         {
-            std::vector<VkDevice> logicalDevices;
             VkDeviceQueueCreateInfo queueInfo = {};
             std::vector<float> queuePriorities;
 
@@ -19,6 +21,7 @@
                 {
                     queueInfo.queueFamilyIndex = k;
                     queuePriorities.resize(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
+                    queueIndex${deviceProperties?index}.push_back(k);
                     found = true;
                     break;
                 }

@@ -18,6 +18,9 @@ import java.util.ArrayList;
  * Created by cvryo on 10/04/2016.
  */
 public class VkCreateDeviceGenerator extends VulkanCodeGenerator {
+    private final String LOGICAL_DEVICES = "logicalDevices";
+    private final String QUEUE_INDEX = "queueIndex";
+
     public VkCreateDeviceGenerator(RandomStringGenerator randomStringGenerator,
                                    RandomNumberGanerator randomNumberGanerator,
                                    FreshMap freshMap,
@@ -35,6 +38,12 @@ public class VkCreateDeviceGenerator extends VulkanCodeGenerator {
 
         config.setId(generateConfigId());
         config.setDevicePropertiesConfigs(enumeratedPhysicalDeviceProperties);
+        config.setLogicalDevices(LOGICAL_DEVICES +
+                freshMap.getFreshId(LOGICAL_DEVICES));
+        config.setQueueIndex(QUEUE_INDEX +
+                freshMap.getFreshId(QUEUE_INDEX));
+
+        globalState.addConfig(VulkanState.VK_CREATE_DEVICE, config);
 
         return config;
     }

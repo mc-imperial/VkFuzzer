@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class VkCreateDeviceConfig extends Config {
     private ArrayList<Config> devicePropertiesConfigs;
+    private String logicalDevices;
+    private String queueIndex;
 
     public VkCreateDeviceConfig() {
         devicePropertiesConfigs = new ArrayList<>();
@@ -20,5 +22,21 @@ public class VkCreateDeviceConfig extends Config {
 
     public void setDevicePropertiesConfigs(ArrayList<Config> devicePropertiesConfigs) {
         this.devicePropertiesConfigs = devicePropertiesConfigs;
+    }
+
+    public String getLogicalDevices() {
+        return logicalDevices;
+    }
+
+    public void setLogicalDevices(String logicalDevices) {
+        this.logicalDevices = logicalDevices;
+    }
+
+    public String getQueueIndex() {
+        return queueIndex;
+    }
+
+    public void setQueueIndex(String queueIndex) {
+        this.queueIndex = queueIndex;
     }
 }

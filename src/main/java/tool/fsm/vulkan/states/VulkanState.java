@@ -17,5 +17,7 @@ public enum VulkanState {
     GET_DEVICE_PROPERTIES,
     VK_CREATE_DEVICE,
 
+    VK_CREATE_COMMAND_POOL,
+
     STOP
 }
