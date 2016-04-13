@@ -1,5 +1,4 @@
 
-
     <#if config.isBad()>
     <#else>
     // ID: ${config.id}
@@ -151,6 +150,7 @@
         ${device.deviceExtensionProperties}.push_back(extensions);
         ${device.deviceLayerProperties}.push_back(layers);
     }
+
     </#if>
     </#list>
     </#if>
