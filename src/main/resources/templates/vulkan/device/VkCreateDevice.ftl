@@ -22,7 +22,6 @@
                 if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_GRAPHICS_BIT)
                 {
                     queueInfo.queueFamilyIndex = k;
-                    queuePriorities.resize(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
                     ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(k);
                     found = true;
                     break;
@@ -38,14 +37,14 @@
             // If no graphics queue found then stop
             // assert(found);
 
-            for (int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++k)
+            for (int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
             {
                 queuePriorities.push_back(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
             }
 
             queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
             queueInfo.pNext = NULL;
-            queueInfo.queueCount = 1;
+            queueInfo.queueCount = ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount;
             queueInfo.pQueuePriorities = queuePriorities.data();
 
             VkDeviceCreateInfo deviceInfo = {};

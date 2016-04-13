@@ -70,6 +70,8 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
 
         config.setBad(randomConfig.isBad());
 
+        globalState.addConfig(VulkanState.VK_CREATE_COMMAND_POOL, config);
+
         return config;
     }
 }
