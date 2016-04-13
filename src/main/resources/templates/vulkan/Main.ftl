@@ -42,12 +42,12 @@ SDL_bool initSDL()
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow("VulkanProgram", SDL_WINDOWPOS_UNDEFINED,
-    SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_HIDDEN);
+            SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_HIDDEN);
 
     if (window == NULL)
     {
-    std::cerr << "Could not initialize window" << std::endl;
-    return SDL_FALSE;
+        std::cerr << "Could not initialize window" << std::endl;
+        return SDL_FALSE;
     }
 
     SDL_SysWMinfo windowInfo;
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     // Init SDL
     if (!initSDL())
     {
-        return 1;
+        // return 1;
     }
 
 ${config.body}
