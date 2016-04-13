@@ -1,6 +1,10 @@
 cmake_minimum_required (VERSION 2.6)
 project (VulkanPrograms)
 
+# Add SDL Dependency
+add_subdirectory("SDL2-2.0.4")
+include_directories("SDL2-2.0.4/include")
+
 # The MAJOR number of the version we're building, used in naming
 # vulkan-(major).dll (and other files).
 set(MAJOR "1")
@@ -43,7 +47,7 @@ file(COPY "TestRunner.py" DESTINATION "${config.binaryFolder}")
 add_executable(${executable.name} ${executable.source})
 # Link executable
 if(WIN32)
-    target_link_libraries(${executable.name} ${config.vulkanLoader})
+    target_link_libraries(${executable.name} ${config.vulkanLoader} SDL2main SDL2-static)
 else()
     # TODO:: Add other deps for linux
     target_link_libraries(${executable.name} ${config.vulkanLoader})

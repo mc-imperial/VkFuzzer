@@ -17,6 +17,7 @@ public class ProgramGenerator {
     private Entity entity;
     private CMakeGenerator cMakeGenerator;
     private TestRunnerGenerator testRunnerGenerator;
+    private LibraryDependencyGenerator libraryDependencyGenerator;
 
     public ProgramGenerator(final Library library) {
         this.library = library;
@@ -26,9 +27,10 @@ public class ProgramGenerator {
     // Generate programs
     public void generatePrograms(final int size, final String outputFolder) {
         String basePath = outputFolder + "/Program";
+        String fileExtension = ".cpp";
 
         for (int i = 0; i < size; ++i) {
-            String programSource = basePath + i + ".cpp";
+            String programSource = basePath + i + fileExtension;
             fsm.generate();
             entity.saveGeneratedProgram(programSource);
             reset();
@@ -36,6 +38,7 @@ public class ProgramGenerator {
 
         cMakeGenerator.generateCMakeFile(size, outputFolder);
         testRunnerGenerator.generateTestRunner(outputFolder);
+        libraryDependencyGenerator.generateLibraryDependencies(outputFolder);
     }
 
     // Initialise platform specific classes
@@ -46,5 +49,7 @@ public class ProgramGenerator {
             cMakeGenerator = new VulkanCMakeGenerator();
             testRunnerGenerator = new VulkanTestRunnerGenerator();
         }
+
+        libraryDependencyGenerator = new LibraryDependencyGenerator();
     }
 }

@@ -30,13 +30,52 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <SDL.h>
+#include <SDL_syswm.h>
+
+SDL_Window *window;
+SDL_SysWMinfo windowInfo;
+
+// Initializes SDL
+SDL_bool initSDL()
+{
+    SDL_Init(SDL_INIT_VIDEO);
+
+    window = SDL_CreateWindow("VulkanProgram", SDL_WINDOWPOS_UNDEFINED,
+    SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_HIDDEN);
+
+    if (window == NULL)
+    {
+    std::cerr << "Could not initialize window" << std::endl;
+    return SDL_FALSE;
+    }
+
+    SDL_SysWMinfo windowInfo;
+
+    return SDL_GetWindowWMInfo(window, &windowInfo);
+}
+
+// Shutsdown SDL
+void shutDownSDL()
+{
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
 
 int main(int argc, char *argv[])
 {
     // Set seed for random operations
     srand(static_cast<unsigned>(time(0)));
 
+    // Init SDL
+    if (!initSDL())
+    {
+        return 1;
+    }
+
 ${config.body}
+
+    shutDownSDL();
 
     return 0;
 }
