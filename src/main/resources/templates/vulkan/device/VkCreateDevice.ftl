@@ -37,7 +37,7 @@
             // If no graphics queue found then stop
             // assert(found);
 
-            for (int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
+            for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
             {
                 queuePriorities.push_back(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
             }
