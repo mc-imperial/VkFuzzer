@@ -9,12 +9,23 @@ import tool.fuzzer.Library;
 public class CmdLineOptions {
     private Library library;
     private String outputFolder;
+    private String inputFolder;
+    private int id;
     private int samples;
+    private boolean minimize;
 
-    public CmdLineOptions(Library library, String outputFolder, int samples) {
+    public CmdLineOptions(final Library library,
+                          final String outputFolder,
+                          final int samples,
+                          final String inputFolder,
+                          final boolean minimize,
+                          final int id) {
         this.library = library;
         this.outputFolder = outputFolder;
         this.samples = samples;
+        this.id = id;
+        this.minimize = minimize;
+        this.inputFolder = inputFolder;
     }
 
     public Library getLibrary() {
@@ -27,5 +38,17 @@ public class CmdLineOptions {
 
     public int getSamples() {
         return samples;
+    }
+
+    public String getInputFolder() {
+        return inputFolder;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isMinimize() {
+        return minimize;
     }
 }

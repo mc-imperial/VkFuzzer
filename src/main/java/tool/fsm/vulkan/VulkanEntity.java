@@ -14,6 +14,7 @@ import tool.serialization.vulkan.VulkanStateSerializer;
 import tool.utils.TemplateEngine;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -27,6 +28,7 @@ public class VulkanEntity implements Entity {
     private VulkanGlobalState globalState;
     private TemplateEngine templateEngine;
     private HashMap<String, VulkanCodeGenerator> codeGenerators;
+    private ArrayList<VulkanState> visitedStates;
 
     public VulkanEntity() {
         reset();
@@ -35,6 +37,8 @@ public class VulkanEntity implements Entity {
     // Generates code if it has not reached the stop state
     @Override
     public boolean generateStateCode() {
+        visitedStates.add(VulkanState.valueOf(state));
+
         if (!state.equals(VulkanState.STOP.toString())) {
             VulkanCodeGenerator generator = codeGenerators.get(state);
             templateEngine.generateCode(generator.getTemplateName(),
@@ -46,19 +50,26 @@ public class VulkanEntity implements Entity {
         return false;
     }
 
-    // Saves the generated program to the specified ppath
+    // Saves the generated program to the specified path
     @Override
     public void saveGeneratedProgram(final String output) {
         try {
-            FileWriter fileWriter = new FileWriter(new File(output));
+            File file = new File(output);
+            FileWriter fileWriter = new FileWriter(file);
+
             MainConfig config = new MainConfig();
             config.setBody(writer.toString());
             templateEngine.generateCode(VulkanTemplates.MAIN, config, fileWriter);
 
-            VulkanStateSerializer serializer = new VulkanStateSerializer();
-            serializer.serializeState(globalState, fileWriter);
-
             fileWriter.close();
+
+            // Get file name
+            String filename = file.getName();
+            if (filename.indexOf(".") > 0) {
+                filename = filename.substring(0, filename.lastIndexOf("."));
+            }
+
+            saveMetaData(file.getParent(), filename);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -74,7 +85,29 @@ public class VulkanEntity implements Entity {
 
         writer = new StringWriter();
 
-        this.templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
+        templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
                 Main.class);
+
+        visitedStates = new ArrayList<>();
+    }
+
+    // Saves metadata to file so that the program can be minimised
+    private void saveMetaData(final String basePath, final String fileName) {
+        try {
+            FileWriter writer = new FileWriter(new File(basePath + "/" + fileName + ".meta"));
+            VulkanStateSerializer serializer = new VulkanStateSerializer();
+
+            // Serialize visited states order
+            serializer.serializeVisitedStates(visitedStates, writer);
+
+            writer.write("\n");
+
+            // Serialize configs
+            serializer.serializeState(globalState, writer);
+
+            writer.close();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

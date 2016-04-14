@@ -1,9 +1,9 @@
 cmake_minimum_required (VERSION 2.6)
 project (VulkanPrograms)
 
-<#--# Add SDL Dependency-->
-<#--add_subdirectory("SDL2-2.0.4")-->
-<#--include_directories("SDL2-2.0.4/include")-->
+# Add SDL Dependency
+add_subdirectory("SDL2-2.0.4")
+include_directories("SDL2-2.0.4/include")
 
 # The MAJOR number of the version we're building, used in naming
 # vulkan-(major).dll (and other files).
