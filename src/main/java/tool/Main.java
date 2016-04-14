@@ -1,6 +1,7 @@
 package tool;
 
 import tool.fuzzer.ProgramGenerator;
+import tool.minimisation.ProgramMinimiser;
 import tool.utils.cmdline.CmdLineArgsParser;
 import tool.utils.cmdline.CmdLineOptions;
 
@@ -12,6 +13,7 @@ public class Main {
         CmdLineArgsParser cmdLineArgsParser = new CmdLineArgsParser();
         CmdLineOptions options = null;
 
+        // Parse arguments
         try {
             options = cmdLineArgsParser.parseArguments(args);
         } catch (RuntimeException exception) {
@@ -19,8 +21,16 @@ public class Main {
             System.exit(1);
         }
 
-        ProgramGenerator generator = new ProgramGenerator(options.getLibrary());
-        generator.generatePrograms(options.getSamples(),
-                options.getOutputFolder());
+        if (options.isMinimize()) {
+            // Minimize program
+            ProgramMinimiser minimiser = new ProgramMinimiser(options.getLibrary());
+            minimiser.minimizeProgram(options.getInputMetaFile(),
+                    options.getId());
+        } else {
+            // Generate program
+            ProgramGenerator generator = new ProgramGenerator(options.getLibrary());
+            generator.generatePrograms(options.getSamples(),
+                    options.getOutputFolder());
+        }
     }
 }

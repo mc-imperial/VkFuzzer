@@ -11,11 +11,10 @@ public class CmdLineArgsParser {
     private final String OUTPUT_OPTION = "output";
     private final String SAMPLE_OPTION = "samples";
     private final String LIBRARY_OPTION = "library";
-    private final String MINIMIZE_OPTION = "minimize";
     private final String INPUT_OPTION = "input";
     private final String ID_OPTION = "id";
     private final String NUMBER_FORMAT_EXCEPTION_MSG =
-            "Samples size is not a number";
+            "Argument option is not a number";
     private final String ILLEGAL_ARGUMENT_MSG =
             "Library specified is not supported";
     private final String USAGE_MSG = "java -jar Main-X.Y-SNAPSHOT.jar";
@@ -35,6 +34,8 @@ public class CmdLineArgsParser {
     private final String LIBRARY_OPTION_DESC =
             "Specifies the library used for fuzzing (vulkan)";
     private final String PARSE_EXCEPTION_MSG = "Invalid arguments.  Reason: ";
+    private final String ILLIGAL_COMBINATION_MSG =
+            "Illegal combination of arguments";
     private final Options options;
 
     public CmdLineArgsParser() {
@@ -49,11 +50,26 @@ public class CmdLineArgsParser {
             CommandLineParser parser = new DefaultParser();
             CommandLine cmdLine = parser.parse(options, args);
 
-            Library library = parseLibrary(cmdLine);
-            String outputFolder = cmdLine.getOptionValue(OUTPUT_OPTION);
-            int samples = parseSamples(cmdLine);
+            checkArguments(cmdLine);
 
-            return new CmdLineOptions(library, outputFolder, samples, "", false, 0);
+            Library library = parseLibrary(cmdLine);
+            String outputFolder = "";
+            String input = "";
+            int samples = 0;
+            int id  = 0;
+            boolean minimization = false;
+
+            // Identify if its a minimization or a generation
+            if (cmdLine.getOptionValue(OUTPUT_OPTION) != null) {
+                outputFolder = cmdLine.getOptionValue(OUTPUT_OPTION);
+                samples = parseInt(cmdLine, SAMPLE_OPTION);
+            } else {
+                input = cmdLine.getOptionValue(INPUT_OPTION);
+                id = parseInt(cmdLine, ID_OPTION);
+                minimization = true;
+            }
+
+            return new CmdLineOptions(library, outputFolder, samples, input, minimization, id);
         } catch (ParseException parseException) {
             System.err.println(PARSE_EXCEPTION_MSG + parseException.getMessage());
         }
@@ -110,7 +126,7 @@ public class CmdLineArgsParser {
     }
 
     // Attempts to parse the supplied library
-    private Library parseLibrary(CommandLine cmdLine) throws ParseException {
+    private Library parseLibrary(final CommandLine cmdLine) throws ParseException {
         try {
             return Library.valueOf(
                     cmdLine.getOptionValue(LIBRARY_OPTION).toUpperCase());
@@ -120,11 +136,32 @@ public class CmdLineArgsParser {
     }
 
     // Attempts to parse the supplied number of samples
-    private int parseSamples(CommandLine cmdLine) throws ParseException {
+    private int parseInt(final CommandLine cmdLine, final String option)
+            throws ParseException {
         try {
-            return Integer.parseInt(cmdLine.getOptionValue(SAMPLE_OPTION));
+            return Integer.parseInt(cmdLine.getOptionValue(option));
         } catch (NumberFormatException exception) {
             throw new ParseException(NUMBER_FORMAT_EXCEPTION_MSG);
+        }
+    }
+
+    private void checkArguments(final CommandLine cmdLine) throws ParseException {
+        // Check for valid generation arguments
+        if (cmdLine.hasOption(OUTPUT_OPTION) ||
+                cmdLine.hasOption(SAMPLE_OPTION)) {
+            if (!(cmdLine.hasOption(OUTPUT_OPTION) &&
+                    cmdLine.hasOption(SAMPLE_OPTION))) {
+                throw new ParseException(ILLIGAL_COMBINATION_MSG);
+            }
+        }
+
+        // Check for valid minimization arguments
+        if (cmdLine.hasOption(INPUT_OPTION) ||
+                cmdLine.hasOption(ID_OPTION)) {
+            if (!(cmdLine.hasOption(INPUT_OPTION) &&
+                    cmdLine.hasOption(ID_OPTION))) {
+                throw new ParseException(ILLIGAL_COMBINATION_MSG);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import tool.fuzzer.Library;
 public class CmdLineOptions {
     private Library library;
     private String outputFolder;
-    private String inputFolder;
+    private String inputMetaFile;
     private int id;
     private int samples;
     private boolean minimize;
@@ -17,7 +17,7 @@ public class CmdLineOptions {
     public CmdLineOptions(final Library library,
                           final String outputFolder,
                           final int samples,
-                          final String inputFolder,
+                          final String inputMetaFile,
                           final boolean minimize,
                           final int id) {
         this.library = library;
@@ -25,7 +25,7 @@ public class CmdLineOptions {
         this.samples = samples;
         this.id = id;
         this.minimize = minimize;
-        this.inputFolder = inputFolder;
+        this.inputMetaFile = inputMetaFile;
     }
 
     public Library getLibrary() {
@@ -40,8 +40,8 @@ public class CmdLineOptions {
         return samples;
     }
 
-    public String getInputFolder() {
-        return inputFolder;
+    public String getInputMetaFile() {
+        return inputMetaFile;
     }
 
     public int getId() {
