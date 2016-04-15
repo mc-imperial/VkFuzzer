@@ -28,6 +28,12 @@ You can then run the Fuzzer from the build directory in the following way:
 * cd build/libs
 * java -jar Fuzzer-1.0-SNAPSHOT.jar -library vulkan -output /path/to/output/folder -samples number-of-programs-to-generate
 
+or to minimise a program
+
+* java -jar Fuzzer-1.0-SNAPSHOT.jar -library vulkan -input /path/to/metaFile.meta -id <id>
+
+The id represents the // ID: <id> value of the comment that identifies a code section
+
 You can get help about how to use the program by typing java -jar Fuzzer-1.0-SNAPSHOT.jar
 
 
