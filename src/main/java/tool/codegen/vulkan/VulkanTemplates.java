@@ -26,4 +26,6 @@ public class VulkanTemplates {
             "device/VkCreateDevice.ftl";
     public static final String VK_CREATE_COMMAND_POOL =
             "commandbuffers/VkCreateCommandPool.ftl";
+    public static final String VK_ALLOCATE_COMMAND_BUFFERS =
+            "commandbuffers/VkAllocateCommandBuffers.ftl";
 }

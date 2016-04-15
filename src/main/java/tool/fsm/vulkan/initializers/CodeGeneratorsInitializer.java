@@ -2,6 +2,7 @@ package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
 import tool.codegen.vulkan.device.DevicePropertiesGenerator;
 import tool.codegen.vulkan.device.VkCreateDeviceGenerator;
@@ -120,6 +121,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_CREATE_COMMAND_POOL.toString(),
                 new VkCreateCommandPoolGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS.toString(),
+                new VkAllocateCommandBuffersGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

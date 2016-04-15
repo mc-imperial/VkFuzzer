@@ -83,6 +83,10 @@ public class StatesInitializer {
                 TransitionType.REPEATING);
 
         defineTransition(VulkanState.VK_CREATE_COMMAND_POOL,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
                 VulkanState.STOP,
                 TransitionType.REPEATING);
 
@@ -93,6 +97,7 @@ public class StatesInitializer {
                 states.get(VulkanState.START));
     }
 
+    // Creates and initializes the states
     private void createStates() {
         VulkanState vulkanStates[] = VulkanState.values();
 
@@ -107,6 +112,7 @@ public class StatesInitializer {
         states.put(stopState, new StateImpl<>(stopState.toString(), true));
     }
 
+    // Defines a transition between two states
     private void defineTransition(VulkanState state,
                                   VulkanState nextState,
                                   TransitionType transitionType) {
