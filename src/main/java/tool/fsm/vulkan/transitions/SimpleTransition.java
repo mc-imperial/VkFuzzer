@@ -13,7 +13,7 @@ import java.util.Random;
  * Defines a transition which can recur on its self
  */
 public class SimpleTransition<T> implements Transition<T> {
-    private final double RECOUR_CHANCE = 0.5;
+    private final double RECOUR_CHANCE = 0.2;
     private final Random random;
     private final State<T> current;
     private final State<T> next;
