@@ -11,7 +11,9 @@ import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.serialization.vulkan.VulkanStateSerializer;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

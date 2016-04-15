@@ -11,8 +11,6 @@ import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
-import java.util.ArrayList;
-
 /**
  * Created by constantinos on 27/03/2016.
  */

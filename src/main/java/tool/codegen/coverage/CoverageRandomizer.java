@@ -3,7 +3,6 @@ package tool.codegen.coverage;
 import tool.codegen.coverage.types.SimpleCoverage;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by constantinos on 30/03/2016.

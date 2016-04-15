@@ -3,9 +3,8 @@ package tool.utils;
 /**
  * Created by cvryo on 13/04/2016.
  */
+
 import java.io.*;
-import java.net.URI;
-import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
