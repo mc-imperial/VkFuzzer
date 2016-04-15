@@ -34,6 +34,13 @@ public class VulkanEntity implements Entity {
         reset();
     }
 
+    public VulkanEntity(VulkanGlobalState globalState,
+                        ArrayList<VulkanState> visitedStates) {
+        reset();
+        this.globalState = globalState;
+        this.visitedStates = visitedStates;
+    }
+
     // Generates code if it has not reached the stop state
     @Override
     public boolean generateStateCode() {
@@ -48,6 +55,12 @@ public class VulkanEntity implements Entity {
         }
 
         return false;
+    }
+
+    @Override
+    public void generateStateCode(final String state, final Config config) {
+        templateEngine.generateCode(codeGenerators.get(state).getTemplateName(),
+                config, writer);
     }
 
     // Saves the generated program to the specified path
