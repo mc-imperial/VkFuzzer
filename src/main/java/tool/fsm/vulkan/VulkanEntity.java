@@ -103,6 +103,7 @@ public class VulkanEntity extends Entity {
         }
     }
 
+    // Initalizes code generators
     private void initCodeGenerators() {
         CodeGeneratorsInitializer initializer =
                 new CodeGeneratorsInitializer((VulkanGlobalState)globalState);

@@ -7,6 +7,8 @@ import tool.minimization.Minimizer;
 import tool.serialization.vulkan.VulkanStateDeserializer;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -15,7 +17,8 @@ import java.util.*;
  */
 public class VulkanProgramMinimizer implements Minimizer {
     private final String ERROR_MSG = "Id could not be found. Exiting...";
-    private final String MINIMIZED_PROGRAM_SUFFIX = "-min.cpp";
+    private final String MINIMIZED_PROGRAM_SUFFIX = "-min";
+    private final String MINIMIZED_PROGRAM_EXTENSION = ".cpp";
     private final String META_FILE_EXTENSION = ".meta";
     private final VulkanStateDeserializer deserializer;
 
@@ -56,10 +59,14 @@ public class VulkanProgramMinimizer implements Minimizer {
         String fileName = file.getName();
         String minimizedFileName =
                 fileName.substring(0, fileName.indexOf(META_FILE_EXTENSION))
-                + MINIMIZED_PROGRAM_SUFFIX;
-        String output = basePath + "/" + minimizedFileName;
-
+                        + MINIMIZED_PROGRAM_SUFFIX;
+        String sourceFile = minimizedFileName + MINIMIZED_PROGRAM_EXTENSION;
+        String output = basePath + "/" + sourceFile;
+        String cmakeFile = basePath + "/CMakeLists.txt";
         entity.saveGeneratedProgram(output);
+
+        // Modify CMake
+        modifyCMakeLists(sourceFile, minimizedFileName, cmakeFile);
     }
 
     // Finds the required config
@@ -97,5 +104,29 @@ public class VulkanProgramMinimizer implements Minimizer {
         } while (!queue.isEmpty());
 
         return dependencies;
+    }
+
+    // Modifies the existing CMake file with the new program
+    private void modifyCMakeLists(final String programSource,
+                                  final String programName,
+                                  final String cmakeFile) {
+        String template = "# Create executable\n" +
+                "add_executable(" + programName + " " + programSource + ")\n" +
+                "# Link executable\n" +
+                "if(WIN32)\n" +
+                "    target_link_libraries(" + programName + " ${VULKAN_LOADER})\n" +
+                "else()\n" +
+                "    # TODO:: Add other deps for linux\n" +
+                "    target_link_libraries(" + programName + " ${VULKAN_LOADER})\n" +
+                "endif()\n\n";
+
+        try {
+            FileWriter writer = new FileWriter(new File(cmakeFile), true);
+            writer.append("\n");
+            writer.append(template);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
