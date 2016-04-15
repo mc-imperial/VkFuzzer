@@ -1,7 +1,7 @@
 package tool;
 
 import tool.fuzzer.ProgramGenerator;
-import tool.minimisation.ProgramMinimiser;
+import tool.minimization.ProgramMinimizer;
 import tool.utils.cmdline.CmdLineArgsParser;
 import tool.utils.cmdline.CmdLineOptions;
 
@@ -23,7 +23,7 @@ public class Main {
 
         if (options.isMinimize()) {
             // Minimize program
-            ProgramMinimiser minimiser = new ProgramMinimiser(options.getLibrary());
+            ProgramMinimizer minimiser = new ProgramMinimizer(options.getLibrary());
             minimiser.minimizeProgram(options.getInputMetaFile(),
                     options.getId());
         } else {

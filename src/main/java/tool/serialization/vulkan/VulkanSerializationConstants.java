@@ -2,6 +2,7 @@ package tool.serialization.vulkan;
 
 /**
  * Created by constantinos on 14/04/2016.
+ * Contains constants about the custom metafile structure sections
  */
 public class VulkanSerializationConstants {
     public static final String START_CONFIGS = "<configs>";

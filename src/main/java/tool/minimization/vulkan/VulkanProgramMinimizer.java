@@ -1,11 +1,9 @@
-package tool.minimisation.vulkan;
+package tool.minimization.vulkan;
 
 import tool.configs.Config;
-import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.instance.VkApplicationInfoConfig;
+import tool.configs.GlobalState;
 import tool.fsm.vulkan.VulkanEntity;
-import tool.fsm.vulkan.states.VulkanState;
-import tool.minimisation.Minimiser;
+import tool.minimization.Minimizer;
 import tool.serialization.vulkan.VulkanStateDeserializer;
 
 import java.io.File;
@@ -13,22 +11,25 @@ import java.util.*;
 
 /**
  * Created by cvryo on 14/04/2016.
+ * The vulkan program minimizer
  */
-public class VulkanProgramMinimiser implements Minimiser {
+public class VulkanProgramMinimizer implements Minimizer {
+    private final String ERROR_MSG = "Id could not be found. Exiting...";
     private final String MINIMIZED_PROGRAM_SUFFIX = "-min.cpp";
     private final String META_FILE_EXTENSION = ".meta";
     private final VulkanStateDeserializer deserializer;
 
-    public VulkanProgramMinimiser() {
+    public VulkanProgramMinimizer() {
         deserializer = new VulkanStateDeserializer();
     }
 
+    // Minimises a given program from its meta file
     @Override
     public void minimizeProgram(String inputMetaFile, int id) {
         // Deserialize metadata
-        VulkanGlobalState globalState =
+        GlobalState globalState =
                 deserializer.deserializeConfigs(inputMetaFile);
-        ArrayList<VulkanState> visitedStates =
+        ArrayList<String> visitedStates =
                 deserializer.deserializeVisitedStates(inputMetaFile);
 
         // Find Config
@@ -36,7 +37,7 @@ public class VulkanProgramMinimiser implements Minimiser {
         try {
             config = findConfig(globalState, id);
         } catch (NoSuchElementException e) {
-            System.err.println("Id could not be found. Exiting...");
+            System.err.println(ERROR_MSG);
             System.exit(1);
         }
 
@@ -45,7 +46,7 @@ public class VulkanProgramMinimiser implements Minimiser {
         VulkanEntity entity = new VulkanEntity(globalState, visitedStates);
 
         while (!dependencies.isEmpty()) {
-            entity.generateStateCode(visitedStates.get(dependencies.peek().getId()).toString(),
+            entity.generateStateCode(visitedStates.get(dependencies.peek().getId()),
                     dependencies.pop());
         }
 
@@ -62,7 +63,7 @@ public class VulkanProgramMinimiser implements Minimiser {
     }
 
     // Finds the required config
-    private Config findConfig(final VulkanGlobalState globalState,
+    private Config findConfig(final GlobalState globalState,
                               final int id) throws NoSuchElementException {
         for (ArrayList<Config> list : globalState.getConfigs().values()) {
             for (Config config : list) {
@@ -76,7 +77,7 @@ public class VulkanProgramMinimiser implements Minimiser {
     }
 
     // Generates a stack of dependencies
-    private Stack<Config> generateDependencies(final VulkanGlobalState globalState,
+    private Stack<Config> generateDependencies(final GlobalState globalState,
                                                final Config config) {
         Stack<Config> dependencies = new Stack<>();
         Queue<Config> queue = new PriorityQueue<>();

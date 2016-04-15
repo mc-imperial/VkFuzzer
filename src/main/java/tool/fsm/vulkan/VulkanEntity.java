@@ -1,17 +1,15 @@
 package tool.fsm.vulkan;
 
-import org.statefulj.persistence.annotations.State;
-import tool.Main;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
+import tool.configs.GlobalState;
 import tool.configs.vulkan.MainConfig;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
 import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.serialization.vulkan.VulkanStateSerializer;
-import tool.utils.TemplateEngine;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,30 +19,24 @@ import java.util.HashMap;
  * Created by constantinos on 28/03/2016.
  * A stateful entity that contains state about the Vulkan Program
  */
-public class VulkanEntity implements Entity {
-    @State
-    private String state;
-    private Writer writer;
-    private VulkanGlobalState globalState;
-    private TemplateEngine templateEngine;
+public class VulkanEntity extends Entity {
     private HashMap<String, VulkanCodeGenerator> codeGenerators;
-    private ArrayList<VulkanState> visitedStates;
 
     public VulkanEntity() {
-        reset();
+        super(VulkanTemplates.TEMPLATE_FOLDER, new VulkanGlobalState());
+        initCodeGenerators();
     }
 
-    public VulkanEntity(VulkanGlobalState globalState,
-                        ArrayList<VulkanState> visitedStates) {
-        reset();
-        this.globalState = globalState;
-        this.visitedStates = visitedStates;
+    public VulkanEntity(GlobalState globalState,
+                        ArrayList<String> visitedStates) {
+        super(VulkanTemplates.TEMPLATE_FOLDER, globalState, visitedStates);
+        initCodeGenerators();
     }
 
     // Generates code if it has not reached the stop state
     @Override
     public boolean generateStateCode() {
-        visitedStates.add(VulkanState.valueOf(state));
+        visitedStates.add(state);
 
         if (!state.equals(VulkanState.STOP.toString())) {
             VulkanCodeGenerator generator = codeGenerators.get(state);
@@ -57,6 +49,7 @@ public class VulkanEntity implements Entity {
         return false;
     }
 
+    // Generates code according to the given state and config
     @Override
     public void generateStateCode(final String state, final Config config) {
         templateEngine.generateCode(codeGenerators.get(state).getTemplateName(),
@@ -88,22 +81,6 @@ public class VulkanEntity implements Entity {
         }
     }
 
-    // Initializes the entity
-    private void reset() {
-        globalState = new VulkanGlobalState();
-
-        CodeGeneratorsInitializer initializer =
-                new CodeGeneratorsInitializer(globalState);
-        codeGenerators = initializer.initializeCodeGenerators();
-
-        writer = new StringWriter();
-
-        templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
-                Main.class);
-
-        visitedStates = new ArrayList<>();
-    }
-
     // Saves metadata to file so that the program can be minimised
     private void saveMetaData(final String basePath, final String fileName) {
         try {
@@ -122,5 +99,11 @@ public class VulkanEntity implements Entity {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private void initCodeGenerators() {
+        CodeGeneratorsInitializer initializer =
+                new CodeGeneratorsInitializer((VulkanGlobalState)globalState);
+        codeGenerators = initializer.initializeCodeGenerators();
     }
 }

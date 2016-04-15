@@ -3,22 +3,9 @@ package tool.serialization.vulkan;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import tool.configs.Config;
+import tool.configs.GlobalState;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
-import tool.configs.vulkan.device.DevicePropertiesConfig;
-import tool.configs.vulkan.device.DevicesConfig;
-import tool.configs.vulkan.device.VkCreateDeviceConfig;
-import tool.configs.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesConfig;
-import tool.configs.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesConfig;
-import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
-import tool.configs.vulkan.instance.VkApplicationInfoConfig;
-import tool.configs.vulkan.instance.VkCreateInstanceConfig;
-import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
 import tool.fsm.vulkan.states.VulkanState;
-import tool.serialization.RuntimeTypeAdapterFactory;
 import tool.serialization.StateDeserializer;
 
 import java.io.IOException;
@@ -26,56 +13,31 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by constantinos on 01/04/2016.
  * Deserializes a string into the collection and config primitives
  */
 public class VulkanStateDeserializer implements StateDeserializer {
-    private final Gson gson;
     private final ObjectMapper objectMapper;
 
     public VulkanStateDeserializer() {
-        RuntimeTypeAdapterFactory<Config> adapter =
-                RuntimeTypeAdapterFactory
-                        .of(Config.class)
-                        .registerSubtype(VkCreateCommandPoolConfig.class)
-                        .registerSubtype(DevicePropertiesConfig.class)
-                        .registerSubtype(DevicesConfig.class)
-                        .registerSubtype(VkCreateDeviceConfig.class)
-                .registerSubtype(VkEnumerateInstanceExtensionPropertiesConfig.class)
-                .registerSubtype(VkEnumerateInstanceLayerPropertiesConfig.class)
-                .registerSubtype(VkEnumeratePhysicalDevicesConfig.class)
-                .registerSubtype(VkApplicationInfoConfig.class)
-                .registerSubtype(VkCreateInstanceConfig.class)
-                .registerSubtype(VkInstanceCreateInfoConfig.class);
-
-        gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create();
         objectMapper = new ObjectMapper();
         objectMapper.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET, false);
     }
 
-    // Deserializes a string from Base64 to a collection of Config primitives
-    public VulkanGlobalState deserializeConfigs(final String metaFile) {
-        VulkanGlobalState globalState = new VulkanGlobalState();
+    // Deserializes the config primitives of a metafile
+    public GlobalState deserializeConfigs(final String metaFile) {
+        GlobalState globalState = new GlobalState();
 
         try {
-            byte[] encoded = Files.readAllBytes(Paths.get(metaFile));
-            String contents = new String(encoded, Charset.defaultCharset());
+            // Extract file contents
+            String toBeDecoded = getContent(metaFile,
+                    VulkanSerializationConstants.START_CONFIGS,
+                    VulkanSerializationConstants.STOP_CONFIGS);
 
-            int baseIndex =
-                    contents.indexOf(VulkanSerializationConstants.START_CONFIGS);
-            int endIndex =
-                    contents.indexOf(VulkanSerializationConstants.STOP_CONFIGS);
-
-            String toBeDecoded = contents.substring(
-                    baseIndex + VulkanSerializationConstants.START_CONFIGS.length(),
-                    endIndex);
-
-            globalState =
-                    objectMapper.readValue(toBeDecoded, VulkanGlobalState.class);
-            //globalState = gson.fromJson(toBeDecoded, VulkanGlobalState.class);
+            // Deserialize
+            globalState = objectMapper.readValue(toBeDecoded, VulkanGlobalState.class);
         } catch (IOException exception) {
             System.err.println(exception.getMessage());
         }
@@ -83,34 +45,47 @@ public class VulkanStateDeserializer implements StateDeserializer {
         return globalState;
     }
 
-    // Deserializes a string from Base64 to a collection of Config primitives
-    public ArrayList<VulkanState> deserializeVisitedStates(final String metaFile) {
-        ArrayList<VulkanState> visitedStates = new ArrayList<>();
+    // Deserializes the visitedStates of a metafile
+    public ArrayList<String> deserializeVisitedStates(final String metaFile) {
+        ArrayList<String> visitedStates = new ArrayList<>();
 
         try {
-            byte[] encoded = Files.readAllBytes(Paths.get(metaFile));
-            String contents = new String(encoded, Charset.defaultCharset());
+            // Extract file contents
+            String toBeDecoded = getContent(metaFile,
+                    VulkanSerializationConstants.START_VISITED_STATES,
+                    VulkanSerializationConstants.STOP_VISITED_STATES);
 
-            int baseIndex =
-                    contents.indexOf(VulkanSerializationConstants.START_VISITED_STATES);
-            int endIndex =
-                    contents.indexOf(VulkanSerializationConstants.STOP_VISITED_STATES);
-
-            String toBeDecoded = contents.substring(
-                    baseIndex + VulkanSerializationConstants.START_VISITED_STATES.length(),
-                    endIndex);
-
+            // Deserialize
             TypeReference<ArrayList<VulkanState>> typeReference =
                     new TypeReference<ArrayList<VulkanState>>(){};
-
-            ArrayList<VulkanState> bla =
+            ArrayList<VulkanState> deserializedStates =
                     objectMapper.readValue(toBeDecoded, typeReference);
-            visitedStates = bla;
-            //visitedStates = gson.fromJson(toBeDecoded, visitedStates.getClass());
+
+            for (VulkanState state : deserializedStates) {
+                visitedStates.add(state.toString());
+            }
         } catch (IOException exception) {
             System.err.println(exception.getMessage());
         }
 
         return visitedStates;
+    }
+
+    // Extracts the content we need from the metafile
+    private String getContent(final String metaFile,
+                              final String startSection,
+                              final String endSection) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(metaFile));
+        String contents = new String(encoded, Charset.defaultCharset());
+
+        // Find the required sections from the file
+        int baseIndex =
+                contents.indexOf(startSection);
+        int endIndex =
+                contents.indexOf(endSection);
+
+        return contents.substring(
+                baseIndex + startSection.length(),
+                endIndex);
     }
 }
