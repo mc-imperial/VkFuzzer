@@ -18,6 +18,7 @@ public enum VulkanState {
     VK_CREATE_DEVICE,
 
     VK_CREATE_COMMAND_POOL,
+    VK_ALLOCATE_COMMAND_BUFFERS,
 
     STOP
 }
