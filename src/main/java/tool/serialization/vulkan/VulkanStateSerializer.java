@@ -26,7 +26,12 @@ public class VulkanStateSerializer implements StateSerializer {
                                final Writer writer) {
         try {
             writer.append(VulkanSerializationConstants.START_CONFIGS);
-            objectMapper.writeValue(writer, globalState);
+
+            // Avoid nulls
+            if (globalState != null) {
+                objectMapper.writeValue(writer, globalState);
+            }
+
             writer.append(VulkanSerializationConstants.STOP_CONFIGS);
         } catch (IOException exception) {
             System.err.println(exception.getMessage());
@@ -37,7 +42,12 @@ public class VulkanStateSerializer implements StateSerializer {
     public void serializeVisitedStates(final ArrayList<String> states, final Writer writer) {
         try {
             writer.append(VulkanSerializationConstants.START_VISITED_STATES);
-            objectMapper.writeValue(writer,states);
+
+            // Avoid nulls
+            if (states != null) {
+                objectMapper.writeValue(writer, states);
+            }
+
             writer.append(VulkanSerializationConstants.STOP_VISITED_STATES);
         } catch (IOException exception) {
             System.err.println(exception.getMessage());

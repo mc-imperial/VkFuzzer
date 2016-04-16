@@ -77,4 +77,21 @@ public class CmdLineArgsParserTest {
             // Exception was expected
         }
     }
+
+    @Test
+    public void failsToParseArgumentsIncompatibleArgumentsAreGiven() {
+        String[] args =
+        {
+                "-in", "/path",
+                "-output" , "/path",
+                "-library", "dx12"
+        };
+
+        try {
+            CmdLineOptions option = cmdLineArgsParser.parseArguments(args);
+            Assert.fail(ERROR_MSG);
+        } catch (RuntimeException e) {
+            // Exception was expected
+        }
+    }
 }

@@ -38,7 +38,8 @@ public class VulkanStateDeserializer implements StateDeserializer {
 
             // Deserialize
             globalState = objectMapper.readValue(toBeDecoded, VulkanGlobalState.class);
-        } catch (IOException exception) {
+        } catch (Exception exception) {
+            // Catch any exception
             System.err.println(exception.getMessage());
         }
 
@@ -64,7 +65,8 @@ public class VulkanStateDeserializer implements StateDeserializer {
             for (VulkanState state : deserializedStates) {
                 visitedStates.add(state.toString());
             }
-        } catch (IOException exception) {
+        } catch (Exception exception) {
+            // Catch any exception
             System.err.println(exception.getMessage());
         }
 
