@@ -11,7 +11,6 @@ import tool.serialization.vulkan.VulkanStateSerializer;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by constantinos on 01/04/2016.

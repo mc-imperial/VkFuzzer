@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tool.configs.GlobalState;
-import tool.configs.vulkan.VulkanGlobalState;
 import tool.serialization.vulkan.VulkanStateDeserializer;
-import tool.utils.TemplateEngine;
 import tool.utils.TemplateEngineTest;
 
 import java.io.File;

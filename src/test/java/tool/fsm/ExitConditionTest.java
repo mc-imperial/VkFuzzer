@@ -3,7 +3,6 @@ package tool.fsm;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tool.fsm.ExitCondition;
 
 /**
  * Created by constantinos on 29/03/2016.
