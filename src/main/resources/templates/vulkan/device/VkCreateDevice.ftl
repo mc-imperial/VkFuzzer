@@ -8,6 +8,7 @@
     <#else>
     std::vector<VkDevice> ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index};
     std::vector<int> ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index};
+    std::vector<int> ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index};
 
     for (int i = 0; i < ${deviceProperties.devices}.size(); ++i)
     {
@@ -23,6 +24,7 @@
                 {
                     queueInfo.queueFamilyIndex = k;
                     ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(k);
+                    ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
                     found = true;
                     break;
                 }
@@ -32,6 +34,7 @@
             if (!found)
             {
                 ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(-1);
+                ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(-1);
             }
 
             // If no graphics queue found then stop

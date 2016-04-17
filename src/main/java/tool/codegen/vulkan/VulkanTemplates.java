@@ -28,4 +28,6 @@ public class VulkanTemplates {
             "commandbuffers/VkCreateCommandPool.ftl";
     public static final String VK_ALLOCATE_COMMAND_BUFFERS =
             "commandbuffers/VkAllocateCommandBuffers.ftl";
+    public static final String VK_GET_DEVICE_QUEUE =
+            "device/VkGetDeviceQueue.ftl";
 }

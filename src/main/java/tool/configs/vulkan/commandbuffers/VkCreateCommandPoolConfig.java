@@ -15,6 +15,8 @@ public class VkCreateCommandPoolConfig extends Config {
     private String randomIndex;
     private String randomQueueIndex;
     private String randomDevice;
+    private String randomQueueCount;
+    private String queueCounts;
 
     public String getCmdPoolCreateInfo() {
         return cmdPoolCreateInfo;
@@ -86,5 +88,21 @@ public class VkCreateCommandPoolConfig extends Config {
 
     public void setRandomDevice(String randomDevice) {
         this.randomDevice = randomDevice;
+    }
+
+    public String getRandomQueueCount() {
+        return randomQueueCount;
+    }
+
+    public void setRandomQueueCount(String randomQueueCount) {
+        this.randomQueueCount = randomQueueCount;
+    }
+
+    public String getQueueCounts() {
+        return queueCounts;
+    }
+
+    public void setQueueCounts(String queueCounts) {
+        this.queueCounts = queueCounts;
     }
 }

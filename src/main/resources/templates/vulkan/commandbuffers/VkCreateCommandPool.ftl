@@ -4,6 +4,7 @@
     // ID: ${config.id}
     uint32_t ${config.randomIndex} = rand() % ${config.queueFamilyIndex}.size();
     uint32_t ${config.randomQueueIndex} = ${config.queueFamilyIndex}[${config.randomIndex}];
+    uint32_t ${config.randomQueueCount} = ${config.queueCounts}[${config.randomIndex}];
     VkDevice ${config.randomDevice} = ${config.logicalDevice}[${config.randomIndex}];
 
     VkCommandPoolCreateInfo ${config.cmdPoolCreateInfo} = {};

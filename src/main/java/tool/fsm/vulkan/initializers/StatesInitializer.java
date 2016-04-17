@@ -87,6 +87,10 @@ public class StatesInitializer {
                 TransitionType.REPEATING);
 
         defineTransition(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+                VulkanState.VK_GET_DEVICE_QUEUE,
+                TransitionType.REPEATING);
+
+        defineTransition(VulkanState.VK_GET_DEVICE_QUEUE,
                 VulkanState.STOP,
                 TransitionType.REPEATING);
 

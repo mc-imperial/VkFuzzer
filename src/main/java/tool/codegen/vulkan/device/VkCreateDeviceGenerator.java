@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class VkCreateDeviceGenerator extends VulkanCodeGenerator {
     private final String LOGICAL_DEVICES = "logicalDevices";
     private final String QUEUE_INDEX = "queueIndex";
+    private final String QUEUE_COUNTS = "queueCounts";
 
     public VkCreateDeviceGenerator(RandomStringGenerator randomStringGenerator,
                                    RandomNumberGanerator randomNumberGanerator,
@@ -41,11 +42,14 @@ public class VkCreateDeviceGenerator extends VulkanCodeGenerator {
                 freshMap.getFreshId(LOGICAL_DEVICES));
         config.setQueueIndex(QUEUE_INDEX +
                 freshMap.getFreshId(QUEUE_INDEX));
+        config.setQueueCounts(QUEUE_COUNTS +
+                freshMap.getFreshId(QUEUE_COUNTS));
 
         // Check if all configs are bad
         boolean allBadConfigs = true;
         for (Config theConfig : enumeratedPhysicalDeviceProperties) {
             allBadConfigs = allBadConfigs && theConfig.isBad();
+            config.addDependency(theConfig.getId());
         }
 
         config.setBad(allBadConfigs);

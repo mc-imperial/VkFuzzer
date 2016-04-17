@@ -26,6 +26,7 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
     private final String RANDOM_INDEX = "randomIndex";
     private final String RANDOM_QUEUE_INDEX = "randomQueueIndex";
     private final String RANDOM_DEVICE = "randomDevice";
+    private final String RANDOM_QUEUE_COUNT = "randomQueueCount";
 
     public VkCreateCommandPoolGenerator(RandomStringGenerator randomStringGenerator,
                                         RandomNumberGanerator randomNumberGanerator,
@@ -51,6 +52,8 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
         config.setRandomIndex(RANDOM_INDEX + freshMap.getFreshId(RANDOM_INDEX));
         config.setRandomQueueIndex(RANDOM_QUEUE_INDEX +
                 freshMap.getFreshId(RANDOM_QUEUE_INDEX));
+        config.setRandomQueueCount(RANDOM_QUEUE_COUNT +
+                freshMap.getFreshId(RANDOM_QUEUE_COUNT));
 
         // Select a random logical device
         ArrayList<Config> vkCreateDeviceConfigs =
@@ -67,8 +70,10 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
 
         config.setLogicalDevice(randomConfig.getLogicalDevices() + random2 + random3);
         config.setQueueFamilyIndex(randomConfig.getQueueIndex() + random2 + random3);
+        config.setQueueCounts(randomConfig.getQueueCounts() + random2 + random3);
 
         config.setBad(randomConfig.isBad());
+        config.addDependency(randomConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_COMMAND_POOL, config);
 

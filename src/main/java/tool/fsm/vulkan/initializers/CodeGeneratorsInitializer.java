@@ -6,6 +6,7 @@ import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
 import tool.codegen.vulkan.device.DevicePropertiesGenerator;
 import tool.codegen.vulkan.device.VkCreateDeviceGenerator;
+import tool.codegen.vulkan.device.VkGetDeviceQueueGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
@@ -130,6 +131,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_ALLOCATE_COMMAND_BUFFERS.toString(),
                 new VkAllocateCommandBuffersGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_DEVICE_QUEUE.toString(),
+                new VkGetDeviceQueueGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

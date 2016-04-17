@@ -11,6 +11,7 @@ public class VkCreateDeviceConfig extends Config {
     private ArrayList<Config> devicePropertiesConfigs;
     private String logicalDevices;
     private String queueIndex;
+    private String queueCounts;
 
     public VkCreateDeviceConfig() {
         devicePropertiesConfigs = new ArrayList<>();
@@ -38,5 +39,13 @@ public class VkCreateDeviceConfig extends Config {
 
     public void setQueueIndex(String queueIndex) {
         this.queueIndex = queueIndex;
+    }
+
+    public String getQueueCounts() {
+        return queueCounts;
+    }
+
+    public void setQueueCounts(String queueCounts) {
+        this.queueCounts = queueCounts;
     }
 }
