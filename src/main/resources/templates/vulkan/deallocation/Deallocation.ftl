@@ -10,10 +10,14 @@
     </#list>
 
     <#list config.devices as device>
-    for (VkDevice device : ${device.logicalDevices})
+    <#list device.devicePropertiesConfigs as devicePropertiesConfig>
+    <#list devicePropertiesConfig.devices as theDevices>
+    for (VkDevice device : ${device.logicalDevices}${devicePropertiesConfig?index}${theDevices?index})
     {
         vkDestroyDevice(device, NULL);
     }
+    </#list>
+    </#list>
     </#list>
 
     <#list config.instances as instance>
