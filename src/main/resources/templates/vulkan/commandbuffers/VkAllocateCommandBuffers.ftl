@@ -5,7 +5,7 @@
     ${config.cmdBufferAllocInfo}.pNext = ${config.next};
     ${config.cmdBufferAllocInfo}.commandPool = ${config.commandPool};
     ${config.cmdBufferAllocInfo}.level = ${config.bufferType};
-    ${config.cmdBufferAllocInfo}.bufferCount = ${config.count};
+    ${config.cmdBufferAllocInfo}.commandBufferCount = ${config.count};
 
     std::vector<VkCommandBuffer> ${config.buffers};
     ${config.buffers}.resize(${config.count});

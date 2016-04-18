@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class VkAllocateCommandBuffersGenerator extends VulkanCodeGenerator {
     private final String RESULT = "result";
     private final String CMD_BUFFER_ALLOC_INFO = "cmdBufferAllocInfo";
-    private final String NEXT = "next";
+    private final String NEXT = "NULL";
     private final String BUFFERS = "buffers";
     private final String PRIMARY_BUFFER = "VK_COMMAND_BUFFER_LEVEL_PRIMARY";
     private final String SECONDARY_BUFFER = "VK_COMMAND_BUFFER_LEVEL_SECONDARY";

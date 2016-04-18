@@ -52,7 +52,7 @@ public class VkGetDeviceQueueGenerator extends VulkanCodeGenerator {
 
         config.addDependency(cmdPoolConfig.getId());
         config.setQueueIndex(cmdPoolConfig.getRandomQueueCount());
-        config.setFamilyIndex(cmdPoolConfig.getQueueFamilyIndex());
+        config.setFamilyIndex(cmdPoolConfig.getRandomQueueIndex());
         config.setDevice(cmdPoolConfig.getRandomDevice());
 
         return config;
