@@ -66,6 +66,7 @@ public class VkAllocateCommandBuffersGenerator extends VulkanCodeGenerator {
         config.setCommandPool(randomCommandPool.getCommandPool());
         config.setDevice(randomCommandPool.getRandomDevice());
         config.addDependency(randomCommandPool.getId());
+        config.setBad(randomCommandPool.isBad());
 
         globalState.addConfig(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS, config);
 

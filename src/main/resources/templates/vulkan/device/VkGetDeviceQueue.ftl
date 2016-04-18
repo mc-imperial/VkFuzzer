@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkQueue ${config.queue};
     uint32_t ${config.queueCountIndex} = rand() % ${config.device}.maxQueueCount;
@@ -6,3 +8,4 @@
 
     vkGetDeviceQueue(${config.device}.device, ${config.queueFamilyIndex},
             ${config.queueCountIndex}, &${config.queue});
+    </#if>

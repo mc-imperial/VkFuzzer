@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkCommandBufferAllocateInfo ${config.cmdBufferAllocInfo} = {};
     ${config.cmdBufferAllocInfo}.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -18,3 +20,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>
