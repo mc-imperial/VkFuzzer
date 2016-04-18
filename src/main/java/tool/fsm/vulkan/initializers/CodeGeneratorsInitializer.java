@@ -1,6 +1,7 @@
 package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
+import tool.codegen.deallocation.DeallocationGenerator;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
@@ -145,6 +146,16 @@ public class CodeGeneratorsInitializer {
                         freshMap,
                         randomizer.randomCoverage(),
                         globalState));
+
+        generators.put(
+                VulkanState.DEALLOCATION.toString(),
+                new DeallocationGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
 
         return generators;
     }

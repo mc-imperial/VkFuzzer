@@ -91,8 +91,12 @@ public class StatesInitializer {
                 TransitionType.REPEATING);
 
         defineTransition(VulkanState.VK_GET_DEVICE_QUEUE,
-                VulkanState.STOP,
+                VulkanState.DEALLOCATION,
                 TransitionType.REPEATING);
+
+        defineTransition(VulkanState.DEALLOCATION,
+                VulkanState.STOP,
+                TransitionType.SEQUENTIAL);
 
         LinkedList<State<VulkanEntity>> fsmStates =
                 new LinkedList<>(states.values());

@@ -30,4 +30,6 @@ public class VulkanTemplates {
             "commandbuffers/VkAllocateCommandBuffers.ftl";
     public static final String VK_GET_DEVICE_QUEUE =
             "device/VkGetDeviceQueue.ftl";
+    public static final String DEALLOCATION =
+            "deallocation/Deallocation.ftl";
 }

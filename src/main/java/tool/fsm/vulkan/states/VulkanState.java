@@ -21,5 +21,7 @@ public enum VulkanState {
     VK_ALLOCATE_COMMAND_BUFFERS,
     VK_GET_DEVICE_QUEUE,
 
+    DEALLOCATION,
+
     STOP
 }
