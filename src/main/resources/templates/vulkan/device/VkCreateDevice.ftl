@@ -6,49 +6,52 @@
     <#list devicePropertiesConfig.devices as deviceProperties>
     <#if deviceProperties.isBad()>
     <#else>
-    std::vector<VkDevice> ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index};
-    std::vector<int> ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index};
-    std::vector<int> ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index};
+    std::vector<FuzzerLogicalDevice> ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index};
 
     for (int i = 0; i < ${deviceProperties.devices}.size(); ++i)
     {
         for (int j = 0; j < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++j)
         {
-            VkDeviceQueueCreateInfo queueInfo = {};
+            FuzzerLogicalDevice fuzzerLogicalDevice = {};
+            fuzzerLogicalDevice.queueFamilyIndex = j;
+            fuzzerLogicalDevice.maxQueueCount = ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount;
+
+            if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+            {
+                fuzzerLogicalDevice.supportsGraphics = true;
+                fuzzerLogicalDevice.supportsTransfer = true;
+            }
+
+            if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_COMPUTE_BIT)
+            {
+                fuzzerLogicalDevice.supportsCompute = true;
+                fuzzerLogicalDevice.supportsTransfer = true;
+            }
+
+            if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_TRANSFER_BIT)
+            {
+                fuzzerLogicalDevice.supportsTransfer = true;
+            }
+
+            if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_SPARSE_BINDING_BIT)
+            {
+                fuzzerLogicalDevice.supportsSparseBinding = true;
+            }
+
             std::vector<float> queuePriorities;
 
-            bool found = false;
-            for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++k)
-            {
-                if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_GRAPHICS_BIT)
-                {
-                    queueInfo.queueFamilyIndex = k;
-                    ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(k);
-                    ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount);
-                    found = true;
-                    break;
-                }
-            }
+            VkDeviceQueueCreateInfo queueInfo = {};
+            queueInfo.queueFamilyIndex = j;
+            queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+            queueInfo.pNext = NULL;
+            queueInfo.queueCount = fuzzerLogicalDevice.maxQueueCount;
+            queueInfo.pQueuePriorities = queuePriorities.data();
 
-            // If no queue was found that supports graphics then indicate that with a negative index
-            if (!found)
-            {
-                ${config.queueIndex}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(-1);
-                ${config.queueCounts}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(-1);
-            }
-
-            // If no graphics queue found then stop
-            // assert(found);
-
+            // Assign random priorities
             for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
             {
                 queuePriorities.push_back(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
             }
-
-            queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-            queueInfo.pNext = NULL;
-            queueInfo.queueCount = ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount;
-            queueInfo.pQueuePriorities = queuePriorities.data();
 
             VkDeviceCreateInfo deviceInfo = {};
             deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -62,8 +65,8 @@
             deviceInfo.ppEnabledLayerNames = NULL;
             deviceInfo.pEnabledFeatures = NULL;
 
-            VkDevice device;
-            VkResult res = vkCreateDevice(${deviceProperties.devices}[i], &deviceInfo, NULL, &device);
+            VkResult res = vkCreateDevice(${deviceProperties.devices}[i], &deviceInfo,
+                    NULL, &(fuzzerLogicalDevice.device));
 
             // Check result
             assert((res == VK_SUCCESS)
@@ -78,7 +81,7 @@
 
             assert(res == VK_SUCCESS);
 
-            ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(device);
+            ${config.logicalDevices}${devicePropertiesConfig?index}${deviceProperties?index}.push_back(fuzzerLogicalDevice);
         }
     }
 

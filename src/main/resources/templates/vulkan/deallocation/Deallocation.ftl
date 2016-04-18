@@ -12,9 +12,9 @@
     <#list config.devices as device>
     <#list device.devicePropertiesConfigs as devicePropertiesConfig>
     <#list devicePropertiesConfig.devices as theDevices>
-    for (VkDevice device : ${device.logicalDevices}${devicePropertiesConfig?index}${theDevices?index})
+    for (FuzzerLogicalDevice fuzzerLogicalDevice : ${device.logicalDevices}${devicePropertiesConfig?index}${theDevices?index})
     {
-        vkDestroyDevice(device, NULL);
+        vkDestroyDevice(fuzzerLogicalDevice.device, NULL);
     }
     </#list>
     </#list>

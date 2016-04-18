@@ -10,7 +10,7 @@
     std::vector<VkCommandBuffer> ${config.buffers};
     ${config.buffers}.resize(${config.count});
 
-    VkResult ${config.result} = vkAllocateCommandBuffers(${config.device},
+    VkResult ${config.result} = vkAllocateCommandBuffers(${config.device}.device,
             &${config.cmdBufferAllocInfo}, ${config.buffers}.data());
 
     assert((${config.result} == VK_SUCCESS)

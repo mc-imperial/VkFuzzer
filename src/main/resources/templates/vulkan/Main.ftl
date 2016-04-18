@@ -62,6 +62,17 @@
     <#--SDL_Quit();-->
 <#--}-->
 
+struct FuzzerLogicalDevice
+{
+    VkDevice device;
+    uint32_t queueFamilyIndex;
+    uint32_t maxQueueCount;
+    bool supportsGraphics;
+    bool supportsCompute;
+    bool supportsTransfer;
+    bool supportsSparseBinding;
+};
+
 int main(int argc, char *argv[])
 {
     // Set seed for random operations
