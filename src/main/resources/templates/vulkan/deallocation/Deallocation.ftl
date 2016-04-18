@@ -1,12 +1,12 @@
 
     //ID: ${config.id}
     <#list config.cmdBuffers as cmdBuffer>
-    vkFreeCommandBuffers(${cmdBuffer.device}, ${cmdBuffer.commandPool},
+    vkFreeCommandBuffers(${cmdBuffer.device}.device, ${cmdBuffer.commandPool},
             ${cmdBuffer.buffers}.size(), ${cmdBuffer.buffers}.data());
     </#list>
 
     <#list config.cmdPools as cmdPool>
-    vkDestroyCommandPool(${cmdPool.randomDevice}, ${cmdPool.commandPool}, NULL);
+    vkDestroyCommandPool(${cmdPool.randomDevice}.device, ${cmdPool.commandPool}, NULL);
     </#list>
 
     <#list config.devices as device>
