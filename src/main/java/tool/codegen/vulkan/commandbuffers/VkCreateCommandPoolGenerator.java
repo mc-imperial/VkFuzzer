@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
     private final String CMD_POOL_CREATE_INFO = "cmdPoolCreateInfo";
-    private final String FLAGS = "0";
+    private final String FLAGS = "VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT";
     private final String RESULT = "result";
     private final String COMMAND_POOL = "commandPool";
     private final String RANDOM_INDEX = "randomIndex";

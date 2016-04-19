@@ -1,5 +1,75 @@
 
     //ID: ${config.id}
+    <#list config.computePipelines as computePipeline>
+        <#if computePipeline.isBad()>
+        <#else>
+        vkDestroyPipeline(${computePipeline.device}.device, ${computePipeline.computePipeline}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.graphicsPipelines as graphicsPipeline>
+        <#if graphicsPipeline.isBad()>
+        <#else>
+        vkDestroyPipeline(${graphicsPipeline.device}.device, ${graphicsPipeline.graphicsPipeline}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.pipelineCaches as pipelineCache>
+        <#if pipelineCache.isBad()>
+        <#else>
+        vkDestroyPipelineCache(${pipelineCache.device}.device, ${pipelineCache.pipelineCache}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.imageViews as imageView>
+        <#if imageView.isBad()>
+        <#else>
+        vkDestroyImageView(${imageView.device}.device, ${imageView.imageView}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.images as image>
+        <#if image.isBad()>
+        <#else>
+        vkDestroyImage(${image.device}.device, ${image.image}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.bufferViews as bufferView>
+        <#if bufferView.isBad()>
+        <#else>
+        vkDestroyBufferView(${bufferView.device}.device, ${bufferView.bufferView}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.buffers as buffer>
+        <#if buffer.isBad()>
+        <#else>
+        vkDestroyBuffer(${buffer.device}.device, ${buffer.buffer}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.fences as fence>
+        <#if fence.isBad()>
+        <#else>
+        vkDestroyFence(${fence.device}.device, ${fence.fence}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.events as event>
+        <#if event.isBad()>
+        <#else>
+        vkDestroyEvent(${event.device}.device, ${event.event}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.semaphores as semaphore>
+        <#if fence.isBad()>
+        <#else>
+        vkDestroySemaphore(${semaphore.device}.device, ${semaphore.semaphore}, NULL);
+        </#if>
+    </#list>
+
     <#list config.cmdBuffers as cmdBuffer>
         <#if cmdBuffer.isBad()>
         <#else>

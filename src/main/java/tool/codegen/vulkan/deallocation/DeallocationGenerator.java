@@ -1,4 +1,4 @@
-package tool.codegen.deallocation;
+package tool.codegen.vulkan.deallocation;
 
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
