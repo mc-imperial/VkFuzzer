@@ -41,7 +41,7 @@ public class VulkanTemplates {
     public static final String VK_GET_EVENT_STATUS =
             "synchronisation/VkGetEventStatus.ftl";
     public static final String VK_GET_FENCE_STATUS =
-            "synchronisation/VKGetFenceStatus.ftl";
+            "synchronisation/VkGetFenceStatus.ftl";
     public static final String VK_RESET_EVENT =
             "synchronisation/VkResetEvent.ftl";
     public static final String VK_RESET_FENCES =
