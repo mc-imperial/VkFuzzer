@@ -104,7 +104,7 @@ public class StatesInitializer {
         // Entering random path
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_DEVICE_QUEUE,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+                randomStates);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_EVENT,
@@ -120,7 +120,7 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_SET_EVENT,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+                randomStates);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_FENCE,
@@ -132,11 +132,11 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_RESET_FENCES,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+                randomStates);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SEMAPHORE,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+                randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.DEALLOCATION,

@@ -80,7 +80,7 @@ public class VulkanProgramMinimizer implements Minimizer {
             }
         }
 
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("Could not find id " + id);
     }
 
     // Generates a stack of dependencies
@@ -97,9 +97,13 @@ public class VulkanProgramMinimizer implements Minimizer {
             Config current = queue.remove();
 
             for (int id : current.getDependencies()) {
-                Config dependency = findConfig(globalState, id);
-                dependencies.push(dependency);
-                queue.add(dependency);
+                try {
+                    Config dependency = findConfig(globalState, id);
+                    dependencies.push(dependency);
+                    queue.add(dependency);
+                } catch (NoSuchElementException e) {
+                    System.err.println(e.getMessage());
+                }
             }
         } while (!queue.isEmpty());
 
