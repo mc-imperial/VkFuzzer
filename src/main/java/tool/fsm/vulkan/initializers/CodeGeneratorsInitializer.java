@@ -1,10 +1,10 @@
 package tool.fsm.vulkan.initializers;
 
 import tool.codegen.coverage.CoverageRandomizer;
-import tool.codegen.vulkan.deallocation.DeallocationGenerator;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
+import tool.codegen.vulkan.deallocation.DeallocationGenerator;
 import tool.codegen.vulkan.device.DevicePropertiesGenerator;
 import tool.codegen.vulkan.device.VkCreateDeviceGenerator;
 import tool.codegen.vulkan.device.VkGetDeviceQueueGenerator;

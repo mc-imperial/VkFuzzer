@@ -9,7 +9,10 @@ import tool.serialization.vulkan.VulkanStateDeserializer;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
 /**
  * Created by cvryo on 14/04/2016.
