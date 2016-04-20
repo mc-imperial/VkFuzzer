@@ -9,6 +9,7 @@ public class VkResetFencesConfig extends Config {
     private String fence;
     private String result;
     private String device;
+    private int fenceCount;
 
     public String getFence() {
         return fence;
@@ -32,5 +33,13 @@ public class VkResetFencesConfig extends Config {
 
     public void setDevice(String device) {
         this.device = device;
+    }
+
+    public int getFenceCount() {
+        return fenceCount;
+    }
+
+    public void setFenceCount(int fenceCount) {
+        this.fenceCount = fenceCount;
     }
 }

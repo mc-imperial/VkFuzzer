@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class VkResetFencesGenerator extends VulkanCodeGenerator {
     private final String RESULT = "result";
+    private final int FENCE_COUNT = 1;
 
     public VkResetFencesGenerator(RandomStringGenerator randomStringGenerator,
                                   RandomNumberGanerator randomNumberGanerator,
@@ -47,6 +48,7 @@ public class VkResetFencesGenerator extends VulkanCodeGenerator {
         config.setFence(fence.getFence());
         config.addDependency(fence.getId());
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
+        config.setFenceCount(FENCE_COUNT);
 
         globalState.addConfig(VulkanState.VK_RESET_FENCES, config);
 

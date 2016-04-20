@@ -11,9 +11,8 @@ import tool.fsm.vulkan.states.VulkanState;
 import tool.fsm.vulkan.transitions.SimpleTransition;
 import tool.fsm.vulkan.transitions.TransitionType;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.time.temporal.ValueRange;
+import java.util.*;
 
 /**
  * Created by constantinos on 30/03/2016.
@@ -46,57 +45,102 @@ public class StatesInitializer {
     public void initializeStates() {
         createStates();
 
-        defineTransition(VulkanState.START,
+        // Start of sequential  part of the fsm
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.START,
+                VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES);
+
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES,
-                TransitionType.SEQUENTIAL);
+                VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES);
 
-        defineTransition(VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
-                TransitionType.REPEATING);
+                VulkanState.VK_APPLICATION_INFO);
 
-        defineTransition(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_APPLICATION_INFO,
-                TransitionType.REPEATING);
+                VulkanState.VK_INSTANCE_CREATE_INFO);
 
-        defineTransition(VulkanState.VK_APPLICATION_INFO,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_INSTANCE_CREATE_INFO,
-                TransitionType.REPEATING);
+                VulkanState.VK_CREATE_INSTANCE);
 
-        defineTransition(VulkanState.VK_INSTANCE_CREATE_INFO,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_INSTANCE,
-                TransitionType.REPEATING);
+                VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES);
 
-        defineTransition(VulkanState.VK_CREATE_INSTANCE,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
-                TransitionType.REPEATING);
+                VulkanState.GET_DEVICE_PROPERTIES);
 
-        defineTransition(VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.GET_DEVICE_PROPERTIES,
-                TransitionType.REPEATING);
+                VulkanState.VK_CREATE_DEVICE);
 
-        defineTransition(VulkanState.GET_DEVICE_PROPERTIES,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_DEVICE,
-                TransitionType.REPEATING);
+                VulkanState.VK_CREATE_COMMAND_POOL);
 
-        defineTransition(VulkanState.VK_CREATE_DEVICE,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_COMMAND_POOL,
-                TransitionType.REPEATING);
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
 
-        defineTransition(VulkanState.VK_CREATE_COMMAND_POOL,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
-                TransitionType.REPEATING);
-
-        defineTransition(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+        // Define random transitions from the VK_ALLOCATE_COMMAND_BUFFERS state
+        VulkanState[] randomStates =
+        {
+                VulkanState.VK_CREATE_SEMAPHORE,
+                VulkanState.VK_CREATE_EVENT,
+                VulkanState.VK_CREATE_FENCE,
                 VulkanState.VK_GET_DEVICE_QUEUE,
-                TransitionType.REPEATING);
+                VulkanState.DEALLOCATION
+        };
 
-        defineTransition(VulkanState.VK_GET_DEVICE_QUEUE,
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+                randomStates);
+        // End of sequential part
+
+        // Entering random path
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_DEVICE_QUEUE,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_EVENT,
+                VulkanState.VK_GET_EVENT_STATUS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_EVENT_STATUS,
+                VulkanState.VK_RESET_EVENT);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_RESET_EVENT,
+                VulkanState.VK_SET_EVENT);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_SET_EVENT,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_FENCE,
+                VulkanState.VK_GET_FENCE_STATUS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_FENCE_STATUS,
+                VulkanState.VK_RESET_FENCES);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_RESET_FENCES,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_SEMAPHORE,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.DEALLOCATION,
-                TransitionType.REPEATING);
-
-        defineTransition(VulkanState.DEALLOCATION,
-                VulkanState.STOP,
-                TransitionType.SEQUENTIAL);
+                VulkanState.STOP);
 
         LinkedList<State<VulkanEntity>> fsmStates =
                 new LinkedList<>(states.values());
@@ -121,12 +165,16 @@ public class StatesInitializer {
     }
 
     // Defines a transition between two states
-    private void defineTransition(VulkanState state,
-                                  VulkanState nextState,
-                                  TransitionType transitionType) {
+    private void defineTransition(TransitionType transitionType,
+                                  VulkanState state,
+                                  VulkanState... nextState) {
         String event = VulkanEvent.GENERATE_PROGRAM.toString();
         State<VulkanEntity> fsmState = states.get(state);
-        State<VulkanEntity> nextFsmState = states.get(nextState);
+
+        ArrayList<State<VulkanEntity>> nextStates = new ArrayList<>();
+        for (VulkanState tmpVulkanState : nextState) {
+            nextStates.add(states.get(tmpVulkanState));
+        }
 
         switch (transitionType) {
             case REPEATING:
@@ -134,10 +182,10 @@ public class StatesInitializer {
                         new SimpleTransition<>(
                                 generateCodeAction,
                                 fsmState,
-                                nextFsmState));
+                                nextStates));
                 break;
             case SEQUENTIAL:
-                fsmState.addTransition(event, nextFsmState, generateCodeAction);
+                fsmState.addTransition(event, nextStates.get(0), generateCodeAction);
         }
     }
 }

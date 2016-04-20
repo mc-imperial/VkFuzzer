@@ -55,8 +55,14 @@ public class VkGetEventStatusGenerator extends VulkanCodeGenerator {
         config.setDevice(createEventConfig.getDevice());
         config.setExpectedReturnCode(setEvent != null ? EVENT_SET : EVENT_NOT_SET);
         config.addDependency(createEventConfig.getId());
-        config.addDependency(setEvent.getId());
-        config.setBad(createEventConfig.isBad() || setEvent.isBad());
+        config.setEvent(createEventConfig.getEvent());
+
+        if (setEvent != null) {
+            config.addDependency(setEvent.getId());
+            config.setBad(setEvent.isBad());
+        }
+
+        config.setBad(createEventConfig.isBad() || config.isBad());
 
         globalState.addConfig(VulkanState.VK_GET_EVENT_STATUS, config);
 

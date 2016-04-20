@@ -167,6 +167,15 @@ public class CodeGeneratorsInitializer {
                         globalState));
 
         generators.put(
+                VulkanState.VK_CREATE_FENCE.toString(),
+                new VkCreateFenceGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
                 VulkanState.VK_GET_EVENT_STATUS.toString(),
                 new VkGetEventStatusGenerator(
                         randomStringGenerator,
