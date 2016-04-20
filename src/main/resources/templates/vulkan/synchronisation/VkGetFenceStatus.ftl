@@ -1,6 +1,6 @@
 
     //ID: ${config.id}
-    VkResult ${config.result} = vkGetFenceStatus(${config.device}.device, &${config.fence});
+    VkResult ${config.result} = vkGetFenceStatus(${config.device}.device, ${config.fence});
 
     assert((${config.result} == VK_SUCCESS)
             || (${config.result} == VK_NOT_READY)

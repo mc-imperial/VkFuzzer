@@ -1,6 +1,6 @@
 
     //ID: ${config.id}
-    VkResult ${config.result} = vkGetEventStatus(${config.device}.device, &${config.event});
+    VkResult ${config.result} = vkGetEventStatus(${config.device}.device, ${config.event});
 
     assert((${config.result} == VK_EVENT_SET)
             || (${config.result} == VK_EVENT_RESET)
