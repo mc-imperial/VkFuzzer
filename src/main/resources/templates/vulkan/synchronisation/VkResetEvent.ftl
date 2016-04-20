@@ -1,5 +1,4 @@
 
-
     //ID: ${config.id}
     VkResult ${config.result} = vkResetEvent(${config.device}.device, ${config.event});
 

@@ -12,6 +12,34 @@ public class DeallocationConfig extends Config {
     private ArrayList<Config> devices;
     private ArrayList<Config> cmdPools;
     private ArrayList<Config> cmdBuffers;
+    private ArrayList<Config> semaphores;
+    private ArrayList<Config> events;
+    private ArrayList<Config> fences;
+    private ArrayList<Config> buffers;
+    private ArrayList<Config> bufferViews;
+    private ArrayList<Config> images;
+    private ArrayList<Config> imageViews;
+    private ArrayList<Config> pipelineCaches;
+    private ArrayList<Config> computePipelines;
+    private ArrayList<Config> graphicsPipelines;
+
+
+    public DeallocationConfig() {
+        instances = new ArrayList<>();
+        devices = new ArrayList<>();
+        cmdBuffers = new ArrayList<>();
+        cmdPools = new ArrayList<>();
+        semaphores = new ArrayList<>();
+        events = new ArrayList<>();
+        fences = new ArrayList<>();
+        buffers = new ArrayList<>();
+        bufferViews = new ArrayList<>();
+        images = new ArrayList<>();
+        imageViews = new ArrayList<>();
+        pipelineCaches = new ArrayList<>();
+        computePipelines = new ArrayList<>();
+        graphicsPipelines = new ArrayList<>();
+    }
 
     public ArrayList<Config> getInstances() {
         return instances;
@@ -43,5 +71,85 @@ public class DeallocationConfig extends Config {
 
     public void setCmdBuffers(ArrayList<Config> cmdBuffers) {
         this.cmdBuffers = cmdBuffers;
+    }
+
+    public ArrayList<Config> getSemaphores() {
+        return semaphores;
+    }
+
+    public void setSemaphores(ArrayList<Config> semaphores) {
+        this.semaphores = semaphores;
+    }
+
+    public ArrayList<Config> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<Config> events) {
+        this.events = events;
+    }
+
+    public ArrayList<Config> getFences() {
+        return fences;
+    }
+
+    public void setFences(ArrayList<Config> fences) {
+        this.fences = fences;
+    }
+
+    public ArrayList<Config> getBuffers() {
+        return buffers;
+    }
+
+    public void setBuffers(ArrayList<Config> buffers) {
+        this.buffers = buffers;
+    }
+
+    public ArrayList<Config> getBufferViews() {
+        return bufferViews;
+    }
+
+    public void setBufferViews(ArrayList<Config> bufferViews) {
+        this.bufferViews = bufferViews;
+    }
+
+    public ArrayList<Config> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<Config> images) {
+        this.images = images;
+    }
+
+    public ArrayList<Config> getImageViews() {
+        return imageViews;
+    }
+
+    public void setImageViews(ArrayList<Config> imageViews) {
+        this.imageViews = imageViews;
+    }
+
+    public ArrayList<Config> getPipelineCaches() {
+        return pipelineCaches;
+    }
+
+    public void setPipelineCaches(ArrayList<Config> pipelineCaches) {
+        this.pipelineCaches = pipelineCaches;
+    }
+
+    public ArrayList<Config> getComputePipelines() {
+        return computePipelines;
+    }
+
+    public void setComputePipelines(ArrayList<Config> computePipelines) {
+        this.computePipelines = computePipelines;
+    }
+
+    public ArrayList<Config> getGraphicsPipelines() {
+        return graphicsPipelines;
+    }
+
+    public void setGraphicsPipelines(ArrayList<Config> graphicsPipelines) {
+        this.graphicsPipelines = graphicsPipelines;
     }
 }

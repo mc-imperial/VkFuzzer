@@ -32,4 +32,20 @@ public class VulkanTemplates {
             "device/VkGetDeviceQueue.ftl";
     public static final String DEALLOCATION =
             "deallocation/Deallocation.ftl";
+    public static final String VK_CREATE_EVENT =
+            "synchronisation/VkCreateEvent.ftl";
+    public static final String VK_CREATE_FENCE =
+            "synchronisation/VkCreateFence.ftl";
+    public static final String VK_CREATE_SEMAPHORE =
+            "synchronisation/VkCreateSemaphore.ftl";
+    public static final String VK_GET_EVENT_STATUS =
+            "synchronisation/VkGetEventStatus.ftl";
+    public static final String VK_GET_FENCE_STATUS =
+            "synchronisation/VKGetFenceStatus.ftl";
+    public static final String VK_RESET_EVENT =
+            "synchronisation/VkResetEvent.ftl";
+    public static final String VK_RESET_FENCES =
+            "synchronisation/VkResetFences.ftl";
+    public static final String VK_SET_EVENT =
+            "synchronisation/VkSetEvent.ftl";
 }

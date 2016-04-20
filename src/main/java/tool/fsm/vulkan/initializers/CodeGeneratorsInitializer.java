@@ -14,6 +14,7 @@ import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
+import tool.codegen.vulkan.synchronisation.*;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
@@ -141,6 +142,69 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_GET_DEVICE_QUEUE.toString(),
                 new VkGetDeviceQueueGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_EVENT.toString(),
+                new VkCreateEventGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_SEMAPHORE.toString(),
+                new VkCreateSemaphoreGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_EVENT_STATUS.toString(),
+                new VkGetEventStatusGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_FENCE_STATUS.toString(),
+                new VkGetFenceStatusGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_RESET_EVENT.toString(),
+                new VkResetEventGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_RESET_FENCES.toString(),
+                new VkResetFencesGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_SET_EVENT.toString(),
+                new VkSetEventGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

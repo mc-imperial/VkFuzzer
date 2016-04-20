@@ -16,12 +16,12 @@ public class SimpleTransition<T> implements Transition<T> {
     private final double RECOUR_CHANCE = 0.2;
     private final Random random;
     private final State<T> current;
-    private final State<T> next;
+    private final State<T>[] next;
     private final Action<T> action;
 
     public SimpleTransition(final Action<T> action,
                             final State<T> current,
-                            final State<T> next) {
+                            final State<T>... next) {
         random = new Random();
         this.current = current;
         this.next = next;
@@ -36,7 +36,8 @@ public class SimpleTransition<T> implements Transition<T> {
         if (chance <= RECOUR_CHANCE) {
             nextState = current;
         } else {
-            nextState = next;
+            int index = (int)Math.round(random.nextDouble() * next.length);
+            nextState = next[index];
         }
 
         return new StateActionPairImpl<>(nextState, action);

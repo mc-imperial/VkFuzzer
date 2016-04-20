@@ -59,8 +59,23 @@ digraph graphname
 	ao[label="Compute Pipeline"];
 
 	ap[label="VkImage"];
+    aq[label="VkImageView"];
+    aac[label="VkGetImageMemoryRequirements"];
 
-	aq[label="VkImageView"];
+	ar[label="VkCreateEvent"];
+	as[label="VkGetEventStatus"];
+    at[label="VkResetEvent"];
+    au[label="VkSetEvent"];
+
+    av[label="VkCreateFence"];
+    aw[label="VkGetFenceStatus"];
+    ax[label="VkResetFences"];
+
+    ay[label="VkCreateSemaphore"];
+
+    az[label="VkCreateBuffer"];
+    aaa[label="VkCreateBufferViews"];
+    aab[label="VkGetBufferMemoryRequirements"];
 
 	a -> b;
 	b -> c;
@@ -108,7 +123,10 @@ digraph graphname
 		p -> x;
 		p -> ao;
 		p -> ap;
-		p -> aq;
+		p -> ar;
+		p -> av;
+		p -> ay;
+		p -> az;
 
 		subgraph cluster_5
 		{
@@ -181,15 +199,38 @@ digraph graphname
 
 		subgraph cluster_14
 		{
-			label = "VkImage";
-			ap;
+			label = "VkImages & VkImageViews";
+			ap -> aq;
+			aq -> aac;
 		}
 
 		subgraph cluster_15
 		{
-			label = "VkImageView";
-			aq;
+			label = "VkBuffers & VkBufferViews";
+			az -> aaa;
+			aaa -> aab;
 		}
+
+		subgraph cluster_16
+        {
+            label = "Events";
+            ar -> as;
+            as -> at;
+            at -> au;
+        }
+
+        subgraph cluster_17
+        {
+            label = "Fences";
+            av -> aw;
+            aw -> ax;
+        }
+
+        subgraph cluster_18
+        {
+            label = "Semaphores";
+            ay;
+        }
 	}
 
 

@@ -6,7 +6,7 @@
     ${config.eventCreateInfo}.flags = 0;
 
     VkEvent ${config.event};
-    VkResult ${config.result} = vkCreateEvent(${config.device}, &${config.eventCreateInfo},
+    VkResult ${config.result} = vkCreateEvent(${config.device}.device, &${config.eventCreateInfo},
             NULL, &${config.event});
 
     assert((${config.result} == VK_SUCCESS)

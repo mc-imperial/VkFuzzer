@@ -1,12 +1,12 @@
 
     //ID: ${config.id}
     VkFenceCreateInfo ${config.fenceCreateInfo} = {};
-    ${config.fenceCreateInfo}.sType = ;
-    ${config.fenceCreateInfo}.pNext = ;
-    ${config.fenceCreateInfo}.flags = ;
+    ${config.fenceCreateInfo}.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    ${config.fenceCreateInfo}.pNext = NULL;
+    ${config.fenceCreateInfo}.flags = ${config.flags};
 
     VkFence ${config.fence};
-    VkResult ${config.result} = vkCreateFence(${config.device}, &${config.fenceCreateInfo},
+    VkResult ${config.result} = vkCreateFence(${config.device}.device, &${config.fenceCreateInfo},
             NULL, &${config.fence});
 
     assert((${config.result} == VK_SUCCESS)

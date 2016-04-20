@@ -1,13 +1,13 @@
 
     //ID: ${config.id}
     VkSemaphoreCreateInfo ${config.semaphoreCreateInfo} = {};
-    ${config.semaphoreCreateInfo}.sType = ;
-    ${config.semaphoreCreateInfo}.pNext = ;
-    ${config.semaphoreCreateInfo}.flags = ;
+    ${config.semaphoreCreateInfo}.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    ${config.semaphoreCreateInfo}.pNext = NULL;
+    ${config.semaphoreCreateInfo}.flags = 0;
 
-    VkSemaphore ${config.fence};
-    VkResult ${config.result} = vkCreateSemaphore(${config.device}, &${config.semaphoreCreateInfo},
-            NULL, &${config.fence});
+    VkSemaphore ${config.semaphore};
+    VkResult ${config.result} = vkCreateSemaphore(${config.device}.device, &${config.semaphoreCreateInfo},
+            NULL, &${config.semaphore});
 
     assert((${config.result} == VK_SUCCESS)
             || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)

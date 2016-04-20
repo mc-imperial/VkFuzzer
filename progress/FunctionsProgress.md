@@ -51,3 +51,5 @@ Functions Implemented
 42. VkCreatePipelineCache
 43. VkGetPipelineCacheData
 44. VkMergePipelineCaches
+45. VkDestroyPipilines
+46. VkDestroyPipelineCache
