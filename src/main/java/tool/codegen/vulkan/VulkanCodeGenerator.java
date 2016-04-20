@@ -11,6 +11,7 @@ import tool.utils.RandomStringGenerator;
  * Created by constantinos on 27/03/2016.
  */
 public abstract class VulkanCodeGenerator extends CodeGenerator {
+    protected final String RESULT = "result";
     private final String ID = "id";
     protected final VulkanGlobalState globalState;
 

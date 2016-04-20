@@ -15,7 +15,6 @@ import tool.utils.RandomStringGenerator;
  * Created by constantinos on 05/04/2016.
  */
 public class VkEnumerateInstanceExtensionPropertiesGenerator extends VulkanCodeGenerator {
-    private final String RESULT_NAME = "result";
     private final String INSTANCE_EXTENSION_COUNT_NAME = "instanceExtensionCount";
     private final String INSTANCE_EXTENSION_PROPERTIES_NAME =
             "instanceExtensionProperties";
@@ -38,7 +37,7 @@ public class VkEnumerateInstanceExtensionPropertiesGenerator extends VulkanCodeG
 
         // Create variable names
         config.setId(generateConfigId());
-        config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
+        config.setResult(RESULT + freshMap.getFreshId(RESULT));
         config.setInstanceExtensionCount(INSTANCE_EXTENSION_COUNT_NAME +
                 freshMap.getFreshId(INSTANCE_EXTENSION_COUNT_NAME));
         config.setInstanceExtensionProperties(INSTANCE_EXTENSION_PROPERTIES_NAME +

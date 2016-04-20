@@ -15,7 +15,6 @@ import tool.utils.RandomStringGenerator;
  * Created by constantinos on 05/04/2016.
  */
 public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGenerator {
-    private final String RESULT_NAME = "result";
     private final String INSTANCE_LAYER_COUNT_NAME = "instanceLayerCount";
     private final String INSTANCE_LAYER_PROPERTIES_NAME =
             "instanceLayerProperties";
@@ -42,7 +41,7 @@ public class VkEnumerateInstanceLayerPropertiesGenerator extends VulkanCodeGener
                 freshMap.getFreshId(INSTANCE_LAYER_COUNT_NAME));
         config.setInstanceLayerProperties(INSTANCE_LAYER_PROPERTIES_NAME +
                 freshMap.getFreshId(INSTANCE_LAYER_PROPERTIES_NAME));
-        config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
+        config.setResult(RESULT + freshMap.getFreshId(RESULT));
 
         globalState.addConfig(VulkanState.VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES,
                 config);

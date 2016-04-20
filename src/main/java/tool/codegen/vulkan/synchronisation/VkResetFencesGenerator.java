@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkResetFencesGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final int FENCE_COUNT = 1;
 
     public VkResetFencesGenerator(RandomStringGenerator randomStringGenerator,

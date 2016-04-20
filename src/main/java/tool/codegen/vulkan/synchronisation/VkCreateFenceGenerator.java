@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkCreateFenceGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final String FENCE_CREATE_INFO = "fenceCreateInfo";
     private final String FENCE = "fence";
     private final String FLAGS = "VK_FENCE_CREATE_SIGNALED_BIT";

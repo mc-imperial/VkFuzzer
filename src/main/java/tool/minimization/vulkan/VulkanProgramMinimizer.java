@@ -87,7 +87,7 @@ public class VulkanProgramMinimizer implements Minimizer {
     private Stack<Config> generateDependencies(final GlobalState globalState,
                                                final Config config) {
         Stack<Config> dependencies = new Stack<>();
-        Queue<Config> queue = new PriorityQueue<>();
+        LinkedList<Config> queue = new LinkedList<>();
 
         // Add config to queues
         queue.add(config);

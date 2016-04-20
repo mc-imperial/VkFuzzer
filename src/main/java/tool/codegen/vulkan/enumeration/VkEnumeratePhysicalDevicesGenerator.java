@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class VkEnumeratePhysicalDevicesGenerator extends VulkanCodeGenerator {
     private final String GPUS = "gpus";
     private final String GPU_COUNT = "gpuCount";
-    private final String RESULT = "result";
 
     public VkEnumeratePhysicalDevicesGenerator(
             RandomStringGenerator randomStringGenerator,

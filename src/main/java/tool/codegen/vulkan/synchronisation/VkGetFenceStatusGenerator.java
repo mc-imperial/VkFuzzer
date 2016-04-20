@@ -18,8 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkGetFenceStatusGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
-
     public VkGetFenceStatusGenerator(RandomStringGenerator randomStringGenerator,
                                      RandomNumberGanerator randomNumberGanerator,
                                      FreshMap freshMap,

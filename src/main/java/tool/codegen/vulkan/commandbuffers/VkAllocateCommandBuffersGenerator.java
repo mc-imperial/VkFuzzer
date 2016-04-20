@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 15/04/2016.
  */
 public class VkAllocateCommandBuffersGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final String CMD_BUFFER_ALLOC_INFO = "cmdBufferAllocInfo";
     private final String NEXT = "NULL";
     private final String BUFFERS = "buffers";

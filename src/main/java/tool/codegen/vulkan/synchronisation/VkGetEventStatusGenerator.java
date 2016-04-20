@@ -19,7 +19,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkGetEventStatusGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final String EVENT_SET = "VK_EVENT_SET";
     private final String EVENT_NOT_SET = "VK_EVENT_RESET";
 

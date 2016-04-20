@@ -56,6 +56,8 @@ public class VkGetDeviceQueueGenerator extends VulkanCodeGenerator {
         config.setDevice(cmdPoolConfig.getRandomDevice());
         config.setBad(cmdPoolConfig.isBad());
 
+        globalState.addConfig(VulkanState.VK_GET_DEVICE_QUEUE, config);
+
         return config;
     }
 }

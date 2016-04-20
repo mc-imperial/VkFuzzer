@@ -8,6 +8,7 @@ import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.device.DevicePropertiesConfig;
 import tool.configs.vulkan.device.DevicesConfig;
 import tool.configs.vulkan.device.VkCreateDeviceConfig;
+import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
 import tool.configs.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesConfig;
 import tool.configs.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesConfig;
 import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
@@ -65,7 +66,9 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = VkResetEventConfig.class,
                 name = "VkResetEventConfig"),
         @JsonSubTypes.Type(value = VkSetEventConfig.class,
-                name = "VkSetEventConfig")
+                name = "VkSetEventConfig"),
+        @JsonSubTypes.Type(value = VkGetDeviceQueueConfig.class,
+                name = "VkGetDeviceQueueConfig")
 })
 public class Config {
     private ArrayList<Integer> dependencies;

@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 27/03/2016.
  */
 public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
-    private final String RESULT_NAME = "result";
     private final String ALLOC = "NULL";
     private final String INSTANCE_NAME = "instance";
 
@@ -42,7 +41,7 @@ public class VkCreateInstanceGenerator extends VulkanCodeGenerator {
         config.setId(generateConfigId());
         config.setInstanceName(INSTANCE_NAME + freshMap.getFreshId(INSTANCE_NAME));
         config.setAlloc(ALLOC);
-        config.setResult(RESULT_NAME + freshMap.getFreshId(RESULT_NAME));
+        config.setResult(RESULT + freshMap.getFreshId(RESULT));
 
         // Choose a random VkInstanceCreateInfoConfig
         VkInstanceCreateInfoConfig instanceCreateInfoConfig = (VkInstanceCreateInfoConfig)

@@ -49,7 +49,8 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
             VkEnumeratePhysicalDevicesConfig physicalDevicesConfig =
                     (VkEnumeratePhysicalDevicesConfig)physicalDevice;
 
-            config.setId(generateConfigId());
+            // We cheat a little and not set an id
+            // config.setId(generateConfigId());
             config.setDeviceMemoryProperties(DEVICE_MEMORY_PROPERTIES +
                     freshMap.getFreshId(DEVICE_MEMORY_PROPERTIES));
             config.setDeviceFeatures(DEVICE_FEATURES +
@@ -66,7 +67,7 @@ public class DevicePropertiesGenerator extends VulkanCodeGenerator {
             config.setBad(physicalDevice.isBad());
 
             devices.add(config);
-            devicesConfig.addDependency(config.getId());
+            devicesConfig.addDependency(physicalDevice.getId());
             allBadConfigs = allBadConfigs && config.isBad();
         }
 

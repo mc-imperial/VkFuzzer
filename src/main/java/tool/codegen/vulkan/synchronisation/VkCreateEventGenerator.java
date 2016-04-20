@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkCreateEventGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final String EVENT_CREATE_INFO = "eventCreateInfo";
     private final String EVENT = "event";
 

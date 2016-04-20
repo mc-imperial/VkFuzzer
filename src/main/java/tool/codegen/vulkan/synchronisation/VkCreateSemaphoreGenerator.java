@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkCreateSemaphoreGenerator extends VulkanCodeGenerator {
-    private final String RESULT = "result";
     private final String SEMAPHORE_CREATE_INFO = "semaphoreCreateInfo";
     private final String SEMAPHORE = "semaphore";
 
