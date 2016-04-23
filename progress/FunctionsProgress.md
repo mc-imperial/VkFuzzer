@@ -53,3 +53,10 @@ Functions Implemented
 44. VkMergePipelineCaches
 45. VkDestroyPipilines
 46. VkDestroyPipelineCache
+47. VkAllocateMemory
+48. VkFlushMappedMemoryRanges
+49. VkFreeMemory
+50. VkGetDeviceMemoryCommitment
+51. VkInvalidateMappedMemoryRanges
+52. VkMapMemory
+53. VkUnmapMemory

@@ -14,6 +14,7 @@ import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
+import tool.codegen.vulkan.resources.*;
 import tool.codegen.vulkan.synchronisation.*;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
@@ -214,6 +215,69 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_SET_EVENT.toString(),
                 new VkSetEventGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_BUFFER.toString(),
+                new VkCreateBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_BUFFER_VIEW.toString(),
+                new VkCreateBufferViewGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS.toString(),
+                new VkGetBufferMemoryRequirementsGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_IMAGE.toString(),
+                new VkCreateImageGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_IMAGE_VIEW.toString(),
+                new VkCreateImageViewGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_IMAGE_MEMORY_REQUIREMENTS.toString(),
+                new VkGetImageMemoryRequirementsGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT.toString(),
+                new VkGetImageSubResourceLayout(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

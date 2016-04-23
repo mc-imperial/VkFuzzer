@@ -1,5 +1,7 @@
 
     //ID: ${config.id}
+    <#if config.isBad()>
+    <#else>
     VkBufferCreateInfo ${config.bufferCreateInfo} = {};
     ${config.bufferCreateInfo}.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     ${config.bufferCreateInfo}.pNext = NULL;
@@ -11,7 +13,7 @@
     ${config.bufferCreateInfo}.pQueueFamilyIndices = ${config.pQueueFamilyIndices};
 
     VkBuffer ${config.buffer};
-    VkResult ${config.result} = vkCreateBuffer(${config.device}, &${config.bufferCreateInfo},
+    VkResult ${config.result} = vkCreateBuffer(${config.device}.device, &${config.bufferCreateInfo},
             NULL, &${config.buffer});
 
     assert((${config.result} == VK_SUCCESS)
@@ -19,3 +21,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>

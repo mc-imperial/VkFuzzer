@@ -95,6 +95,9 @@ public class StatesInitializer {
                 VulkanState.VK_CREATE_EVENT,
                 VulkanState.VK_CREATE_FENCE,
                 VulkanState.VK_GET_DEVICE_QUEUE,
+                VulkanState.VK_CREATE_IMAGE,
+                VulkanState.VK_CREATE_BUFFER,
+                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
                 VulkanState.DEALLOCATION
         };
 
@@ -138,6 +141,34 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SEMAPHORE,
+                randomStates);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_BUFFER,
+                VulkanState.VK_CREATE_BUFFER_VIEW);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_BUFFER_VIEW,
+                VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
+                randomStates);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_IMAGE,
+                VulkanState.VK_CREATE_IMAGE_VIEW);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_IMAGE_VIEW,
+                VulkanState.VK_GET_IMAGE_MEMORY_REQUIREMENTS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_IMAGE_MEMORY_REQUIREMENTS,
+                VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT,
                 randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,

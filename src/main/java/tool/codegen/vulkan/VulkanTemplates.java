@@ -48,4 +48,18 @@ public class VulkanTemplates {
             "synchronisation/VkResetFences.ftl";
     public static final String VK_SET_EVENT =
             "synchronisation/VkSetEvent.ftl";
+    public static final String VK_CREATE_BUFFER =
+            "resources/VkCreateBuffer.ftl";
+    public static final String VK_CREATE_BUFFER_VIEW =
+            "resources/VkCreateBufferView.ftl";
+    public static final String VK_CREATE_IMAGE =
+            "resources/VkCreateImage.ftl";
+    public static final String VK_CREATE_IMAGE_VIEW =
+            "resources/VkCreateImageView.ftl";
+    public static final String VK_GET_BUFFER_MEMORY_REQUIREMENTS =
+            "resources/VkGetBufferMemoryRequirements.ftl";
+    public static final String VK_GET_IMAGE_MEMORY_REQUIREMENTS =
+            "resources/VkGetImageMemoryRequirements.ftl";
+    public static final String VK_GET_IMAGE_SUBRESOURCE_LAYOUT =
+            "resources/VkGetImageSubResourceLayout.ftl";
 }

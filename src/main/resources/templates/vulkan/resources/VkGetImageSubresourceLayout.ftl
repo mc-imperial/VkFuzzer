@@ -1,7 +1,7 @@
 
     //ID: ${config.id}
     VkImageSubresource ${config.imageSubresource} = {};
-    ${config.imageSubresource}.aspectMask = ${config.aspeckMask};
+    ${config.imageSubresource}.aspectMask = ${config.aspectMask};
     ${config.imageSubresource}.mipLevel = ${config.mipLevel};
     ${config.imageSubresource}.arrayLayer = ${config.arrayLayer};
 
