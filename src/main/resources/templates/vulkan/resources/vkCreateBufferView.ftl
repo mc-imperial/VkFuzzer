@@ -1,5 +1,7 @@
 
     //ID: ${config.id}
+    <#if config.isBad()>
+    <#else>
     VkBufferViewCreateInfo ${config.bufferViewCreateInfo} = {};
     ${config.bufferViewCreateInfo}.sType = VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO;
     ${config.bufferViewCreateInfo}.pNext = NULL;
@@ -10,7 +12,7 @@
     ${config.bufferViewCreateInfo}.range = ${config.range};
 
     VkBuffer ${config.bufferView};
-    VkResult ${config.result} = vkCreateBuffer(${config.device}, &${config.bufferViewCreateInfo},
+    VkResult ${config.result} = vkCreateBuffer(${config.device}.device, &${config.bufferViewCreateInfo},
             NULL, &${config.bufferView});
 
     assert((${config.result} == VK_SUCCESS)
@@ -18,3 +20,5 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+
+    </#if>

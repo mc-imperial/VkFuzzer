@@ -1,5 +1,10 @@
 
     //ID: ${config.id}
+    VkExtent3D ${config.extent} = {};
+    ${config.extent}.width = ${config.width};
+    ${config.extent}.height = ${config.height};
+    ${config.extent}.depth = ${config.depth};
+
     VkImageCreateInfo ${config.vkImageCreateInfo} = {};
     ${config.vkImageCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     ${config.vkImageCreateInfo}.pNext = NULL;
