@@ -144,7 +144,7 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         // random tiling
         ArrayList<String> tiling = new ArrayList<>(Arrays.asList(TILING));
         Collections.shuffle(tiling);
-        config.setTiling(tiling.get(0));
+        config.setTiling(TILING[0]);
 
         // random layout
         ArrayList<String> layout = new ArrayList<>(Arrays.asList(LAYOUTS));

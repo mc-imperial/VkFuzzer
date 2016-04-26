@@ -11,6 +11,16 @@ public class VkGetFenceStatusConfig extends Config {
     private String result;
     private String device;
 
+    public String getExpectedResult() {
+        return expectedResult;
+    }
+
+    public void setExpectedResult(String expectedResult) {
+        this.expectedResult = expectedResult;
+    }
+
+    private String expectedResult;
+
     public String getExpectedReturnCode() {
         return expectedReturnCode;
     }
@@ -42,4 +52,6 @@ public class VkGetFenceStatusConfig extends Config {
     public void setDevice(String device) {
         this.device = device;
     }
+
+
 }

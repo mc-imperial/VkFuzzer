@@ -2,11 +2,13 @@ package tool.codegen.vulkan.synchronisation;
 
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
+import tool.codegen.vulkan.VulkanReturnCodes;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.synchronisation.VkCreateFenceConfig;
 import tool.configs.vulkan.synchronisation.VkGetFenceStatusConfig;
+import tool.configs.vulkan.synchronisation.VkResetFencesConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
  * Created by constantinos on 19/04/2016.
  */
 public class VkGetFenceStatusGenerator extends VulkanCodeGenerator {
+    private final String NO_FLAGS = "0";
+
     public VkGetFenceStatusGenerator(RandomStringGenerator randomStringGenerator,
                                      RandomNumberGanerator randomNumberGanerator,
                                      FreshMap freshMap,
@@ -40,6 +44,19 @@ public class VkGetFenceStatusGenerator extends VulkanCodeGenerator {
         VkCreateFenceConfig fenceConfig =
                 (VkCreateFenceConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
+
+        config.setExpectedResult(!fenceConfig.getFlags().equals(NO_FLAGS) ?
+                VulkanReturnCodes.VK_SUCCESS : VulkanReturnCodes.VK_NOT_READY);
+
+        ArrayList<Config> resetConfigs =
+                globalState.getConfig(VulkanState.VK_RESET_FENCES);
+
+        for (Config resetConfig : resetConfigs) {
+            VkResetFencesConfig resetFenceConfig =  (VkResetFencesConfig)resetConfig;
+            if (resetFenceConfig.getFence().equals(fenceConfig.getFence())) {
+                config.setExpectedResult(VulkanReturnCodes.VK_NOT_READY);
+            }
+        }
 
         config.setDevice(fenceConfig.getDevice());
         config.setFence(fenceConfig.getFence());

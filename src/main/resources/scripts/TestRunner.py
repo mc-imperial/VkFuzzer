@@ -55,8 +55,6 @@ def runPrograms(executables):
 		results.write("STDERR:\n")
 		results.write(stderr + "\n")
 
-		sleep(1)
-
 	print "===================\n"
 	return (succeeded, failed)
 
