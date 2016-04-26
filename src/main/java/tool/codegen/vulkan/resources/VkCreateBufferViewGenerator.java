@@ -39,7 +39,7 @@ public class VkCreateBufferViewGenerator extends VulkanCodeGenerator {
         VkCreateBufferViewConfig config = new VkCreateBufferViewConfig();
 
         config.setId(generateConfigId());
-        config.setBufferView(BUFFER_VIEW);
+        config.setBufferView(BUFFER_VIEW + freshMap.getFreshId(BUFFER_VIEW));
         config.setOffset(OFFSET);
         config.setRange(RANGE);
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
