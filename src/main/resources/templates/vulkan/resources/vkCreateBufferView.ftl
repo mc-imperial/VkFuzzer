@@ -12,7 +12,7 @@
     ${config.bufferViewCreateInfo}.range = ${config.range};
 
     VkBuffer ${config.bufferView};
-    VkResult ${config.result} = vkCreateBuffer(${config.device}.device, &${config.bufferViewCreateInfo},
+    VkResult ${config.result} = vkCreateBufferView(${config.device}.device, &${config.bufferViewCreateInfo},
             NULL, &${config.bufferView});
 
     assert((${config.result} == VK_SUCCESS)
