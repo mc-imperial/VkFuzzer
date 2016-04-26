@@ -8,8 +8,8 @@ import tool.configs.Config;
 public class VkGetImageSubResourceLayoutConfig extends Config {
     private String imageSubresource;
     private String aspectMask;
-    private String mipLevel;
-    private String arrayLayer;
+    private int mipLevel;
+    private int arrayLayer;
     private String subresourceLayout;
     private String image;
     private String device;
@@ -30,19 +30,19 @@ public class VkGetImageSubResourceLayoutConfig extends Config {
         this.aspectMask = aspectMask;
     }
 
-    public String getMipLevel() {
+    public int getMipLevel() {
         return mipLevel;
     }
 
-    public void setMipLevel(String mipLevel) {
+    public void setMipLevel(int mipLevel) {
         this.mipLevel = mipLevel;
     }
 
-    public String getArrayLayer() {
+    public int getArrayLayer() {
         return arrayLayer;
     }
 
-    public void setArrayLayer(String arrayLayer) {
+    public void setArrayLayer(int arrayLayer) {
         this.arrayLayer = arrayLayer;
     }
 

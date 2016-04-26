@@ -8,7 +8,7 @@
     VkImageCreateInfo ${config.vkImageCreateInfo} = {};
     ${config.vkImageCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     ${config.vkImageCreateInfo}.pNext = NULL;
-    ${config.vkImageCreateInfo}.flags = ${config.flags};
+    ${config.vkImageCreateInfo}.flags = ${config.flags?join(" | ")};
     ${config.vkImageCreateInfo}.imageType = ${config.imageType};
     ${config.vkImageCreateInfo}.format = ${config.format};
     ${config.vkImageCreateInfo}.extent = ${config.extent};
@@ -16,7 +16,7 @@
     ${config.vkImageCreateInfo}.arrayLayers = ${config.arrayLayers};
     ${config.vkImageCreateInfo}.samples = ${config.samples};
     ${config.vkImageCreateInfo}.tiling = ${config.tiling};
-    ${config.vkImageCreateInfo}.usage = ${config.usage};
+    ${config.vkImageCreateInfo}.usage = ${config.usage?join(" | ")};
     ${config.vkImageCreateInfo}.sharingMode = ${config.sharingMode};
     ${config.vkImageCreateInfo}.queueFamilyIndexCount = ${config.queueFamilyIndexCount};
     ${config.vkImageCreateInfo}.pQueueFamilyIndices = ${config.pQueueFamilyIndices};

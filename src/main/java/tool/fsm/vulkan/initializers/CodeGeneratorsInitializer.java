@@ -277,7 +277,7 @@ public class CodeGeneratorsInitializer {
 
         generators.put(
                 VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT.toString(),
-                new VkGetImageSubResourceLayout(
+                new VkGetImageSubResourceLayoutGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

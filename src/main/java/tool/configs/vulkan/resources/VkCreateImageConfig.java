@@ -2,20 +2,22 @@ package tool.configs.vulkan.resources;
 
 import tool.configs.Config;
 
+import java.util.ArrayList;
+
 /**
  * Created by constantinos on 22/04/2016.
  */
 public class VkCreateImageConfig extends Config {
     private String vkImageCreateInfo;
-    private String flags;
+    private ArrayList<String> flags;
     private String imageType;
     private String format;
     private String extent;
-    private String mipLevels;
-    private String arrayLayers;
+    private int mipLevels;
+    private int arrayLayers;
     private String samples;
     private String tiling;
-    private String usage;
+    private ArrayList<String> usage;
     private String sharingMode;
     private String queueFamilyIndexCount;
     private String pQueueFamilyIndices;
@@ -35,11 +37,11 @@ public class VkCreateImageConfig extends Config {
         this.vkImageCreateInfo = vkImageCreateInfo;
     }
 
-    public String getFlags() {
+    public ArrayList<String> getFlags() {
         return flags;
     }
 
-    public void setFlags(String flags) {
+    public void setFlags(ArrayList<String> flags) {
         this.flags = flags;
     }
 
@@ -67,19 +69,19 @@ public class VkCreateImageConfig extends Config {
         this.extent = extent;
     }
 
-    public String getMipLevels() {
+    public int getMipLevels() {
         return mipLevels;
     }
 
-    public void setMipLevels(String mipLevels) {
+    public void setMipLevels(int mipLevels) {
         this.mipLevels = mipLevels;
     }
 
-    public String getArrayLayers() {
+    public int getArrayLayers() {
         return arrayLayers;
     }
 
-    public void setArrayLayers(String arrayLayers) {
+    public void setArrayLayers(int arrayLayers) {
         this.arrayLayers = arrayLayers;
     }
 
@@ -99,11 +101,11 @@ public class VkCreateImageConfig extends Config {
         this.tiling = tiling;
     }
 
-    public String getUsage() {
+    public ArrayList<String> getUsage() {
         return usage;
     }
 
-    public void setUsage(String usage) {
+    public void setUsage(ArrayList<String> usage) {
         this.usage = usage;
     }
 

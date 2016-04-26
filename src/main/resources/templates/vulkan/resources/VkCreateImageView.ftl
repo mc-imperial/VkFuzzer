@@ -1,5 +1,16 @@
 
     //ID: ${config.id}
+    <#if config.isBad()>
+    <#else>
+    VkImageSubresourceRange ${config.subresourceRange} = {};
+    ${config.subresourceRange}.aspectMask = ${config.aspectMask};
+    ${config.subresourceRange}.baseMipLevel = ${config.baseMipLevel};
+    ${config.subresourceRange}.levelCount = ${config.levelCount};
+    ${config.subresourceRange}.baseArrayLayer = ${config.baseArrayLayer};
+    ${config.subresourceRange}.layerCount = ${config.layerCount};
+
+    VkComponentMapping ${config.components} = {};
+
     VkImageViewCreateInfo ${config.vkImageViewCreateInfo} = {};
     ${config.vkImageViewCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     ${config.vkImageViewCreateInfo}.pNext = NULL;
@@ -7,8 +18,8 @@
     ${config.vkImageViewCreateInfo}.image = ${config.image};
     ${config.vkImageViewCreateInfo}.viewType = ${config.viewType};
     ${config.vkImageViewCreateInfo}.format = ${config.format};
-    ${config.vkImageViewCreateInfo}.components = ${config.components};
-    ${config.vkImageViewCreateInfo}.subresourceRange = ${config.subresourceRange};
+    ${config.vkImageViewCreateInfo}.components = &${config.components};
+    ${config.vkImageViewCreateInfo}.subresourceRange = &${config.subresourceRange};
 
     VkImageView ${config.imageView};
     VkResult ${config.result} = vkCreateImageView(${config.device}, &${config.vkImageViewCreateInfo},
@@ -19,3 +30,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>

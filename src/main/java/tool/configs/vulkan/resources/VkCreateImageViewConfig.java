@@ -15,6 +15,11 @@ public class VkCreateImageViewConfig extends Config {
     private String imageView;
     private String result;
     private String device;
+    private String aspectMask;
+    private int baseMipLevel;
+    private int levelCount;
+    private int baseArrayLayer;
+    private int layerCount;
 
     public String getVkImageViewCreateInfo() {
         return vkImageViewCreateInfo;
@@ -86,5 +91,45 @@ public class VkCreateImageViewConfig extends Config {
 
     public void setDevice(String device) {
         this.device = device;
+    }
+
+    public String getAspectMask() {
+        return aspectMask;
+    }
+
+    public void setAspectMask(String aspectMask) {
+        this.aspectMask = aspectMask;
+    }
+
+    public int getBaseMipLevel() {
+        return baseMipLevel;
+    }
+
+    public void setBaseMipLevel(int baseMipLevel) {
+        this.baseMipLevel = baseMipLevel;
+    }
+
+    public int getLevelCount() {
+        return levelCount;
+    }
+
+    public void setLevelCount(int levelCount) {
+        this.levelCount = levelCount;
+    }
+
+    public int getBaseArrayLayer() {
+        return baseArrayLayer;
+    }
+
+    public void setBaseArrayLayer(int baseArrayLayer) {
+        this.baseArrayLayer = baseArrayLayer;
+    }
+
+    public int getLayerCount() {
+        return layerCount;
+    }
+
+    public void setLayerCount(int layerCount) {
+        this.layerCount = layerCount;
     }
 }
