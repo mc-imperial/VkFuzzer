@@ -8,6 +8,6 @@
     ${config.imageSubresource}.arrayLayer = ${config.arrayLayer};
 
     VkSubresourceLayout ${config.subresourceLayout};
-    vkCreateImageView(${config.device}.device, &${config.image},
-            ${config.imageSubresource}, &${config.subresourceLayout});
+    vkGetImageSubresourceLayout(${config.device}.device, ${config.image},
+            &${config.imageSubresource}, &${config.subresourceLayout});
     </#if>
