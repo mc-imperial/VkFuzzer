@@ -130,8 +130,11 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         // random usage flags
         ArrayList<String> randomUsageFlags = new ArrayList<>(Arrays.asList(USAGE));
         Collections.shuffle(randomUsageFlags);
-        config.setUsage(new ArrayList<>(randomUsageFlags.subList(0,
-                randomNumberGanerator.randomNumber(randomUsageFlags.size() + 1))));
+        int n = -1;
+        while ( n <= 0 && n >= randomUsageFlags.size()) {
+            n = randomNumberGanerator.randomNumber(randomUsageFlags.size());
+        }
+        config.setUsage(new ArrayList<>(randomUsageFlags.subList(0, n)));
 
         // random creation flags
         ArrayList<String> randomCreationFlags = new ArrayList<>();
