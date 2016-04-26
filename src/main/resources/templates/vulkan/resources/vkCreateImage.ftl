@@ -28,6 +28,12 @@
     VkResult ${config.result} = vkCreateImage(${config.device}.device, &${config.vkImageCreateInfo},
             NULL, &${config.image});
 
+    if (${config.result} != VK_SUCCESS)
+    {
+        std::cerr << "VkImage creation failed with wrong parameters" << std::endl;
+        return 0;
+    }
+
     assert((${config.result} == VK_SUCCESS)
             || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
