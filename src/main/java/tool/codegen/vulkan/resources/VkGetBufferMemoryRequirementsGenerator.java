@@ -35,7 +35,8 @@ public class VkGetBufferMemoryRequirementsGenerator extends VulkanCodeGenerator 
                 new VkGetBufferMemoryRequirementsConfig();
 
         config.setId(generateConfigId());
-        config.setMemoryRequirements(BUFFER_REQUIREMENTS);
+        config.setMemoryRequirements(BUFFER_REQUIREMENTS +
+                freshMap.getFreshId(BUFFER_REQUIREMENTS));
 
         // random device
         ArrayList<Config> configs =
