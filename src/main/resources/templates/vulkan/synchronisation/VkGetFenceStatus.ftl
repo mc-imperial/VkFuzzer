@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkResult ${config.result} = vkGetFenceStatus(${config.device}.device, ${config.fence});
 
@@ -9,3 +11,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>

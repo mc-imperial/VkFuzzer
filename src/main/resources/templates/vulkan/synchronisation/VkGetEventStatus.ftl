@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkResult ${config.result} = vkGetEventStatus(${config.device}.device, ${config.event});
 
@@ -9,3 +11,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == ${config.expectedReturnCode});
+    </#if>

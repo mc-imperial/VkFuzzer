@@ -1,7 +1,7 @@
 
-    //ID: ${config.id}
     <#if config.isBad()>
     <#else>
+    //ID: ${config.id}
     VkBufferViewCreateInfo ${config.bufferViewCreateInfo} = {};
     ${config.bufferViewCreateInfo}.sType = VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO;
     ${config.bufferViewCreateInfo}.pNext = NULL;

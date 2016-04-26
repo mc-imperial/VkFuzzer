@@ -1,7 +1,7 @@
 
-    //ID: ${config.id}
     <#if config.isBad()>
     <#else>
+    //ID: ${config.id}
     VkImageSubresourceRange ${config.subresourceRange} = {};
     ${config.subresourceRange}.aspectMask = ${config.aspectMask};
     ${config.subresourceRange}.baseMipLevel = ${config.baseMipLevel};

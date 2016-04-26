@@ -1,7 +1,7 @@
 
-    //ID: ${config.id}
     <#if config.isBad()>
     <#else>
+    //ID: ${config.id}
     VkImageSubresource ${config.imageSubresource} = {};
     ${config.imageSubresource}.aspectMask = ${config.aspectMask};
     ${config.imageSubresource}.mipLevel = ${config.mipLevel};

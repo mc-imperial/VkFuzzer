@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkSemaphoreCreateInfo ${config.semaphoreCreateInfo} = {};
     ${config.semaphoreCreateInfo}.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -14,3 +16,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>

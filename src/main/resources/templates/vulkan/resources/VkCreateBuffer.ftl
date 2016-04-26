@@ -1,7 +1,7 @@
 
-    //ID: ${config.id}
     <#if config.isBad()>
     <#else>
+    //ID: ${config.id}
     VkBufferCreateInfo ${config.bufferCreateInfo} = {};
     ${config.bufferCreateInfo}.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     ${config.bufferCreateInfo}.pNext = NULL;

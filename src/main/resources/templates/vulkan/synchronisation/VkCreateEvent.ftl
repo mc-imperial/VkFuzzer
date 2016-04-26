@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     VkEventCreateInfo ${config.eventCreateInfo} = {};
     ${config.eventCreateInfo}.sType = VK_STRUCTURE_TYPE_EVENT_CREATE_INFO;
@@ -14,4 +16,5 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     assert(${config.result} == VK_SUCCESS);
+    </#if>
 
