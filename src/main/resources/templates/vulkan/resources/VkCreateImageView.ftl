@@ -18,11 +18,11 @@
     ${config.vkImageViewCreateInfo}.image = ${config.image};
     ${config.vkImageViewCreateInfo}.viewType = ${config.viewType};
     ${config.vkImageViewCreateInfo}.format = ${config.format};
-    ${config.vkImageViewCreateInfo}.components = &${config.components};
-    ${config.vkImageViewCreateInfo}.subresourceRange = &${config.subresourceRange};
+    ${config.vkImageViewCreateInfo}.components = ${config.components};
+    ${config.vkImageViewCreateInfo}.subresourceRange = ${config.subresourceRange};
 
     VkImageView ${config.imageView};
-    VkResult ${config.result} = vkCreateImageView(${config.device}, &${config.vkImageViewCreateInfo},
+    VkResult ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
             NULL, &${config.imageView});
 
     assert((${config.result} == VK_SUCCESS)
