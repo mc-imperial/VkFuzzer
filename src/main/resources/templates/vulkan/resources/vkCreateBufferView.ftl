@@ -11,7 +11,7 @@
     ${config.bufferViewCreateInfo}.offset = ${config.offset};
     ${config.bufferViewCreateInfo}.range = ${config.range};
 
-    VkBuffer ${config.bufferView};
+    VkBufferView ${config.bufferView};
     VkResult ${config.result} = vkCreateBufferView(${config.device}.device, &${config.bufferViewCreateInfo},
             NULL, &${config.bufferView});
 
