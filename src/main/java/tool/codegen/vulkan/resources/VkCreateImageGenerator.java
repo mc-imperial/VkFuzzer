@@ -131,7 +131,7 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         ArrayList<String> randomUsageFlags = new ArrayList<>(Arrays.asList(USAGE));
         Collections.shuffle(randomUsageFlags);
         int n = -1;
-        while ( n <= 0 && n >= randomUsageFlags.size()) {
+        while ( n <= 0 || n >= randomUsageFlags.size()) {
             n = randomNumberGanerator.randomNumber(randomUsageFlags.size());
         }
         config.setUsage(new ArrayList<>(randomUsageFlags.subList(0, n)));
