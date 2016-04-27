@@ -67,7 +67,7 @@
                     || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
                     || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
-            checkResultOutOfMemory(config.result);
+            checkResultOutOfMemory(result);
 
             if(extensionCount == 0)
             {

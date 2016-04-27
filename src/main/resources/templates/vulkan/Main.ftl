@@ -62,6 +62,9 @@
     <#--SDL_Quit();-->
 <#--}-->
 
+int EXIT_INVALID_CODE_GENERATION = -5;
+int EXIT_RUN_OUT_OF_MEMORY = -6;
+
 void checkResultOutOfMemory(VkResult result)
 {
     if ((result == VK_ERROR_OUT_OF_HOST_MEMORY)
@@ -82,9 +85,6 @@ struct FuzzerLogicalDevice
     bool supportsTransfer;
     bool supportsSparseBinding;
 };
-
-int EXIT_INVALID_CODE_GENERATION = -5;
-int EXIT_RUN_OUT_OF_MEMORY = -6;
 
 int main(int argc, char *argv[])
 {
