@@ -22,3 +22,4 @@
 
     assert(${config.result} == VK_SUCCESS);
     </#if>
+

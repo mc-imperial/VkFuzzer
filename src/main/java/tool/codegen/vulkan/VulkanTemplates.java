@@ -62,4 +62,6 @@ public class VulkanTemplates {
             "resources/VkGetImageMemoryRequirements.ftl";
     public static final String VK_GET_IMAGE_SUBRESOURCE_LAYOUT =
             "resources/VkGetImageSubResourceLayout.ftl";
+    public static final String VK_CREATE_SHADER_MODULE =
+            "shaders/VkCreateShaderModule.ftl";
 }

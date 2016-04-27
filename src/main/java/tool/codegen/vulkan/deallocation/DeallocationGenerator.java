@@ -52,6 +52,26 @@ public class DeallocationGenerator extends VulkanCodeGenerator {
                 globalState.getConfig(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
         config.setCmdBuffers(commandBuffers);
 
+        // Dealloc semaphores
+        ArrayList<Config> events =
+                globalState.getConfig(VulkanState.VK_CREATE_EVENT);
+        config.setEvents(events);
+
+        // Dealloc events
+        ArrayList<Config> semaphores =
+                globalState.getConfig(VulkanState.VK_CREATE_SEMAPHORE);
+        config.setSemaphores(semaphores);
+
+        // Dealloc fences
+        ArrayList<Config> fences =
+                globalState.getConfig(VulkanState.VK_CREATE_FENCE);
+        config.setFences(fences);
+
+        // Dealloc shaders
+        ArrayList<Config> shaders =
+                globalState.getConfig(VulkanState.VK_CREATE_SHADER_MODULE);
+        config.setShaders(shaders);
+
         return config;
     }
 }

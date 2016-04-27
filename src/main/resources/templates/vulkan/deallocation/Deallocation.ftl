@@ -10,7 +10,8 @@
     <#list config.shaders as shader>
         <#if shader.isBad()>
         <#else>
-        vkDestroyShaderModule((${shader.device}.device, ${shader.shader}, NULL);
+        vkDestroyShaderModule((${shader.device}.device, ${shader.vertexShaderModule}, NULL);
+        vkDestroyShaderModule((${shader.device}.device, ${shader.fragmentShaderModule}, NULL);
         </#if>
     </#list>
 
@@ -85,7 +86,7 @@
     </#list>
 
     <#list config.semaphores as semaphore>
-        <#if fence.isBad()>
+        <#if semaphore.isBad()>
         <#else>
     vkDestroySemaphore(${semaphore.device}.device, ${semaphore.semaphore}, NULL);
         </#if>

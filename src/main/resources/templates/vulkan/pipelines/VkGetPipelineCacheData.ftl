@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     std::vector<char> ${config.pipelineCacheData};
     size_t ${config.size} = 0;
@@ -20,3 +22,4 @@
             || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
     checkResultOutOfMemory(${config.result});
+    </#if>

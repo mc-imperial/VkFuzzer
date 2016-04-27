@@ -15,6 +15,7 @@ import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
 import tool.codegen.vulkan.resources.*;
+import tool.codegen.vulkan.shaders.VkCreateShaderModuleGenerator;
 import tool.codegen.vulkan.synchronisation.*;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
@@ -285,6 +286,15 @@ public class CodeGeneratorsInitializer {
                         globalState));
 
         generators.put(
+                VulkanState.VK_CREATE_SHADER_MODULE.toString(),
+                new VkCreateShaderModuleGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
                 VulkanState.DEALLOCATION.toString(),
                 new DeallocationGenerator(
                         randomStringGenerator,
@@ -292,7 +302,6 @@ public class CodeGeneratorsInitializer {
                         freshMap,
                         randomizer.randomCoverage(),
                         globalState));
-
 
         return generators;
     }

@@ -98,6 +98,7 @@ public class StatesInitializer {
                 VulkanState.VK_CREATE_IMAGE,
                 VulkanState.VK_CREATE_BUFFER,
                 VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+                VulkanState.VK_CREATE_SHADER_MODULE,
                 VulkanState.DEALLOCATION
         };
 
@@ -169,6 +170,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT,
+                randomStates);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_SHADER_MODULE,
                 randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,

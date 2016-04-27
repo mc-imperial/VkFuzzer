@@ -1,54 +1,63 @@
 
-std::ifstream triangleVert("triangle-vert.spv", std::ios::binary);
-std::ifstream triangleFrag("triangle-frag.spv", std::ios::binary);
-std::vector<uint32_t> triangleVertContents;
-std::vector<uint32_t> triangleFragContents;
+    <#if config.isBad()>
+    <#else>
+    //ID: ${config.id}
+    std::ifstream ${config.vert}("simple-vert.spv", std::ios::binary);
+    std::ifstream ${config.frag}("simple-frag.spv", std::ios::binary);
+    std::vector<uint32_t> ${config.vertContents};
+    std::vector<uint32_t> ${config.fragContents};
 
-triangleVert.seekg (0, std::ios::end);
-int length = triangleVert.tellg();
-triangleVert.seekg (0, std::ios::beg);
-triangleVertContents.resize(length/sizeof(uint32_t));
-triangleVert.read((char*)triangleVertContents.data(), length);
+    ${config.vert}.seekg (0, std::ios::end);
+    int ${config.length} = ${config.vert}.tellg();
+    ${config.vert}.seekg (0, std::ios::beg);
+    ${config.vertContents}.resize(length/sizeof(uint32_t));
+    ${config.vert}.read((char*)${config.vertContents}.data(), length);
 
-_engineComponents->_shaderStages.push_back({});
-_engineComponents->_shaderStages.push_back({});
+    VkPipelineShaderStageCreateInfo ${config.vertexPipelineShaderStageCreateInfo} = {};
+    ${config.vertexPipelineShaderStageCreateInfo}.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+    ${config.vertexPipelineShaderStageCreateInfo}.pNext  = NULL;
+    ${config.vertexPipelineShaderStageCreateInfo}.pSpecializationInfo = NULL;
+    ${config.vertexPipelineShaderStageCreateInfo}.flags = 0;
+    ${config.vertexPipelineShaderStageCreateInfo}.stage = VK_SHADER_STAGE_VERTEX_BIT;
+    ${config.vertexPipelineShaderStageCreateInfo}.pName = "main";
 
-_engineComponents->_shaderStages[0].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-_engineComponents->_shaderStages[0].pNext  = NULL;
-_engineComponents->_shaderStages[0].pSpecializationInfo = NULL;
-_engineComponents->_shaderStages[0].flags = 0;
-_engineComponents->_shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
-_engineComponents->_shaderStages[0].pName = "main";
+    VkShaderModuleCreateInfo ${config.vertexModuleCreateInfo};
+    ${config.vertexModuleCreateInfo}.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    ${config.vertexModuleCreateInfo}.pNext = NULL;
+    ${config.vertexModuleCreateInfo}.flags = 0;
+    ${config.vertexModuleCreateInfo}.codeSize = ${config.vertContents}.size() * sizeof(uint32_t);
+    ${config.vertexModuleCreateInfo}.pCode = ${config.vertContents}.data();
 
-VkShaderModuleCreateInfo moduleCreateInfo;
-moduleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-moduleCreateInfo.pNext = NULL;
-moduleCreateInfo.flags = 0;
-moduleCreateInfo.codeSize = triangleVertContents.size() * sizeof(uint32_t);
-moduleCreateInfo.pCode = triangleVertContents.data();
-VkResult res = vkCreateShaderModule(_engineComponents->_device, &moduleCreateInfo, NULL, &_engineComponents->_shaderStages[0].module);
+    VkShaderModule ${config.vertexShaderModule};
+    VkResult ${config.result} = vkCreateShaderModule(${config.device}.device,
+            &${config.vertexModuleCreateInfo}, NULL, &${config.vertexShaderModule});
 
-assert(res == VK_SUCCESS);
+    assert(${config.result} == VK_SUCCESS);
 
-_engineComponents->_shaderStages[1].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-_engineComponents->_shaderStages[1].pNext  = NULL;
-_engineComponents->_shaderStages[1].pSpecializationInfo = NULL;
-_engineComponents->_shaderStages[1].flags = 0;
-_engineComponents->_shaderStages[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-_engineComponents->_shaderStages[1].pName = "main";
+    ${config.frag}.seekg (0, std::ios::end);
+    ${config.length} = ${config.frag}.tellg();
+    ${config.frag}.seekg (0, std::ios::beg);
+    ${config.fragContents}.resize(length/sizeof(uint32_t));
+    ${config.frag}.read((char*)${config.fragContents}.data(), length);
 
-triangleFrag.seekg (0, std::ios::end);
-length = triangleFrag.tellg();
-triangleFrag.seekg (0, std::ios::beg);
+    VkPipelineShaderStageCreateInfo ${config.fragmentPipelineShaderStageCreateInfo} = {};
+    ${config.fragmentPipelineShaderStageCreateInfo}.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+    ${config.fragmentPipelineShaderStageCreateInfo}.pNext  = NULL;
+    ${config.fragmentPipelineShaderStageCreateInfo}.pSpecializationInfo = NULL;
+    ${config.fragmentPipelineShaderStageCreateInfo}.flags = 0;
+    ${config.fragmentPipelineShaderStageCreateInfo}.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+    ${config.fragmentPipelineShaderStageCreateInfo}.pName = "main";
 
-triangleFragContents.resize(length/sizeof(uint32_t));
-triangleFrag.read((char*)triangleFragContents.data(), length);
+    VkShaderModuleCreateInfo ${config.fragmentModuleCreateInfo};
+    ${config.fragmentModuleCreateInfo}.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    ${config.fragmentModuleCreateInfo}.pNext = NULL;
+    ${config.fragmentModuleCreateInfo}.flags = 0;
+    ${config.fragmentModuleCreateInfo}.codeSize = ${config.fragContents}.size() * sizeof(uint32_t);
+    ${config.fragmentModuleCreateInfo}.pCode = ${config.fragContents}.data();
 
-moduleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-moduleCreateInfo.pNext = NULL;
-moduleCreateInfo.flags = 0;
-moduleCreateInfo.codeSize = triangleFragContents.size() * sizeof(uint32_t);
-moduleCreateInfo.pCode = triangleFragContents.data();
-res = vkCreateShaderModule(_engineComponents->_device, &moduleCreateInfo, NULL, &_engineComponents->_shaderStages[1].module);
+    VkShaderModule ${config.fragmentShaderModule};
+    ${config.result} = vkCreateShaderModule(${config.device}.device,
+            &${config.fragmentModuleCreateInfo}, NULL, &${config.fragmentShaderModule});
 
-assert(res == VK_SUCCESS);
+    assert(${config.result} == VK_SUCCESS);
+    </#if>
