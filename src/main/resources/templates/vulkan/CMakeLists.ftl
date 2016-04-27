@@ -21,7 +21,7 @@ if(WIN32)
     endif()
 else()
     set (CMAKE_C_FLAGS "${config.cFlags}")
-    set (CMAKE_CXX_FLAGS "${config.cppFlags} -Wno-sign-compare")
+    set (CMAKE_CXX_FLAGS "${config.cppFlags} -Wno-sign-compare -std=c++11")
 endif()
 
 if(WIN32)
