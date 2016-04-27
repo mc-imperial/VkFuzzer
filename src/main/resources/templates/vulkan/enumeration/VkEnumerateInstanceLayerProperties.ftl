@@ -14,12 +14,7 @@
                 || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
                 || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
-        if(${config.result} != VK_SUCCESS)
-        {
-            std::cerr << "Failed to enumerate instance layer properties."
-                    << "Error code " << ${config.result} << "." << std::endl;
-            return 0;
-        }
+        checkResultOutOfMemory(${config.result});
 
         if(${config.instanceLayerCount} == 0)
         {
@@ -40,9 +35,4 @@
     }
     while(${config.result} == VK_INCOMPLETE);
 
-    if(${config.result} != VK_SUCCESS)
-    {
-        std::cerr << "Failed to enumerate instance layer properties."
-                << "Error code " << ${config.result} << "." << std::endl;
-        return 0;
-    }
+    checkResultOutOfMemory(${config.result});

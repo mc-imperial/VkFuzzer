@@ -79,12 +79,7 @@
                     || (res == VK_ERROR_TOO_MANY_OBJECTS)
                     || (res == VK_ERROR_DEVICE_LOST));
 
-            if ((res == VK_ERROR_OUT_OF_HOST_MEMORY)
-                    || (res == VK_ERROR_OUT_OF_DEVICE_MEMORY))
-            {
-                std::cerr << "Run out of memory. Exiting gracefully." << std::endl;
-                return EXIT_RUN_OUT_OF_MEMORY;
-            }
+            checkResultOutOfMemory(res);
 
             assert(res == VK_SUCCESS);
 

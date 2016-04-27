@@ -67,12 +67,7 @@
                     || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
                     || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
-            if(result != VK_SUCCESS)
-            {
-                std::cerr << "Failed to enumerate device extension properties."
-                        << "Error code " << result << "." << std::endl;
-                return 0;
-            }
+            checkResultOutOfMemory(config.result);
 
             if(extensionCount == 0)
             {
@@ -93,12 +88,7 @@
         }
         while(result == VK_INCOMPLETE);
 
-        if(result != VK_SUCCESS)
-        {
-            std::cerr << "Failed to enumerate device extension properties."
-                    << "Error code " << result << "." << std::endl;
-            return 0;
-        }
+        checkResultOutOfMemory(result);
 
         // Enumerate layers
         do
@@ -111,12 +101,7 @@
                     || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
                     || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
-            if(result != VK_SUCCESS)
-            {
-                std::cerr << "Failed to enumerate device layer properties."
-                        << "Error code " << result << "." << std::endl;
-                return 0;
-            }
+            checkResultOutOfMemory(result);
 
             if(layerCount == 0)
             {
@@ -136,12 +121,7 @@
         }
         while(result == VK_INCOMPLETE);
 
-        if(result != VK_SUCCESS)
-        {
-            std::cerr << "Failed to enumerate device layer properties."
-                    << "Error code " << result << "." << std::endl;
-            return 0;
-        }
+        checkResultOutOfMemory(result);
 
         ${device.deviceMemoryProperties}.push_back(memoryProperties);
         ${device.deviceFeatures}.push_back(features);

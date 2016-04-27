@@ -62,6 +62,16 @@
     <#--SDL_Quit();-->
 <#--}-->
 
+void checkResultOutOfMemory(VkResult result)
+{
+    if ((result == VK_ERROR_OUT_OF_HOST_MEMORY)
+            || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY))
+    {
+        std::cerr << "Run out of memory. Exiting gracefully." << std::endl;
+        exit(EXIT_RUN_OUT_OF_MEMORY);
+    }
+}
+
 struct FuzzerLogicalDevice
 {
     VkDevice device;
