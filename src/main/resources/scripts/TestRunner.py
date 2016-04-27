@@ -33,7 +33,7 @@ def runPrograms(executables):
 		print runningMessage + "  ",
 		results.write(runningMessage + "\n")
 
-		process = Popen(["./" + prefix + executables[i]], stdout=PIPE, stderr=PIPE)
+		process = Popen(["./" + executables[i]], stdout=PIPE, stderr=PIPE)
 		(stdout, stderr) = process.communicate()
 
 		# Check return code
