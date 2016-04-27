@@ -73,6 +73,9 @@ struct FuzzerLogicalDevice
     bool supportsSparseBinding;
 };
 
+int EXIT_INVALID_CODE_GENERATION = -5;
+int EXIT_RUN_OUT_OF_MEMORY = -6;
+
 int main(int argc, char *argv[])
 {
     // Set seed for random operations

@@ -1,5 +1,19 @@
 
     //ID: ${config.id}
+    <#list config.descriptors as descriptor>
+        <#if descriptor.isBad()>
+        <#else>
+        vkFreeDescriptorSets((${descriptor.device}.device, ${descriptor.descriptorPool}, ${descriptor.descriptor}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.shaders as shader>
+        <#if shader.isBad()>
+        <#else>
+        vkDestroyShaderModule((${shader.device}.device, ${shader.shader}, NULL);
+        </#if>
+    </#list>
+
     <#list config.computePipelines as computePipeline>
         <#if computePipeline.isBad()>
         <#else>
@@ -18,6 +32,13 @@
         <#if pipelineCache.isBad()>
         <#else>
     vkDestroyPipelineCache(${pipelineCache.device}.device, ${pipelineCache.pipelineCache}, NULL);
+        </#if>
+    </#list>
+
+    <#list config.pipelineLayouts as pipelineLayout>
+        <#if pipelineLayout.isBad()>
+        <#else>
+        vkDestroyPipelineLayout((${pipelineLayout.device}.device, ${pipelineLayout.pipelineLayout}, NULL);
         </#if>
     </#list>
 

@@ -10,27 +10,26 @@ WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
 RESULTS_FILE = "results.txt"
 WINDOWS = "nt"
 RELEASE_FOLDER = "Release/"
-DEBUG_FOLDER = "Debug/"
+
+# Return codes
+SUCCESS = 0;
+INVALID_CODE_GENERATION = -5
+RUN_OUT_OF_MEMORY = -6
 
 # Runs the programs
 def runPrograms(executables):
 	results = open(RESULTS_FILE, "w")
 	succeeded = []
 	failed = []
+	outOfMemory = []
+	invalidCodeGeneration = []
 
 	print "Running Tests"
 	print "==================="
 
 	# Iterate over programs and run them
 	for i in range(len(executables)):
-		prefix = ""
-		if os.name == WINDOWS:
-			if os.path.isdir(RELEASE_FOLDER):
-				prefix = RELEASE_FOLDER
-			else:
-				prefix = DEBUG_FOLDER
-
-		runningMessage = "Running: " + prefix + executables[i] + " (" + str(i + 1) + "/" + str(len(executables)) + ")"
+		runningMessage = "Running: " + executables[i] + " (" + str(i + 1) + "/" + str(len(executables)) + ")"
 		print runningMessage + "  ",
 		results.write(runningMessage + "\n")
 
@@ -38,10 +37,15 @@ def runPrograms(executables):
 		(stdout, stderr) = process.communicate()
 
 		# Check return code
-		resultMessage = ""
-		if process.returncode == 0:
+		if process.returncode == SUCCESS:
 			resultMessage = "SUCCESS"
 			succeeded.append(executables[i])
+		elif process.returncode == INVALID_CODE_GENERATION:
+			resultMessage = "FAILURE"
+			invalidCodeGeneration.append(executables[i])
+		elif process.returncode == RUN_OUT_OF_MEMORY:
+			resultMessage = "SUCCESS"
+			outOfMemory.append(executables[i])
 		else:
 			resultMessage = "FAILURE"
 			failed.append(executables[i])
@@ -56,20 +60,24 @@ def runPrograms(executables):
 		results.write(stderr + "\n")
 
 	print "===================\n"
-	return (succeeded, failed)
+	return (succeeded, failed, outOfMemory, invalidCodeGeneration)
 
 # Prints the test summary
-def printSummary(executables, succeeded, failed):
+def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration):
 	# Calculate statistics
 	numberOfExecutables = len(executables)
 	prcntSucceed = float(len(succeeded))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 	prcntFailed = float(len(failed))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
+	prcntOutOfMemory = float(len(outOfMemory))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
+	prcntInvalidCodeGeneration = float(len(invalidCodeGeneration))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 
 	print "Test Summary"
 	print "==================="
 	print "Total tests: " + str(numberOfExecutables)
 	print "Succeeded: " + str(len(succeeded)) + "/" + str(numberOfExecutables) + " (" + str(prcntSucceed) + "%)"
 	print "Failed: " + str(len(failed)) + "/" + str(numberOfExecutables) + " (" + str(prcntFailed) + "%)"
+	print "Out of Memory: " + str(len(outOfMemory)) + "/" + str(numberOfExecutables) + " (" + str(prcntOutOfMemory) + "%)"
+	print "Invalid Code Generation: " + str(len(invalidCodeGeneration)) + "/" + str(numberOfExecutables) + " (" + str(prcntInvalidCodeGeneration) + "%)"
 	print "===================\n"
 
 	if len(failed) != 0:
@@ -87,21 +95,14 @@ if __name__ == "__main__":
 	files = []
 	executables = []
 	if os.name == WINDOWS:
-		folder = ""
-
-		if os.path.isdir(RELEASE_FOLDER):
-			folder = RELEASE_FOLDER
-		else:
-			folder = DEBUG_FOLDER
-
-		files = os.listdir(folder)
-		executables = [x for x in files if re.match(WINDOWS_PROGRAM_NAME, x)]
+		files = os.listdir(RELEASE_FOLDER)
+		executables = [RELEASE_FOLDER + x for x in files if re.match(WINDOWS_PROGRAM_NAME, x)]
 	else:
 		files = os.listdir(".")
 		executables = [x for x in files if re.match(PROGRAM_NAME, x)]
 
 	# Run programs
-	(succeeded, failed) = runPrograms(executables)
+	(succeeded, failed, outOfMemory, invalidCodeGeneration) = runPrograms(executables)
 
 	# Print Summary
-	printSummary(executables, succeeded, failed)
+	printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration)

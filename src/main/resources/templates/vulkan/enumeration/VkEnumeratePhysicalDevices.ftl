@@ -17,6 +17,13 @@
                 || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY)
                 || (${config.result} == VK_ERROR_INITIALIZATION_FAILED));
 
+        if ((${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY))
+        {
+            std::cerr << "Run out of memory. Exiting gracefully."
+            return EXIT_RUN_OUT_OF_MEMORY;
+        }
+
         ${config.gpus}.resize(${config.gpuCount});
 
         // Get information of available GPUs
@@ -28,6 +35,13 @@
                 || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
                 || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY)
                 || (${config.result} == VK_ERROR_INITIALIZATION_FAILED));
+
+        if ((${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY))
+        {
+            std::cerr << "Run out of memory. Exiting gracefully."
+            return EXIT_RUN_OUT_OF_MEMORY;
+        }
     }
     while(${config.result} == VK_INCOMPLETE);
 

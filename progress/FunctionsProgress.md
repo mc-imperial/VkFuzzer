@@ -60,3 +60,12 @@ Functions Implemented
 51. VkInvalidateMappedMemoryRanges
 52. VkMapMemory
 53. VkUnmapMemory
+54. VkCreateShaderModule
+55. VkDestroyShaderModule
+56. VkCreatePipelineLayout
+57. VkDestroyPipelineLayout
+58. VkAllocateDescriptorSet
+59. VkCreateDescriptorPool
+60. VkResetDescriptorPool
+61. VkDestroyDescriptorPool
+62. VkFreeDescriptorSets

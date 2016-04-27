@@ -22,7 +22,9 @@ public class DeallocationConfig extends Config {
     private ArrayList<Config> pipelineCaches;
     private ArrayList<Config> computePipelines;
     private ArrayList<Config> graphicsPipelines;
-
+    private ArrayList<Config> pipelineLayouts;
+    private ArrayList<Config> shaders;
+    private ArrayList<Config> descriptors;
 
     public DeallocationConfig() {
         instances = new ArrayList<>();
@@ -39,6 +41,9 @@ public class DeallocationConfig extends Config {
         pipelineCaches = new ArrayList<>();
         computePipelines = new ArrayList<>();
         graphicsPipelines = new ArrayList<>();
+        shaders = new ArrayList<>();
+        pipelineLayouts = new ArrayList<>();
+        descriptors = new ArrayList<>();
     }
 
     public ArrayList<Config> getInstances() {
@@ -151,5 +156,29 @@ public class DeallocationConfig extends Config {
 
     public void setGraphicsPipelines(ArrayList<Config> graphicsPipelines) {
         this.graphicsPipelines = graphicsPipelines;
+    }
+
+    public ArrayList<Config> getPipelineLayouts() {
+        return pipelineLayouts;
+    }
+
+    public void setPipelineLayouts(ArrayList<Config> pipelineLayouts) {
+        this.pipelineLayouts = pipelineLayouts;
+    }
+
+    public ArrayList<Config> getShaders() {
+        return shaders;
+    }
+
+    public void setShaders(ArrayList<Config> shaders) {
+        this.shaders = shaders;
+    }
+
+    public ArrayList<Config> getDescriptors() {
+        return descriptors;
+    }
+
+    public void setDescriptors(ArrayList<Config> descriptors) {
+        this.descriptors = descriptors;
     }
 }
