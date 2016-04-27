@@ -15,6 +15,7 @@ import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
+import tool.configs.vulkan.resources.*;
 import tool.configs.vulkan.synchronisation.*;
 
 import java.util.ArrayList;
@@ -68,7 +69,21 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = VkSetEventConfig.class,
                 name = "VkSetEventConfig"),
         @JsonSubTypes.Type(value = VkGetDeviceQueueConfig.class,
-                name = "VkGetDeviceQueueConfig")
+                name = "VkGetDeviceQueueConfig"),
+        @JsonSubTypes.Type(value = VkCreateBufferConfig.class,
+                name = "VkCreateBufferConfig"),
+        @JsonSubTypes.Type(value = VkCreateBufferViewConfig.class,
+                name = "VkCreateBufferViewConfig"),
+        @JsonSubTypes.Type(value = VkCreateImageConfig.class,
+                name = "VkCreateImageConfig"),
+        @JsonSubTypes.Type(value = VkCreateImageViewConfig.class,
+                name = "VkCreateImageViewConfig"),
+        @JsonSubTypes.Type(value = VkGetBufferMemoryRequirementsConfig.class,
+                name = "VkGetBufferMemoryRequirementsConfig"),
+        @JsonSubTypes.Type(value = VkGetImageMemoryRequirementsConfig.class,
+                name = "VkGetImageMemoryRequirementsConfig"),
+        @JsonSubTypes.Type(value = VkGetImageSubResourceLayoutConfig.class,
+                name = "VkGetImageSubResourceLayoutConfig")
 })
 public class Config {
     private ArrayList<Integer> dependencies;
