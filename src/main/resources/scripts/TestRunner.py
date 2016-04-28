@@ -41,7 +41,7 @@ def runPrograms(executables):
 			resultMessage = "SUCCESS"
 			succeeded.append(executables[i])
 		elif process.returncode == INVALID_CODE_GENERATION:
-			resultMessage = "FAILURE"
+			resultMessage = "INVALID"
 			invalidCodeGeneration.append(executables[i])
 		elif process.returncode == RUN_OUT_OF_MEMORY:
 			resultMessage = "SUCCESS"

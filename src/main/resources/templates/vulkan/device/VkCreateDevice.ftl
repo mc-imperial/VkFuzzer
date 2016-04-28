@@ -38,7 +38,21 @@
                 fuzzerLogicalDevice.supportsSparseBinding = true;
             }
 
+            // Assign random priorities
             std::vector<float> queuePriorities;
+            float sum = 0.0f;
+            for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
+            {
+                float priority = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+                queuePriorities.push_back(priority);
+                sum += priority;
+            }
+
+            // Normalise priorities
+            for (unsigned int k = 0; k < queuePriorities.size(); ++k)
+            {
+                queuePriorities[k] /= sum;
+            }
 
             VkDeviceQueueCreateInfo queueInfo = {};
             queueInfo.queueFamilyIndex = j;
@@ -46,12 +60,6 @@
             queueInfo.pNext = NULL;
             queueInfo.queueCount = fuzzerLogicalDevice.maxQueueCount;
             queueInfo.pQueuePriorities = queuePriorities.data();
-
-            // Assign random priorities
-            for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
-            {
-                queuePriorities.push_back(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
-            }
 
             VkDeviceCreateInfo deviceInfo = {};
             deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
