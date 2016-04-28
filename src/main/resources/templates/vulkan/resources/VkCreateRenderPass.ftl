@@ -44,7 +44,7 @@
     ${config.renderpassCreateInfo}.pDependencies = NULL;
 
     VkRenderPass ${config.renderpass};
-    VkResult ${config.result} = vkCreateRenderPass(${config.device}, &${config.renderpassCreateInfo},
+    VkResult ${config.result} = vkCreateRenderPass(${config.device}.device, &${config.renderpassCreateInfo},
             NULL, &${config.renderpass});
 
     assert((${config.result} == VK_SUCCESS)
