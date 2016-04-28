@@ -82,6 +82,7 @@ public class VkCreateShaderModuleGenerator extends VulkanCodeGenerator {
 
         config.addDependency(cmdPool.getId());
         config.setDevice(cmdPool.getRandomDevice());
+        config.setBad(cmdPool.isBad());
 
         globalState.addConfig(VulkanState.VK_CREATE_SHADER_MODULE, config);
 
