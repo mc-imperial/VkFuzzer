@@ -58,6 +58,7 @@ public class VkCreateRenderPassGenerator extends VulkanCodeGenerator {
 
         config.setDevice(cmdPool.getRandomDevice());
         config.addDependency(cmdPool.getId());
+        config.setBad(cmdPool.isBad());
 
         globalState.addConfig(VulkanState.VK_CREATE_RENDERPASS, config);
 
