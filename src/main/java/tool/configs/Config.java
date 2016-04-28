@@ -16,6 +16,7 @@ import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
 import tool.configs.vulkan.resources.*;
+import tool.configs.vulkan.shaders.VkCreateShaderModuleConfig;
 import tool.configs.vulkan.synchronisation.*;
 
 import java.util.ArrayList;
@@ -83,7 +84,11 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = VkGetImageMemoryRequirementsConfig.class,
                 name = "VkGetImageMemoryRequirementsConfig"),
         @JsonSubTypes.Type(value = VkGetImageSubResourceLayoutConfig.class,
-                name = "VkGetImageSubResourceLayoutConfig")
+                name = "VkGetImageSubResourceLayoutConfig"),
+        @JsonSubTypes.Type(value = VkCreateShaderModuleConfig.class,
+                name = "VkCreateShaderModuleConfig"),
+        @JsonSubTypes.Type(value = VkCreateRenderpassConfig.class,
+                name = "VkCreateRenderpassConfig")
 })
 public class Config {
     private ArrayList<Integer> dependencies;

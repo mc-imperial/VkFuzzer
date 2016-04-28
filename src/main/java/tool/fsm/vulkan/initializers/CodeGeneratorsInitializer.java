@@ -295,6 +295,15 @@ public class CodeGeneratorsInitializer {
                         globalState));
 
         generators.put(
+                VulkanState.VK_CREATE_RENDERPASS.toString(),
+                new VkCreateRenderPassGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
                 VulkanState.DEALLOCATION.toString(),
                 new DeallocationGenerator(
                         randomStringGenerator,

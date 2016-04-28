@@ -118,6 +118,8 @@
                     || (result == VK_INCOMPLETE)
                     || (result == VK_ERROR_OUT_OF_HOST_MEMORY)
                     || (result == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+
+            checkResultOutOfMemory(result);
         }
         while(result == VK_INCOMPLETE);
 

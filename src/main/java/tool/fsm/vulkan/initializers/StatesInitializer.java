@@ -174,6 +174,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SHADER_MODULE,
+                VulkanState.VK_CREATE_RENDERPASS);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_RENDERPASS,
                 randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,
