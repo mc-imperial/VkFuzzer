@@ -41,6 +41,9 @@ find_library(VULKAN_LOADER NAMES ${config.vulkanLoaderName})
 
 # Copy test runner
 file(COPY "TestRunner.py" DESTINATION "${config.binaryFolder}")
+file(COPY "simple-vert.spv" DESTINATION "${config.binaryFolder}")
+file(COPY "simple-frag.spv" DESTINATION "${config.binaryFolder}")
+
 <#list config.executables as executable>
 
 # Create executable

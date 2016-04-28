@@ -10,7 +10,7 @@
     ${config.vert}.seekg (0, std::ios::end);
     int ${config.length} = ${config.vert}.tellg();
     ${config.vert}.seekg (0, std::ios::beg);
-    ${config.vertContents}.resize(length/sizeof(uint32_t));
+    ${config.vertContents}.resize(${config.length}/sizeof(uint32_t));
     ${config.vert}.read((char*)${config.vertContents}.data(), length);
 
     VkPipelineShaderStageCreateInfo ${config.vertexPipelineShaderStageCreateInfo} = {};
@@ -37,7 +37,7 @@
     ${config.frag}.seekg (0, std::ios::end);
     ${config.length} = ${config.frag}.tellg();
     ${config.frag}.seekg (0, std::ios::beg);
-    ${config.fragContents}.resize(length/sizeof(uint32_t));
+    ${config.fragContents}.resize(${config.length}/sizeof(uint32_t));
     ${config.frag}.read((char*)${config.fragContents}.data(), length);
 
     VkPipelineShaderStageCreateInfo ${config.fragmentPipelineShaderStageCreateInfo} = {};
