@@ -3,15 +3,15 @@
     <#list config.descriptors as descriptor>
         <#if descriptor.isBad()>
         <#else>
-        vkFreeDescriptorSets((${descriptor.device}.device, ${descriptor.descriptorPool}, ${descriptor.descriptor}, NULL);
+        vkFreeDescriptorSets(${descriptor.device}.device, ${descriptor.descriptorPool}, ${descriptor.descriptor}, NULL);
         </#if>
     </#list>
 
     <#list config.shaders as shader>
         <#if shader.isBad()>
         <#else>
-        vkDestroyShaderModule((${shader.device}.device, ${shader.vertexShaderModule}, NULL);
-        vkDestroyShaderModule((${shader.device}.device, ${shader.fragmentShaderModule}, NULL);
+        vkDestroyShaderModule(${shader.device}.device, ${shader.vertexShaderModule}, NULL);
+        vkDestroyShaderModule(${shader.device}.device, ${shader.fragmentShaderModule}, NULL);
         </#if>
     </#list>
 
@@ -39,7 +39,7 @@
     <#list config.pipelineLayouts as pipelineLayout>
         <#if pipelineLayout.isBad()>
         <#else>
-        vkDestroyPipelineLayout((${pipelineLayout.device}.device, ${pipelineLayout.pipelineLayout}, NULL);
+        vkDestroyPipelineLayout(${pipelineLayout.device}.device, ${pipelineLayout.pipelineLayout}, NULL);
         </#if>
     </#list>
 

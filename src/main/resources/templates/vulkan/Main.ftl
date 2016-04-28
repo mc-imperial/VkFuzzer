@@ -30,6 +30,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+
 <#--#include <SDL.h>-->
 <#--#include <SDL_syswm.h>-->
 

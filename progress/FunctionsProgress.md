@@ -51,7 +51,7 @@ Functions Implemented
 42. VkCreatePipelineCache
 43. VkGetPipelineCacheData
 44. VkMergePipelineCaches
-45. VkDestroyPipilines
+45. VkDestroyPipelines
 46. VkDestroyPipelineCache
 47. VkAllocateMemory
 48. VkFlushMappedMemoryRanges
@@ -69,3 +69,7 @@ Functions Implemented
 60. VkResetDescriptorPool
 61. VkDestroyDescriptorPool
 62. VkFreeDescriptorSets
+63. VkCreateFrameBuffer
+64. VkCreateRenderPass
+65. VkDestroyFrameBuffer
+66. VkDestroyRenderPass
