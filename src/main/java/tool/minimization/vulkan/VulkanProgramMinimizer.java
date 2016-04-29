@@ -9,10 +9,7 @@ import tool.serialization.vulkan.VulkanStateDeserializer;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by cvryo on 14/04/2016.
@@ -91,6 +88,7 @@ public class VulkanProgramMinimizer implements Minimizer {
                                                final Config config) {
         Stack<Config> dependencies = new Stack<>();
         LinkedList<Config> queue = new LinkedList<>();
+        HashMap<Integer, Boolean> duplicates = new HashMap<>();
 
         // Add config to queues
         queue.add(config);
@@ -102,7 +100,13 @@ public class VulkanProgramMinimizer implements Minimizer {
             for (int id : current.getDependencies()) {
                 try {
                     Config dependency = findConfig(globalState, id);
-                    dependencies.push(dependency);
+
+                    int configId = dependency.getId();
+                    if (!duplicates.containsKey(configId)) {
+                        dependencies.push(dependency);
+                        duplicates.put(configId, true);
+                    }
+
                     queue.add(dependency);
                 } catch (NoSuchElementException e) {
                     System.err.println(e.getMessage());
