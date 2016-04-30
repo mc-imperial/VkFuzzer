@@ -304,6 +304,15 @@ public class CodeGeneratorsInitializer {
                         globalState));
 
         generators.put(
+                VulkanState.VK_CREATE_FRAMEBUFFER.toString(),
+                new VkCreateFrameBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
                 VulkanState.DEALLOCATION.toString(),
                 new DeallocationGenerator(
                         randomStringGenerator,

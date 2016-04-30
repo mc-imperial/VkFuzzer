@@ -66,4 +66,6 @@ public class VulkanTemplates {
             "shaders/VkCreateShaderModule.ftl";
     public static final String VK_CREATE_RENDERPASS =
             "resources/VkCreateRenderPass.ftl";
+    public static final String VK_CREATE_FRAMEBUFFER =
+            "resources/VkCreateFrameBuffer.ftl";
 }

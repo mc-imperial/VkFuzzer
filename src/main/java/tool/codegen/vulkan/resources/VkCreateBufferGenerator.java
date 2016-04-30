@@ -45,6 +45,7 @@ public class VkCreateBufferGenerator extends VulkanCodeGenerator {
     private final String BUFFER_CREATE_INFO = "bufferCreateInfo";
     private final int FAMILY_COUNT = 1;
     private final int MAX_SIZE = 40;
+    private final int FORMAT_SIZE = 4;
 
     public VkCreateBufferGenerator(RandomStringGenerator randomStringGenerator,
                                    RandomNumberGanerator randomNumberGanerator,
@@ -63,7 +64,7 @@ public class VkCreateBufferGenerator extends VulkanCodeGenerator {
         config.setpQueueFamilyIndices(QUEUES);
         config.setQueueFamilyIndexCount(FAMILY_COUNT);
         config.setSharingMode(SHARING_MODE);
-        config.setSize(randomNumberGanerator.randomNumber(MAX_SIZE));
+        config.setSize(randomNumberGanerator.randomNumber(MAX_SIZE) * FORMAT_SIZE);
         config.setBuffer(BUFFER + freshMap.getFreshId(BUFFER));
         config.setBufferCreateInfo(BUFFER_CREATE_INFO +
                 freshMap.getFreshId(BUFFER_CREATE_INFO));

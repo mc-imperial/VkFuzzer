@@ -24,13 +24,17 @@
 */
 
 #include <vulkan/vulkan.h>
-#include <cassert>
 #include <cstring>
 #include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+
+#define EXIT_INVALID_CODE_GENERATION -5
+#define EXIT_RUN_OUT_OF_MEMORY -6
+#define ASSERTION_FAILED -7
+#define assert(condition) if (!condition) {std::cerr << "Assertion failed at line" << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
 
 <#--#include <SDL.h>-->
 <#--#include <SDL_syswm.h>-->
@@ -63,9 +67,6 @@
     <#--SDL_DestroyWindow(window);-->
     <#--SDL_Quit();-->
 <#--}-->
-
-int EXIT_INVALID_CODE_GENERATION = -5;
-int EXIT_RUN_OUT_OF_MEMORY = -6;
 
 void checkResultOutOfMemory(VkResult result)
 {

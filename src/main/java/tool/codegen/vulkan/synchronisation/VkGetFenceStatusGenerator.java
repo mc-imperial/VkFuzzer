@@ -55,6 +55,7 @@ public class VkGetFenceStatusGenerator extends VulkanCodeGenerator {
             VkResetFencesConfig resetFenceConfig =  (VkResetFencesConfig)resetConfig;
             if (resetFenceConfig.getFence().equals(fenceConfig.getFence())) {
                 config.setExpectedResult(VulkanReturnCodes.VK_NOT_READY);
+                config.addDependency(resetFenceConfig.getId());
             }
         }
 

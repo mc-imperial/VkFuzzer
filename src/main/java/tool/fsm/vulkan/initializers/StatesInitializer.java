@@ -178,6 +178,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_RENDERPASS,
+                VulkanState.VK_CREATE_FRAMEBUFFER);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_FRAMEBUFFER,
                 randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,

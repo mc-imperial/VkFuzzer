@@ -15,6 +15,10 @@ import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
+import tool.configs.vulkan.pipelines.VkCreateGraphicsPipelinesConfig;
+import tool.configs.vulkan.pipelines.VkCreatePipelineCacheConfig;
+import tool.configs.vulkan.pipelines.VkCreatePipelineLayoutConfig;
+import tool.configs.vulkan.pipelines.VkGetPipelineCacheDataConfig;
 import tool.configs.vulkan.resources.*;
 import tool.configs.vulkan.shaders.VkCreateShaderModuleConfig;
 import tool.configs.vulkan.synchronisation.*;
@@ -88,7 +92,17 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = VkCreateShaderModuleConfig.class,
                 name = "VkCreateShaderModuleConfig"),
         @JsonSubTypes.Type(value = VkCreateRenderpassConfig.class,
-                name = "VkCreateRenderpassConfig")
+                name = "VkCreateRenderpassConfig"),
+        @JsonSubTypes.Type(value = VkCreateFrameBufferConfig.class,
+                name = "VkCreateFrameBufferConfig"),
+        @JsonSubTypes.Type(value = VkCreateGraphicsPipelinesConfig.class,
+                name = "VkCreateGraphicsPipelinesConfig"),
+        @JsonSubTypes.Type(value = VkCreatePipelineCacheConfig.class,
+                name = "VkCreatePipelineCacheConfig"),
+        @JsonSubTypes.Type(value = VkCreatePipelineLayoutConfig.class,
+                name = "VkCreatePipelineLayoutConfig"),
+        @JsonSubTypes.Type(value = VkGetPipelineCacheDataConfig.class,
+                name = "VkGetPipelineCacheDataConfig")
 })
 public class Config {
     private ArrayList<Integer> dependencies;

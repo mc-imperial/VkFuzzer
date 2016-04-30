@@ -41,6 +41,7 @@ public enum VulkanState {
 
     VK_CREATE_SHADER_MODULE,
     VK_CREATE_RENDERPASS,
+    VK_CREATE_FRAMEBUFFER,
 
     DEALLOCATION,
 
