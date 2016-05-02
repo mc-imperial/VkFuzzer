@@ -3,13 +3,15 @@ import os
 import re
 import sys
 from subprocess import Popen, PIPE
-from time import sleep
+import shutil
+
 
 PROGRAM_NAME = r'Program*'
 WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
 RESULTS_FILE = "results.txt"
 WINDOWS = "nt"
 RELEASE_FOLDER = "Release/"
+SHADERS = r'[a-zA-Z0-9]*.spv'
 
 # Return codes
 SUCCESS = 0;
@@ -97,6 +99,18 @@ if __name__ == "__main__":
 	if os.name == WINDOWS:
 		files = os.listdir(RELEASE_FOLDER)
 		executables = [RELEASE_FOLDER + x for x in files if re.match(WINDOWS_PROGRAM_NAME, x)]
+
+		# Check if Shaders were copied
+		existingShaders = os.listdir(RELEASE_FOLDER)
+
+		# If shaders were not copied previously
+		if len(existingShaders) == 0:
+			shaderFiles = os.listdir(".")
+			shaders = [x for x in shaderFiles if re.match(SHADERS, x)]
+
+			for i in range(len(shaders)):
+				shutil.copy(shaders[i], RELEASE_FOLDER + shaders[i])
+
 	else:
 		files = os.listdir(".")
 		executables = [x for x in files if re.match(PROGRAM_NAME, x)]
