@@ -34,7 +34,15 @@
 #define EXIT_INVALID_CODE_GENERATION -5
 #define EXIT_RUN_OUT_OF_MEMORY -6
 #define ASSERTION_FAILED -7
-#define assert(condition) if (!condition) {std::cerr << "Assertion failed at line " << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
+
+void assert(bool condition)
+{
+    if (!condition)
+    {
+        std::cerr << "Assertion failed at line" << __LINE__ << std::endl;
+        exit(ASSERTION_FAILED);
+    }
+}
 
 <#--#include <SDL.h>-->
 <#--#include <SDL_syswm.h>-->
