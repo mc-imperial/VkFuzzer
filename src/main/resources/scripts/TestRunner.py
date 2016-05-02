@@ -10,7 +10,7 @@ PROGRAM_NAME = r'Program*'
 WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
 RESULTS_FILE = "results.txt"
 WINDOWS = "nt"
-RELEASE_FOLDER = "Release/"
+RELEASE_FOLDER = "Debug/"
 SHADERS = r'[a-zA-Z0-9]*.spv'
 
 # Return codes

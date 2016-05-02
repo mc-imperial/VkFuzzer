@@ -16,8 +16,8 @@ if(WIN32)
 
     # If MSVC, disable some signed/unsigned mismatch warnings.
     if (MSVC)
-        set(CMAKE_C_FLAGS "${config.cFlags} /wd4267 /wd4244")
-        set(CMAKE_CXX_FLAGS "${config.cppFlags} /wd4267 /wd4244")
+        set(CMAKE_C_FLAGS "${config.cFlags} /wd4267 /wd4244 /4804")
+        set(CMAKE_CXX_FLAGS "${config.cppFlags} /wd4267 /wd4244 /4804")
     endif()
 else()
     set (CMAKE_C_FLAGS "${config.cFlags}")
