@@ -49,7 +49,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
 
             VkCreateRenderpassConfig renderpass =
                     (VkCreateRenderpassConfig)
-                            configs.get(randomNumberGanerator.randomNumber(configs.size()));
+                    renderpasses.get(randomNumberGanerator.randomNumber(renderpasses.size()));
 
             VkCreateImageConfig vkImage =
                     (VkCreateImageConfig)

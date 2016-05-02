@@ -68,4 +68,12 @@ public class VulkanTemplates {
             "resources/VkCreateRenderPass.ftl";
     public static final String VK_CREATE_FRAMEBUFFER =
             "resources/VkCreateFrameBuffer.ftl";
+    public static final String VK_CREATE_GRAPHICS_PIPELINES =
+            "pipelines/VkCreateGraphicsPipelines.ftl";
+    public static final String VK_CREATE_PIPELINE_CACHE =
+            "pipelines/VkCreatePipelineCache.ftl";
+    public static final String VK_CREATE_PIPELINE_LAYOUT =
+            "pipelines/VkCreatePipelineLayout.ftl";
+    public static final String VK_GET_PIPELINE_CACHE_DATA =
+            "pipelines/VkGetPipelineCacheData.ftl";
 }

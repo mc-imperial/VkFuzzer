@@ -48,8 +48,6 @@ public class VkCreateBufferViewGenerator extends VulkanCodeGenerator {
         config.setFormat(FORMAT);
 
         // find random buffer
-
-        // random device
         ArrayList<Config> configs =
                 globalState.getConfig(VulkanState.VK_CREATE_BUFFER);
 

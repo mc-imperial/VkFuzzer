@@ -14,6 +14,10 @@ import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
+import tool.codegen.vulkan.pipelines.VkCreateGraphicsPipelinesGenerator;
+import tool.codegen.vulkan.pipelines.VkCreatePipelineCacheGenerator;
+import tool.codegen.vulkan.pipelines.VkCreatePipelineLayoutGenerator;
+import tool.codegen.vulkan.pipelines.VkGetPipelineCacheDataGenerator;
 import tool.codegen.vulkan.resources.*;
 import tool.codegen.vulkan.shaders.VkCreateShaderModuleGenerator;
 import tool.codegen.vulkan.synchronisation.*;
@@ -306,6 +310,42 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_CREATE_FRAMEBUFFER.toString(),
                 new VkCreateFrameBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_GRAPHICS_PIPELINES.toString(),
+                new VkCreateGraphicsPipelinesGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_PIPELINE_CACHE.toString(),
+                new VkCreatePipelineCacheGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_PIPELINE_LAYOUT.toString(),
+                new VkCreatePipelineLayoutGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_GET_PIPELINE_CACHE_DATA.toString(),
+                new VkGetPipelineCacheDataGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

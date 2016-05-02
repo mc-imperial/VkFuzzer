@@ -22,6 +22,53 @@ public class VkCreateGraphicsPipelinesConfig extends Config {
     private String device;
     private String cache;
     private String result;
+    private String pipelineLayout;
+    private String pipelineCache;
+
+    public String getPipelineCache() {
+        return pipelineCache;
+    }
+
+    public void setPipelineCache(String pipelineCache) {
+        this.pipelineCache = pipelineCache;
+    }
+
+    private String renderpass;
+
+    public String getRenderpass() {
+        return renderpass;
+    }
+
+    public void setRenderpass(String renderpass) {
+        this.renderpass = renderpass;
+    }
+
+    public String getPipelineLayout() {
+        return pipelineLayout;
+    }
+
+    public void setPipelineLayout(String pipelineLayout) {
+        this.pipelineLayout = pipelineLayout;
+    }
+
+    public String getVertexShader() {
+        return vertexShader;
+    }
+
+    public void setVertexShader(String vertexShader) {
+        this.vertexShader = vertexShader;
+    }
+
+    public String getFragmentShader() {
+        return fragmentShader;
+    }
+
+    public void setFragmentShader(String fragmentShader) {
+        this.fragmentShader = fragmentShader;
+    }
+
+    private String vertexShader;
+    private String fragmentShader;
 
     public String getDynamicStatesEnables() {
         return dynamicStatesEnables;

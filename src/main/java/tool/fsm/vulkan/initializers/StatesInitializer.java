@@ -182,6 +182,18 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_FRAMEBUFFER,
+                VulkanState.VK_CREATE_PIPELINE_CACHE);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_PIPELINE_CACHE,
+                VulkanState.VK_CREATE_PIPELINE_LAYOUT);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_PIPELINE_LAYOUT,
+                VulkanState.VK_CREATE_GRAPHICS_PIPELINES);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CREATE_GRAPHICS_PIPELINES,
                 randomStates);
 
         defineTransition(TransitionType.SEQUENTIAL,
