@@ -14,10 +14,10 @@ if(WIN32)
     set (CMAKE_C_FLAGS "${config.cFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
     set (CMAKE_CXX_FLAGS "${config.cppFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
 
-    # If MSVC, disable some signed/unsigned mismatch warnings.
+    # If MSVC, disable some mismatch warnings.
     if (MSVC)
-        set(CMAKE_C_FLAGS "${config.cFlags} /wd4267 /wd4244 /4804")
-        set(CMAKE_CXX_FLAGS "${config.cppFlags} /wd4267 /wd4244 /4804")
+        set(CMAKE_C_FLAGS "${config.cFlags} /wd4267 /wd4244 /wd4804")
+        set(CMAKE_CXX_FLAGS "${config.cppFlags} /wd4267 /wd4244 /wd4804")
     endif()
 else()
     set (CMAKE_C_FLAGS "${config.cFlags}")
