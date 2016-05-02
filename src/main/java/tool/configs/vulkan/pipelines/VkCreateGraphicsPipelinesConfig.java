@@ -24,6 +24,27 @@ public class VkCreateGraphicsPipelinesConfig extends Config {
     private String result;
     private String pipelineLayout;
     private String pipelineCache;
+    private String vertexBindings;
+
+    public String getVertexAttributes() {
+        return vertexAttributes;
+    }
+
+    public void setVertexAttributes(String vertexAttributes) {
+        this.vertexAttributes = vertexAttributes;
+    }
+
+    public String getVertexBindings() {
+        return vertexBindings;
+    }
+
+    public void setVertexBindings(String vertexBindings) {
+        this.vertexBindings = vertexBindings;
+    }
+
+    private String vertexAttributes;
+
+
 
     public String getPipelineCache() {
         return pipelineCache;

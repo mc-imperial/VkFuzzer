@@ -2,6 +2,22 @@
     <#if config.isBad()>
     <#else>
     //ID: ${config.id}
+
+    VkVertexInputBindingDescription ${config.vertexBindings};
+    ${config.vertexBindings}.binding = 0;
+    ${config.vertexBindings}.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    ${config.vertexBindings}.stride = sizeof(triData[0]);
+
+    VkVertexInputAttributeDescription ${config.vertexAttributes}[2];
+    ${config.vertexAttributes}[0].binding = 0;
+    ${config.vertexAttributes}[0].location = 0;
+    ${config.vertexAttributes}[0].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+    ${config.vertexAttributes}[0].offset = 0;
+    ${config.vertexAttributes}[1].binding = 0;
+    ${config.vertexAttributes}[1].location = 1;
+    ${config.vertexAttributes}[1].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+    ${config.vertexAttributes}[1].offset = 16;
+
     VkDynamicState ${config.dynamicStatesEnables}[VK_DYNAMIC_STATE_RANGE_SIZE];
     memset(${config.dynamicStatesEnables}, 0, sizeof(${config.dynamicStatesEnables}));
 
@@ -16,9 +32,9 @@
     ${config.vertexInputStateCreateInfo}.pNext = NULL;
     ${config.vertexInputStateCreateInfo}.flags = 0;
     ${config.vertexInputStateCreateInfo}.vertexBindingDescriptionCount = 1;
-    ${config.vertexInputStateCreateInfo}.pVertexBindingDescriptions = &(_engineComponents->_vi_binding);
+    ${config.vertexInputStateCreateInfo}.pVertexBindingDescriptions = &${config.vertexBindings};
     ${config.vertexInputStateCreateInfo}.vertexAttributeDescriptionCount = 2;
-    ${config.vertexInputStateCreateInfo}.pVertexAttributeDescriptions = _engineComponents->_vi_attribs;
+    ${config.vertexInputStateCreateInfo}.pVertexAttributeDescriptions = ${config.vertexAttributes};
 
     VkPipelineInputAssemblyStateCreateInfo ${config.inputAssemblyStateCreateInfo};
     ${config.inputAssemblyStateCreateInfo}.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -69,13 +85,13 @@
     ${config.viewportStateCreateInfo}.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     ${config.viewportStateCreateInfo}.pNext = NULL;
     ${config.viewportStateCreateInfo}.flags = 0;
-    ${config.viewportStateCreateInfo}.viewportCount = NUM_VIEWPORTS;
-    ${config.viewportStateCreateInfo}.scissorCount = NUM_SCISSORS;
+    ${config.viewportStateCreateInfo}.viewportCount = 1;
+    ${config.viewportStateCreateInfo}.scissorCount = 1;
     ${config.viewportStateCreateInfo}.pScissors = NULL;
     ${config.viewportStateCreateInfo}.pViewports = NULL;
 
-    ${config.dynamicStatesEnables}[dynamicState.dynamicStateCount++] = VK_DYNAMIC_STATE_VIEWPORT;
-    ${config.dynamicStatesEnables}[dynamicState.dynamicStateCount++] = VK_DYNAMIC_STATE_SCISSOR;
+    ${config.dynamicStatesEnables}[${config.dynamicStateCreateInfo}.dynamicStateCount++] = VK_DYNAMIC_STATE_VIEWPORT;
+    ${config.dynamicStatesEnables}[${config.dynamicStateCreateInfo}.dynamicStateCount++] = VK_DYNAMIC_STATE_SCISSOR;
 
     VkPipelineDepthStencilStateCreateInfo ${config.stencilStateCreateInfo};
     ${config.stencilStateCreateInfo}.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
@@ -96,14 +112,14 @@
     ${config.stencilStateCreateInfo}.minDepthBounds = 0;
     ${config.stencilStateCreateInfo}.maxDepthBounds = 0;
     ${config.stencilStateCreateInfo}.stencilTestEnable = VK_FALSE;
-    ${config.stencilStateCreateInfo}.front = ${config.dynamicStateCreateInfo}.back;
+    ${config.stencilStateCreateInfo}.front = ${config.stencilStateCreateInfo}.back;
 
     VkPipelineMultisampleStateCreateInfo ${config.multisampleStateCreateInfo};
     ${config.multisampleStateCreateInfo}.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     ${config.multisampleStateCreateInfo}.pNext = NULL;
     ${config.multisampleStateCreateInfo}.flags = 0;
     ${config.multisampleStateCreateInfo}.pSampleMask = NULL;
-    ${config.multisampleStateCreateInfo}.rasterizationSamples = NUM_SAMPLES;
+    ${config.multisampleStateCreateInfo}.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
     ${config.multisampleStateCreateInfo}.sampleShadingEnable = VK_FALSE;
     ${config.multisampleStateCreateInfo}.alphaToCoverageEnable = VK_FALSE;
     ${config.multisampleStateCreateInfo}.alphaToOneEnable = VK_FALSE;
@@ -138,5 +154,11 @@
     VkResult ${config.result} = vkCreateGraphicsPipelines(${config.device}.device, ${config.pipelineCache},
             1, &${config.pipelineCreateInfo}, NULL, &${config.graphicsPipeline});
 
-    assert(res == ${config.result});
+    assert((${config.result} == VK_SUCCESS)
+            || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+            || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+
+    checkResultOutOfMemory(${config.result});
+
+    assert(${config.result} == VK_SUCCESS);
     </#if>

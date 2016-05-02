@@ -7,6 +7,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.resources.VkCreateFrameBufferConfig;
 import tool.configs.vulkan.resources.VkCreateImageConfig;
+import tool.configs.vulkan.resources.VkCreateImageViewConfig;
 import tool.configs.vulkan.resources.VkCreateRenderpassConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
@@ -38,7 +39,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
 
         // random VkImage
         ArrayList<Config> configs =
-                globalState.getConfig(VulkanState.VK_CREATE_IMAGE);
+                globalState.getConfig(VulkanState.VK_CREATE_IMAGE_VIEW);
 
         config.setId(generateConfigId());
 
@@ -51,14 +52,27 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
                     (VkCreateRenderpassConfig)
                     renderpasses.get(randomNumberGanerator.randomNumber(renderpasses.size()));
 
-            VkCreateImageConfig vkImage =
-                    (VkCreateImageConfig)
+            VkCreateImageViewConfig vkImageView =
+                    (VkCreateImageViewConfig)
                     configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
-            config.setDevice(vkImage.getDevice());
-            config.setBad(vkImage.isBad());
-            config.addDependency(vkImage.getId());
-            config.setAttachments(vkImage.getImage());
+            // random VkImage
+            ArrayList<Config> vkImages =
+                    globalState.getConfig(VulkanState.VK_CREATE_IMAGE);
+
+            VkCreateImageConfig vkImage = null;
+
+            for (Config imageConfig : vkImages) {
+                VkCreateImageConfig c = (VkCreateImageConfig) imageConfig;
+                if (c.getImage().equals(vkImageView.getImage())) {
+                    vkImage = c;
+                }
+            }
+
+            config.setDevice(vkImageView.getDevice());
+            config.setBad(vkImageView.isBad());
+            config.addDependency(vkImageView.getId());
+            config.setAttachments(vkImageView.getImageView());
             config.setHeight(vkImage.getHeight());
             config.setWidth(vkImage.getWidth());
             config.setResult(RESULT + freshMap.getFreshId(RESULT));

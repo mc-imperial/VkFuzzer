@@ -11,7 +11,7 @@
     ${config.pipelineLayoutCreateInfo}.pSetLayouts = NULL;
 
     VkPipelineLayout ${config.pipelineLayout};
-    VkResult ${config.result} = vkCreatePipelineLayout(${config.device}.device, ${config.pipelineLayoutCreateInfo},
+    VkResult ${config.result} = vkCreatePipelineLayout(${config.device}.device, &${config.pipelineLayoutCreateInfo},
             NULL, &${config.pipelineLayout});
 
     assert((${config.result} == VK_SUCCESS)

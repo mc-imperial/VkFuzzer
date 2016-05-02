@@ -1,12 +1,10 @@
 package tool.codegen.vulkan.pipelines;
 
-import com.sun.org.apache.regexp.internal.RE;
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.pipelines.VkCreateGraphicsPipelinesConfig;
 import tool.configs.vulkan.pipelines.VkCreatePipelineCacheConfig;
 import tool.configs.vulkan.pipelines.VkCreatePipelineLayoutConfig;
@@ -36,6 +34,8 @@ public class VkCreateGraphicsPipelinesGenerator extends VulkanCodeGenerator {
     private final String SHADER_STAGES = "shaderStages";
     private final String PIPELINE_CREATE_INFO = "pipelineCreateInfo";
     private final String GRAPHICS_PIPELINE = "graphicsPipeline";
+    private final String VERTEX_ATTRIBUTES = "vertexAttributes";
+    private final String VERTEX_BINDINGS = "vertexBindings";
 
     public VkCreateGraphicsPipelinesGenerator(RandomStringGenerator randomStringGenerator,
                                               RandomNumberGanerator randomNumberGanerator,
@@ -80,6 +80,10 @@ public class VkCreateGraphicsPipelinesGenerator extends VulkanCodeGenerator {
         config.setGraphicsPipeline(GRAPHICS_PIPELINE +
                 freshMap.getFreshId(GRAPHICS_PIPELINE));
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
+        config.setVertexAttributes(VERTEX_ATTRIBUTES +
+                freshMap.getFreshId(VERTEX_ATTRIBUTES));
+        config.setVertexBindings(VERTEX_BINDINGS +
+                freshMap.getFreshId(VERTEX_BINDINGS));
 
 
         // random shaders
@@ -114,8 +118,8 @@ public class VkCreateGraphicsPipelinesGenerator extends VulkanCodeGenerator {
                 (VkCreatePipelineCacheConfig)
                 pipelineCacheConfigs.get(randomNumberGanerator.randomNumber(pipelineCacheConfigs.size()));
 
-        config.setFragmentShader(shaders.getFragmentShaderModule());
-        config.setVertexShader(shaders.getVertexShaderModule());
+        config.setFragmentShader(shaders.getFragmentPipelineShaderStageCreateInfo());
+        config.setVertexShader(shaders.getVertexPipelineShaderStageCreateInfo());
         config.setDevice(shaders.getDevice());
         config.setPipelineLayout(layout.getPipelineLayout());
         config.setRenderpass(renderpass.getRenderpass());

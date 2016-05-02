@@ -6,11 +6,11 @@
     ${config.pipelineCacheCreateInfo}.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
     ${config.pipelineCacheCreateInfo}.pNext = NULL;
     ${config.pipelineCacheCreateInfo}.flags = 0;
-    ${config.pipelineCacheCreateInfo}.initialDataSize = NULL;
+    ${config.pipelineCacheCreateInfo}.initialDataSize = 0;
     ${config.pipelineCacheCreateInfo}.pInitialData = 0;
 
     VkPipelineCache ${config.pipelineCache};
-    VkResult ${config.result} = vkCreatePipelineCache(${config.device}.device, ${config.pipelineCacheCreateInfo},
+    VkResult ${config.result} = vkCreatePipelineCache(${config.device}.device, &${config.pipelineCacheCreateInfo},
             NULL, &${config.pipelineCache});
 
     assert((${config.result} == VK_SUCCESS)
