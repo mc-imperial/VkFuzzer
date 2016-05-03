@@ -25,9 +25,8 @@
     ${config.vkImageCreateInfo}.initialLayout = ${config.initialLayout};
 
     VkImage ${config.image};
-    VkResult ${config.result} = VK_SUCCESS;
-    //vkCreateImage(${config.device}.device, &${config.vkImageCreateInfo},
-    //        NULL, &${config.image});
+    VkResult ${config.result} = vkCreateImage(${config.device}.device, &${config.vkImageCreateInfo},
+            NULL, &${config.image});
 
     if (${config.result} != VK_SUCCESS)
     {

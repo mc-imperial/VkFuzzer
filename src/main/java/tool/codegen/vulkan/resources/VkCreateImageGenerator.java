@@ -75,7 +75,7 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
     private final String EXTENT = "extent";
     private final int MAX_WITDTH = 1080;
     private final int MAX_HEIGHT = 1920;
-    private final int MAX_DEPTH = 3;
+    private final int DEPTH = 1;
     private final int MAX_MIP_LEVELS = 3;
 
     public VkCreateImageGenerator(RandomStringGenerator randomStringGenerator,
@@ -101,19 +101,10 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         config.setExtent(EXTENT + freshMap.getFreshId(EXTENT));
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
 
-        boolean is1D;
-        boolean is2D;
-        boolean is3D;
-
         // Random extend values
         config.setWidth(randomNumberGanerator.randomNumber(MAX_WITDTH));
-        is1D = config.getWidth() > 0;
-
         config.setHeight(randomNumberGanerator.randomNumber(MAX_HEIGHT));
-        is2D = is1D && config.getHeight() > 0;
-
-        config.setDepth(randomNumberGanerator.randomNumber(MAX_DEPTH));
-        is3D = is2D && config.getDepth() > 0;
+        config.setDepth(randomNumberGanerator.randomNumber(DEPTH));
 
         // random device
         ArrayList<Config> configs =
@@ -128,23 +119,17 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         config.setBad(cmdPool.isBad());
 
         // random usage flags
-        ArrayList<String> randomUsageFlags = new ArrayList<>(Arrays.asList(USAGE));
-        Collections.shuffle(randomUsageFlags);
-        int n = -1;
-        while ( n <= 0 || n >= randomUsageFlags.size()) {
-            n = randomNumberGanerator.randomNumber(randomUsageFlags.size());
-        }
-        config.setUsage(new ArrayList<>(randomUsageFlags.subList(0, n)));
+        ArrayList<String> randomUsageFlags = new ArrayList<>();
+        randomUsageFlags.add(USAGE[0]);
+        config.setUsage(randomUsageFlags);
 
         // random creation flags
         ArrayList<String> randomCreationFlags = new ArrayList<>();
-        randomCreationFlags.add(FLAGS[0]);
+        randomCreationFlags.add("0");
         config.setFlags(randomCreationFlags);
 
         // random tiling
-        ArrayList<String> tiling = new ArrayList<>(Arrays.asList(TILING));
-        Collections.shuffle(tiling);
-        config.setTiling(TILING[0]);
+        config.setTiling(TILING[1]);
 
         // random layout
         ArrayList<String> layout = new ArrayList<>(Arrays.asList(LAYOUTS));
@@ -152,21 +137,11 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         config.setInitialLayout(layout.get(0));
 
         // random sampling
-        ArrayList<String> sampling = new ArrayList<>(Arrays.asList(SAMPLING));
-        Collections.shuffle(sampling);
-        config.setSamples(sampling.get(0));
+        config.setSamples(SAMPLING[0]);
 
-        if (is3D) {
-            config.setImageType(TYPES[2]);
-            config.setArrayLayers(3);
-        } else if (is2D) {
-            config.setImageType(TYPES[1]);
-            config.setArrayLayers(2);
-        } else {
-            config.setImageType(TYPES[0]);
-            config.setArrayLayers(1);
-        }
 
+        config.setImageType(TYPES[1]);
+        config.setArrayLayers(1);
         config.setFormat(FORMAT);
         config.setMipLevels(randomNumberGanerator.randomNumber(MAX_MIP_LEVELS));
 
