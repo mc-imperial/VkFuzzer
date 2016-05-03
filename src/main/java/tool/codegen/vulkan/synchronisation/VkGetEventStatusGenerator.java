@@ -7,6 +7,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.synchronisation.VkCreateEventConfig;
 import tool.configs.vulkan.synchronisation.VkGetEventStatusConfig;
+import tool.configs.vulkan.synchronisation.VkResetEventConfig;
 import tool.configs.vulkan.synchronisation.VkSetEventConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
@@ -45,23 +46,47 @@ public class VkGetEventStatusGenerator extends VulkanCodeGenerator {
         ArrayList<Config> setEvents =
                 globalState.getConfig(VulkanState.VK_SET_EVENT);
 
+        ArrayList<Config> resetEvents =
+                globalState.getConfig(VulkanState.VK_RESET_EVENT);
+
         VkCreateEventConfig createEventConfig =
                 (VkCreateEventConfig)
                 createEvents.get(randomNumberGanerator.randomNumber(createEvents.size()));
 
         VkSetEventConfig setEvent = isEventSet(setEvents, createEventConfig);
+        VkResetEventConfig resetEvent = isEventReset(resetEvents, createEventConfig);
 
         config.setDevice(createEventConfig.getDevice());
-        config.setExpectedReturnCode(setEvent != null ? EVENT_SET : EVENT_NOT_SET);
-        config.addDependency(createEventConfig.getId());
         config.setEvent(createEventConfig.getEvent());
 
         if (setEvent != null) {
-            config.addDependency(setEvent.getId());
-            config.setBad(setEvent.isBad());
+            if (resetEvent != null) {
+                if (resetEvent.getId() > setEvent.getId()) {
+                    config.setExpectedReturnCode(EVENT_NOT_SET);
+                    config.addDependency(resetEvent.getId());
+                    config.setBad(resetEvent.isBad());
+                } else {
+                    config.setExpectedReturnCode(EVENT_SET);
+                    config.addDependency(setEvent.getId());
+                    config.setBad(setEvent.isBad());
+                }
+            } else {
+                config.setExpectedReturnCode(EVENT_SET);
+                config.addDependency(setEvent.getId());
+                config.setBad(setEvent.isBad());
+            }
+        } else {
+            if (resetEvent != null) {
+                config.setExpectedReturnCode(EVENT_NOT_SET);
+                config.addDependency(resetEvent.getId());
+                config.setBad(resetEvent.isBad());
+            } else {
+                config.setExpectedReturnCode(EVENT_NOT_SET);
+            }
         }
 
         config.setBad(createEventConfig.isBad() || config.isBad());
+        config.addDependency(createEventConfig.getId());
 
         globalState.addConfig(VulkanState.VK_GET_EVENT_STATUS, config);
 
@@ -70,10 +95,24 @@ public class VkGetEventStatusGenerator extends VulkanCodeGenerator {
 
     // Checks whether of not the event is set
     private VkSetEventConfig isEventSet(ArrayList<Config> setEvents,
-                               VkCreateEventConfig createEventConfig)
+                              VkCreateEventConfig createEventConfig)
     {
         for (Config config : setEvents) {
             VkSetEventConfig event = (VkSetEventConfig)config;
+            if (event.getEvent().equals(createEventConfig.getEvent())) {
+                return  event;
+            }
+        }
+
+        return null;
+    }
+
+    // Checks whether of not the event is set
+    private VkResetEventConfig isEventReset(ArrayList<Config> resetEvents,
+                              VkCreateEventConfig createEventConfig)
+    {
+        for (Config config : resetEvents) {
+            VkResetEventConfig event = (VkResetEventConfig)config;
             if (event.getEvent().equals(createEventConfig.getEvent())) {
                 return  event;
             }
