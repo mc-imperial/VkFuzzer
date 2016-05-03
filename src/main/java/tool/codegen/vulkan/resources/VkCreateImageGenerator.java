@@ -76,7 +76,8 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
     private final int MAX_WITDTH = 1080;
     private final int MAX_HEIGHT = 1920;
     private final int DEPTH = 1;
-    private final int MAX_MIP_LEVELS = 3;
+    private final int MIP_LEVELS = 1;
+    private final int ARRAY_LEVELS = 1;
 
     public VkCreateImageGenerator(RandomStringGenerator randomStringGenerator,
                                   RandomNumberGanerator randomNumberGanerator,
@@ -104,7 +105,7 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         // Random extend values
         config.setWidth(randomNumberGanerator.randomNumber(MAX_WITDTH));
         config.setHeight(randomNumberGanerator.randomNumber(MAX_HEIGHT));
-        config.setDepth(randomNumberGanerator.randomNumber(DEPTH));
+        config.setDepth(DEPTH);
 
         // random device
         ArrayList<Config> configs =
@@ -136,14 +137,11 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         Collections.shuffle(layout);
         config.setInitialLayout(layout.get(0));
 
-        // random sampling
         config.setSamples(SAMPLING[0]);
-
-
         config.setImageType(TYPES[1]);
-        config.setArrayLayers(1);
+        config.setArrayLayers(ARRAY_LEVELS);
         config.setFormat(FORMAT);
-        config.setMipLevels(randomNumberGanerator.randomNumber(MAX_MIP_LEVELS));
+        config.setMipLevels(MIP_LEVELS);
 
         globalState.addConfig(VulkanState.VK_CREATE_IMAGE, config);
 

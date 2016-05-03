@@ -87,9 +87,7 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         config.setAspectMask(aspect.get(0));
 
         // random creation flags
-        ArrayList<String> viewType = new ArrayList<>(Arrays.asList(VIEW_TYPE));
-        Collections.shuffle(viewType);
-        config.setViewType(viewType.get(0));
+        config.setViewType(VIEW_TYPE[1]);
 
         config.setBad(vkImage.isBad());
         config.addDependency(vkImage.getId());
