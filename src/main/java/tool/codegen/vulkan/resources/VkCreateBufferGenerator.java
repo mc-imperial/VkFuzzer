@@ -1,6 +1,5 @@
 package tool.codegen.vulkan.resources;
 
-import org.omg.CORBA.FREE_MEM;
 import tool.codegen.coverage.Coverage;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
