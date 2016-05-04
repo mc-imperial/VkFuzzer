@@ -8,6 +8,7 @@ import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.device.DevicesConfig;
 import tool.configs.vulkan.device.VkCreateDeviceConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -47,32 +48,22 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
         config.setCommandPool(COMMAND_POOL +
                 freshMap.getFreshId(COMMAND_POOL));
-        config.setRandomDevice(RANDOM_DEVICE + freshMap.getFreshId(RANDOM_DEVICE));
         config.setRandomIndex(RANDOM_INDEX + freshMap.getFreshId(RANDOM_INDEX));
         config.setRandomQueueIndex(RANDOM_QUEUE_INDEX +
                 freshMap.getFreshId(RANDOM_QUEUE_INDEX));
         config.setRandomQueueCount(RANDOM_QUEUE_COUNT +
                 freshMap.getFreshId(RANDOM_QUEUE_COUNT));
 
-        // Select a random logical device
-        ArrayList<Config> vkCreateDeviceConfigs =
-                globalState.getConfig(VulkanState.VK_CREATE_DEVICE);
+        // Select the logical device
+        ArrayList<Config> initSwapchains =
+                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
 
-        int random1 = randomNumberGanerator.randomNumber(vkCreateDeviceConfigs.size());
-        VkCreateDeviceConfig randomConfig = (VkCreateDeviceConfig)
-                vkCreateDeviceConfigs.get(random1);
+        InitSwapchainConfig swapchainConfig =
+                (InitSwapchainConfig)initSwapchains.get(0);
 
-        // Randomly find an index for logical device and queue index
-        int random2 = randomNumberGanerator.randomNumber(randomConfig.getDevicePropertiesConfigs().size());
-        DevicesConfig devicePropertiesConfigs = (DevicesConfig)randomConfig.getDevicePropertiesConfigs().get(random2);
-        int random3 = randomNumberGanerator.randomNumber(devicePropertiesConfigs.getDevices().size());
-
-        config.setLogicalDevice(randomConfig.getLogicalDevices() + random2 + random3);
-        config.setQueueFamilyIndex(randomConfig.getQueueIndex() + random2 + random3);
-        config.setQueueCounts(randomConfig.getQueueCounts() + random2 + random3);
-
-        config.setBad(randomConfig.isBad());
-        config.addDependency(randomConfig.getId());
+        config.setRandomDevice(swapchainConfig.getDevice());
+        config.setBad(swapchainConfig.isBad());
+        config.addDependency(swapchainConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_COMMAND_POOL, config);
 

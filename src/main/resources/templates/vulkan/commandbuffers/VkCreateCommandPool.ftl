@@ -2,9 +2,6 @@
     <#if config.isBad()>
     <#else>
     // ID: ${config.id}
-    uint32_t ${config.randomIndex} = rand() % ${config.logicalDevice}.size();
-    FuzzerLogicalDevice ${config.randomDevice} = ${config.logicalDevice}[${config.randomIndex}];
-
     VkCommandPoolCreateInfo ${config.cmdPoolCreateInfo} = {};
     ${config.cmdPoolCreateInfo}.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     ${config.cmdPoolCreateInfo}.pNext = NULL;

@@ -76,4 +76,8 @@ public class VulkanTemplates {
             "pipelines/VkCreatePipelineLayout.ftl";
     public static final String VK_GET_PIPELINE_CACHE_DATA =
             "pipelines/VkGetPipelineCacheData.ftl";
+    public static final String VK_CREATE_SURFACE_KHR =
+            "swapchain/VkCreateSurfaceKHR.ftl";
+    public static final String INIT_SWAPCHAIN =
+            "swapchain/InitSwapchain.ftl";
 }

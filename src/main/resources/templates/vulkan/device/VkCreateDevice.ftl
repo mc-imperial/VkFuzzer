@@ -13,6 +13,7 @@
         for (int j = 0; j < ${deviceProperties.deviceQueueFamilyProperties}[i].size(); ++j)
         {
             FuzzerLogicalDevice fuzzerLogicalDevice = {};
+            fuzzerLogicalDevice.gpu = ${deviceProperties.devices}[i];
             fuzzerLogicalDevice.queueFamilyIndex = j;
             fuzzerLogicalDevice.maxQueueCount = ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount;
 

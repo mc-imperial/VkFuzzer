@@ -70,6 +70,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_INSTANCE,
+                VulkanState.VK_CREATE_SURFACE_KHR);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CREATE_SURFACE_KHR,
                 VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES);
 
         defineTransition(TransitionType.REPEATING,
@@ -82,6 +86,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_DEVICE,
+                VulkanState.INIT_SWAPCHAIN);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.INIT_SWAPCHAIN,
                 VulkanState.VK_CREATE_COMMAND_POOL);
 
         defineTransition(TransitionType.REPEATING,

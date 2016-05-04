@@ -20,6 +20,8 @@ import tool.codegen.vulkan.pipelines.VkCreatePipelineLayoutGenerator;
 import tool.codegen.vulkan.pipelines.VkGetPipelineCacheDataGenerator;
 import tool.codegen.vulkan.resources.*;
 import tool.codegen.vulkan.shaders.VkCreateShaderModuleGenerator;
+import tool.codegen.vulkan.swapchain.InitSwapchainGenerator;
+import tool.codegen.vulkan.swapchain.VkCreateSurfaceKHRGenerator;
 import tool.codegen.vulkan.synchronisation.*;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
@@ -346,6 +348,24 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_GET_PIPELINE_CACHE_DATA.toString(),
                 new VkGetPipelineCacheDataGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CREATE_SURFACE_KHR.toString(),
+                new VkCreateSurfaceKHRGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.INIT_SWAPCHAIN.toString(),
+                new InitSwapchainGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

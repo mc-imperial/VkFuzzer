@@ -23,6 +23,17 @@
 * DEALINGS IN THE SOFTWARE.
 */
 
+#define EXIT_INVALID_CODE_GENERATION -5
+#define EXIT_RUN_OUT_OF_MEMORY -6
+#define ASSERTION_FAILED -7
+#define NO_PRESENT_DEVICE_AVAILABLE -8
+#define assert(C) if(!(C)) { std::cerr << "Assertion failed at line " << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
+
+#define XYZ1(_x_, _y_, _z_) (_x_), (_y_), (_z_), 1.f
+
+#define WIDTH 640
+#define HEIGHT 480
+
 #ifdef _WIN32
 #pragma comment(linker, "/subsystem:console")
 #ifndef WIN32_LEAN_AND_MEAN
@@ -57,13 +68,6 @@
 #include <ctime>
 #include <fstream>
 
-#define EXIT_INVALID_CODE_GENERATION -5
-#define EXIT_RUN_OUT_OF_MEMORY -6
-#define ASSERTION_FAILED -7
-#define assert(C) if(!(C)) { std::cerr << "Assertion failed at line" << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
-
-#define XYZ1(_x_, _y_, _z_)         (_x_), (_y_), (_z_), 1.f
-
 SDL_Window *window;
 SDL_SysWMinfo windowInfo;
 
@@ -73,7 +77,7 @@ SDL_bool initSDL()
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow("VulkanProgram", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_HIDDEN);
+            SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_HIDDEN);
 
     if (window == NULL)
     {
@@ -106,6 +110,7 @@ void checkResultOutOfMemory(VkResult result)
 struct FuzzerLogicalDevice
 {
     VkDevice device;
+    VkPhysicalDevice gpu;
     uint32_t queueFamilyIndex;
     uint32_t maxQueueCount;
     bool supportsGraphics;
@@ -118,6 +123,12 @@ struct Vertex
 {
     float posX, posY, posZ, posW;    // Position data
     float r, g, b, a;                // Color
+};
+
+struct SwapchainBuffer
+{
+    VkImage image;
+    VkImageView view;
 };
 
 const Vertex triData[] =
