@@ -60,6 +60,7 @@
 #define EXIT_INVALID_CODE_GENERATION -5
 #define EXIT_RUN_OUT_OF_MEMORY -6
 #define ASSERTION_FAILED -7
+#define assert(C) if(!(C)) { std::cerr << "Assertion failed at line" << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
 
 #define XYZ1(_x_, _y_, _z_)         (_x_), (_y_), (_z_), 1.f
 
@@ -90,15 +91,6 @@ void shutDownSDL()
 {
     SDL_DestroyWindow(window);
     SDL_Quit();
-}
-
-void assert(bool condition)
-{
-    if (!condition)
-    {
-        std::cerr << "Assertion failed at line" << __LINE__ << std::endl;
-        exit(ASSERTION_FAILED);
-    }
 }
 
 void checkResultOutOfMemory(VkResult result)
