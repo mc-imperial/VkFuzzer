@@ -6,7 +6,7 @@
     ${config.variableName}.pNext = ${config.next};
     ${config.variableName}.flags = ${config.flags};
     ${config.variableName}.pApplicationInfo = &${config.applicationInfo};
-    ${config.variableName}.enabledExtensionCount = ${config.enabledExtensionCount};
-    ${config.variableName}.ppEnabledExtensionNames = ${config.enabledExtensionNames};
+    ${config.variableName}.enabledExtensionCount = instanceExtensions.size();
+    ${config.variableName}.ppEnabledExtensionNames = instanceExtensions.data();
     ${config.variableName}.enabledLayerCount = ${config.enabledLayerCount};
     ${config.variableName}.ppEnabledLayerNames = ${config.enabledLayerNames};

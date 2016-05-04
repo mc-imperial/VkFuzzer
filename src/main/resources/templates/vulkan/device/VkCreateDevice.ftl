@@ -67,8 +67,17 @@
             deviceInfo.pNext = NULL;
             deviceInfo.queueCreateInfoCount = 1;
             deviceInfo.pQueueCreateInfos = &queueInfo;
-            deviceInfo.enabledExtensionCount = 0;
-            deviceInfo.ppEnabledExtensionNames = NULL;
+            if (fuzzerLogicalDevice.supportsGraphics)
+            {
+                deviceInfo.enabledExtensionCount = deviceExtensions.size();
+                deviceInfo.ppEnabledExtensionNames = deviceExtensions.data();
+            }
+            else
+            {
+                deviceInfo.enabledExtensionCount = 0;
+                deviceInfo.ppEnabledExtensionNames = NULL;
+            }
+
             deviceInfo.enabledLayerCount = 0;
             deviceInfo.ppEnabledLayerNames = NULL;
             deviceInfo.pEnabledFeatures = NULL;
