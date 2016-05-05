@@ -5,16 +5,11 @@
     VkResult ${config.result};
     VkSurfaceKHR ${config.surface};
 #ifdef _WIN32
-    TCHAR ${config.className}[256];
-    GetClassName(windowInfo.info.win.window, ${config.className}, sizeof(${config.className}));
-    WNDCLASS ${config.windowClass};
-    GetClassInfo(GetModuleHandle(NULL), ${config.className}, &${config.windowClass});
-
     VkWin32SurfaceCreateInfoKHR ${config.surfaceCreateInfo} = {};
     ${config.surfaceCreateInfo}.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
     ${config.surfaceCreateInfo}.pNext = NULL;
-    ${config.surfaceCreateInfo}.hinstance = ${config.windowClass}.hInstance;
-    ${config.surfaceCreateInfo}.hwnd = 	windowInfo.info.win.window;
+    ${config.surfaceCreateInfo}.hinstance = config->instance;
+    ${config.surfaceCreateInfo}.hwnd = 	config->window;
     ${config.result} = vkCreateWin32SurfaceKHR(${config.instance}, &${config.surfaceCreateInfo},
             NULL, &${config.surface});
 #elif defined(__ANDROID__)

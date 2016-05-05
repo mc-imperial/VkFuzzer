@@ -15,6 +15,15 @@ public class CMakeConfig extends Config {
     private String vulkanLoaderName = "${VULKAN_LOADER_NAME}";
     private String vulkanLoader = "${VULKAN_LOADER}";
     private String platformSources = "${PLATFORM_SOURCES}";
+    private String platformIndependentSources = "${PLATFORM_INDEPENDENT_HEADERS}";
+
+    public String getPlatformIndependentSources() {
+        return platformIndependentSources;
+    }
+
+    public void setPlatformIndependentSources(String platformIndependentSources) {
+        this.platformIndependentSources = platformIndependentSources;
+    }
 
     public Config[] getExecutables() {
         return executables;

@@ -20,6 +20,12 @@ else()
     set (CMAKE_CXX_FLAGS "${config.cppFlags} -Wno-sign-compare -std=c++11")
 endif()
 
+include_directories(include/)
+
+set(PLATFORM_INDEPENDENT_HEADERS
+    include/Fuzzer.hpp
+    include/FuzzerData.hpp)
+
 if(WIN32)
     include_directories("$ENV{VULKAN_SDK}/Include" platform/windows)
     SET(PLATFORM_SOURCES
@@ -51,12 +57,13 @@ file(COPY "simple-frag.spv" DESTINATION "${config.binaryFolder}")
 <#list config.executables as executable>
 
 # Create executable
-add_executable(${executable.name} ${executable.source} ${config.platformSources})
 # Link executable
 if(WIN32)
-    target_link_libraries(${executable.name} WIN32 ${config.vulkanLoader})
+    add_executable(${executable.name} WIN32 ${executable.source} ${config.platformSources} ${config.platformIndependentSources})
+    target_link_libraries(${executable.name} ${config.vulkanLoader})
 else()
     # TODO:: Add other deps for linux
+    add_executable(${executable.name} ${executable.source} ${config.platformSources} ${config.platformIndependentSources})
     target_link_libraries(${executable.name} ${config.vulkanLoader})
 endif()
 </#list>

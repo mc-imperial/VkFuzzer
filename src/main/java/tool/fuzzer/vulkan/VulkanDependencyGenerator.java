@@ -13,33 +13,49 @@ import java.nio.file.StandardCopyOption;
  * Created by cvryo on 05/05/2016.
  */
 public class VulkanDependencyGenerator implements DependencyGenerator {
-    private final String DEPENDENCIES_FOLDER = "dependencies/vulkan/windows";
-    private final String[] SOURCES =
+    private final String PLATFORM_INDEPENDENT_DEPENDENCIES_FOLDER = "dependencies/vulkan";
+    private final String[] WINDOWS_PLATFORM_SOURCES =
     {
-            "AppWindow.cpp",
-            "AppWindow.hpp",
-            "ExitCondition.cpp",
-            "ExitCondition.hpp",
-            "Main.cpp",
-            "stdafx.cpp",
-            "WindowConfig.cpp"
+            "windows/AppWindow.cpp",
+            "windows/AppWindow.hpp",
+            "windows/ExitCondition.cpp",
+            "windows/ExitCondition.hpp",
+            "windows/Main.cpp",
+            "windows/stdafx.h",
+            "windows/WindowConfig.hpp"
+    };
+    private final String[] PLATFORM_INDEPENDENT_HEADERS =
+    {
+            "Fuzzer.hpp",
+            "FuzzerData.hpp"
     };
 
     @Override
     public void generateDependencies(String outputFolder) {
+        copyFiles(outputFolder + "/platform/windows", WINDOWS_PLATFORM_SOURCES);
+        copyFiles(outputFolder + "/include", PLATFORM_INDEPENDENT_HEADERS);
+    }
+
+    private void copyFiles(String outputFolder, String[] sources) {
         try {
             ClassLoader loader = Main.class.getClassLoader();
 
-            for (String file : SOURCES) {
-                String resourcePath = DEPENDENCIES_FOLDER + "/" + file;
+            for (String file : sources) {
+                //Read file from resources
+                String resourcePath = PLATFORM_INDEPENDENT_DEPENDENCIES_FOLDER + "/" + file;
                 InputStream fileStream = loader.getResourceAsStream(resourcePath);
-                File sourceFile = new File(outputFolder + "/platform/windows/" + file);
-                sourceFile.createNewFile();
+
+                // Make the file
+                File sourceFile = new File(outputFolder + "/" + file);
+                sourceFile.getParentFile().mkdirs();
+
+                // Copy
                 Files.copy(fileStream, sourceFile.toPath(),
                         StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+
     }
 }

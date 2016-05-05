@@ -1,6 +1,3 @@
-// GT_HelloWorldWin32.cpp
-// compile with: /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS /c
-
 #include <thread>
 
 #include "stdafx.h"
@@ -39,4 +36,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	{
 		fuzzer.join();
 	}
+
+	return 0;
 }

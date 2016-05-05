@@ -31,7 +31,7 @@
     if (${config.result} != VK_SUCCESS)
     {
         std::cerr << "VkImage creation failed with wrong parameters" << std::endl;
-        return EXIT_INVALID_CODE_GENERATION;
+        exit(EXIT_INVALID_CODE_GENERATION);
     }
 
     assert((${config.result} == VK_SUCCESS)

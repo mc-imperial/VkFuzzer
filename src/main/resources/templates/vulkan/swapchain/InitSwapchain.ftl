@@ -18,7 +18,7 @@
     if (!found)
     {
         std::cerr << "No device found that supports presenting. Exitting." << std::endl;
-        return NO_PRESENT_DEVICE_AVAILABLE;
+        exit(NO_PRESENT_DEVICE_AVAILABLE);
     }
 
     // Get the list of VkFormats that are supported:
@@ -78,8 +78,8 @@
     {
         // If the surface size is undefined, the size is set to
         // the size of the images requested.
-        ${config.swapchainExtent}.width = WIDTH;
-        ${config.swapchainExtent}.height = HEIGHT;
+        ${config.swapchainExtent}.width = config->width;
+        ${config.swapchainExtent}.height = config->height;
     }
     else
     {

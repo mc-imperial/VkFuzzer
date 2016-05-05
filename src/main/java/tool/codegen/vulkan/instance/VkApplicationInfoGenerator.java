@@ -18,7 +18,7 @@ public class VkApplicationInfoGenerator extends VulkanCodeGenerator {
     private final String VAR_NAME = "applicationInfo";
     private final String NEXT = "NULL";
     private final String TYPE = "VK_STRUCTURE_TYPE_APPLICATION_INFO";
-    private final String API_VERSION = "VK_MAKE_VERSION(1, 0, 8)";
+    private final String API_VERSION = "VK_MAKE_VERSION(1, 0, 11)";
 
     public VkApplicationInfoGenerator(final RandomStringGenerator randomStringGenerator,
                                       final RandomNumberGanerator randomNumberGanerator,

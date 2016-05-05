@@ -55,7 +55,7 @@
 
     VkRenderPass ${config.renderpass};
     VkResult ${config.result} = vkCreateRenderPass(${config.device}.device, &${config.renderpassCreateInfo},
-            NULL, &${config.renderpass});
+           NULL, &${config.renderpass});
 
     assert((${config.result} == VK_SUCCESS)
             || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
