@@ -37,7 +37,14 @@ if(WIN32)
         platform/windows/ExitCondition.hpp
         platform/windows/ExitCondition.cpp)
 else()
-    include_directories("/usr/include/vulkan")
+    include_directories("/usr/include/vulkan" platform/linux)
+    SET(PLATFORM_SOURCES
+        platform/linux/AppWindow.cpp
+        platform/linux/AppWindow.hpp
+        platform/linux/Main.cpp
+        platform/linux/WindowConfig.hpp
+        platform/linux/ExitCondition.hpp
+        platform/linux/ExitCondition.cpp)
 endif()
 
 # Find vulkan library

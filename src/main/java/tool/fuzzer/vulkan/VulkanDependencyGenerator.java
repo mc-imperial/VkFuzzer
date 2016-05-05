@@ -24,6 +24,15 @@ public class VulkanDependencyGenerator implements DependencyGenerator {
             "windows/stdafx.h",
             "windows/WindowConfig.hpp"
     };
+    private final String[] LINUX_PLATFORM_SOURCES =
+    {
+            "linux/AppWindow.cpp",
+            "linux/AppWindow.hpp",
+            "linux/ExitCondition.cpp",
+            "linux/ExitCondition.hpp",
+            "linux/Main.cpp",
+            "linux/WindowConfig.hpp"
+    };
     private final String[] PLATFORM_INDEPENDENT_HEADERS =
     {
             "Fuzzer.hpp",
@@ -33,6 +42,7 @@ public class VulkanDependencyGenerator implements DependencyGenerator {
     @Override
     public void generateDependencies(String outputFolder) {
         copyFiles(outputFolder + "/platform/windows", WINDOWS_PLATFORM_SOURCES);
+        copyFiles(outputFolder + "/platform/linux", LINUX_PLATFORM_SOURCES);
         copyFiles(outputFolder + "/include", PLATFORM_INDEPENDENT_HEADERS);
     }
 
