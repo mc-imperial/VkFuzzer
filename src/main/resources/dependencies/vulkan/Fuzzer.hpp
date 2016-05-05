@@ -23,6 +23,11 @@
 #else //__ANDROID__
 #include <unistd.h>
 #include "vulkan/vk_sdk_platform.h"
+#include "../platform/linux/ExitCondition.hpp"
+#include "../platform/linux/WindowConfig.hpp"
+#ifndef VK_USE_PLATFORM_XCB_KHR
+#define VK_USE_PLATFORM_XCB_KHR
+#endif
 #endif // _WIN32
 
 #include <vulkan/vulkan.h>

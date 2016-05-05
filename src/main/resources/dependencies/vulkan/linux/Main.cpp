@@ -1,3 +1,5 @@
+#include <thread>
+
 #include "AppWindow.hpp"
 #include "WindowConfig.hpp"
 
@@ -14,10 +16,7 @@ int main(int argc, char *argv[])
 {
     // Initial setup
 	ExitConditionPtr exitCondition = std::make_shared<ExitCondition>();
-	display::WindowConfigPtr config = std::make_shared<display::WindowConfig>();
-    config->width = WIDTH;
-    config->height = HEIGHT;
-    
+	display::WindowConfigPtr config = std::make_shared<display::WindowConfig>(WIDTH, HEIGHT);
 	display::AppWindowPtr window =
 			std::unique_ptr<display::AppWindow>(new display::AppWindow(config));
 

@@ -25,8 +25,8 @@
     VkXcbSurfaceCreateInfoKHR ${config.surfaceCreateInfo} = {};
     ${config.surfaceCreateInfo}.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
     ${config.surfaceCreateInfo}.pNext = NULL;
-    ${config.surfaceCreateInfo}.connection = windowInfo.x11.window; // chance this
-    ${config.surfaceCreateInfo}.window = windowInfo.x11.window;
+    ${config.surfaceCreateInfo}.connection = config->connection;
+    ${config.surfaceCreateInfo}.window = config->window;
     ${config.result} = vkCreateXcbSurfaceKHR(${config.instance}, &${config.surfaceCreateInfo},
             NULL, &${config.surface});
 #endif // _WIN32

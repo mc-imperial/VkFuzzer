@@ -16,6 +16,33 @@ public class CMakeConfig extends Config {
     private String vulkanLoader = "${VULKAN_LOADER}";
     private String platformSources = "${PLATFORM_SOURCES}";
     private String platformIndependentSources = "${PLATFORM_INDEPENDENT_HEADERS}";
+    private String xcbLibraries = "${XCB_LIBRARIES}";
+    private String cmakeModulePath = "${CMAKE_MODULE_PATH}";
+    private String cmakeSourceDir = "${CMAKE_SOURCE_DIR}";
+
+    public String getCmakeSourceDir() {
+        return cmakeSourceDir;
+    }
+
+    public void setCmakeSourceDir(String cmakeSourceDir) {
+        this.cmakeSourceDir = cmakeSourceDir;
+    }
+
+    public String getCmakeModulePath() {
+        return cmakeModulePath;
+    }
+
+    public void setCmakeModulePath(String cmakeModulePath) {
+        this.cmakeModulePath = cmakeModulePath;
+    }
+
+    public String getXcbLibraries() {
+        return xcbLibraries;
+    }
+
+    public void setXcbLibraries(String xcbLibraries) {
+        this.xcbLibraries = xcbLibraries;
+    }
 
     public String getPlatformIndependentSources() {
         return platformIndependentSources;

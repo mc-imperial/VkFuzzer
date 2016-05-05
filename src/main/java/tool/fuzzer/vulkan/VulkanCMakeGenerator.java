@@ -7,10 +7,9 @@ import tool.configs.vulkan.cmake.ExecutableConfig;
 import tool.fuzzer.CMakeGenerator;
 import tool.utils.TemplateEngine;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Created by constantinos on 29/03/2016.
@@ -49,6 +48,21 @@ public class VulkanCMakeGenerator implements CMakeGenerator {
             Writer writer = new FileWriter(new File(path + "/" + CMAKE_NAME));
             templateEngine.generateCode(TEMPLATE_NAME, cMakeConfig, writer);
             writer.close();
+
+            ClassLoader loader = Main.class.getClassLoader();
+
+            //Read file from resources
+            String resourcePath = "dependencies/vulkan/FindXCB.cmake";
+            InputStream fileStream = loader.getResourceAsStream(resourcePath);
+
+            // Make the file
+            File sourceFile = new File(path + "/cmake/FindXCB.cmake");
+            sourceFile.getParentFile().mkdirs();
+
+            // Copy
+            Files.copy(fileStream, sourceFile.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

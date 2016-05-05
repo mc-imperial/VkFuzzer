@@ -17,6 +17,11 @@ struct WindowConfig
 	xcb_intern_atom_reply_t *atomWmDeleteWindow;
 	const uint32_t width;
 	const uint32_t height;
+
+	WindowConfig(const uint32_t width, const uint32_t height):
+	        width(width), height(height)
+	{
+    }
 };
 
 typedef std::shared_ptr<WindowConfig> WindowConfigPtr;

@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (VulkanPrograms)
 
+set(CMAKE_MODULE_PATH ${config.cmakeModulePath} "${config.cmakeSourceDir}/cmake")
+
 # The MAJOR number of the version we're building, used in naming
 # vulkan-(major).dll (and other files).
 set(MAJOR "1")
@@ -21,6 +23,10 @@ else()
 endif()
 
 include_directories(include/)
+
+if(UNIX)
+find_package(XCB REQUIRED)
+endif()
 
 set(PLATFORM_INDEPENDENT_HEADERS
     include/Fuzzer.hpp
@@ -71,6 +77,6 @@ if(WIN32)
 else()
     # TODO:: Add other deps for linux
     add_executable(${executable.name} ${executable.source} ${config.platformSources} ${config.platformIndependentSources})
-    target_link_libraries(${executable.name} ${config.vulkanLoader})
+    target_link_libraries(${executable.name} ${config.vulkanLoader} pthread ${config.xcbLibraries})
 endif()
 </#list>

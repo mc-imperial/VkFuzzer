@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "AppWindow.hpp"
 
 namespace fuzzer

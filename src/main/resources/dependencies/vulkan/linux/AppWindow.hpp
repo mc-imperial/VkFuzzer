@@ -27,5 +27,7 @@ private:
 
 typedef std::unique_ptr<AppWindow> AppWindowPtr;
 
+} // namespace display
+} // namespace fuzzer
 
 #endif // _FUZZER_DISPLAY_LINUX_APP_WINDOW_HPP_
