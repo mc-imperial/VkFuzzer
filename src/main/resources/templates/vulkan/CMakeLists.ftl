@@ -1,18 +1,14 @@
 cmake_minimum_required (VERSION 2.6)
 project (VulkanPrograms)
 
-# Add SDL Dependency
-add_subdirectory("SDL2-2.0.4")
-include_directories("SDL2-2.0.4/include")
-
 # The MAJOR number of the version we're building, used in naming
 # vulkan-(major).dll (and other files).
 set(MAJOR "1")
 
 # Add compile flags and defines
 if(WIN32)
-    set (CMAKE_C_FLAGS "${config.cFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
-    set (CMAKE_CXX_FLAGS "${config.cppFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
+    set (CMAKE_C_FLAGS "${config.cFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS")
+    set (CMAKE_CXX_FLAGS "${config.cppFlags} -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS")
 
     # If MSVC, disable some mismatch warnings.
     if (MSVC)
@@ -25,7 +21,15 @@ else()
 endif()
 
 if(WIN32)
-    include_directories("$ENV{VULKAN_SDK}/Include")
+    include_directories("$ENV{VULKAN_SDK}/Include" platform/windows)
+    SET(PLATFORM_SOURCES
+        platform/windows/AppWindow.cpp
+        platform/windows/AppWindow.hpp
+        platform/windows/Main.cpp
+        platform/windows/stdafx.h
+        platform/windows/WindowConfig.hpp
+        platform/windows/ExitCondition.hpp
+        platform/windows/ExitCondition.cpp)
 else()
     include_directories("/usr/include/vulkan")
 endif()
@@ -47,10 +51,10 @@ file(COPY "simple-frag.spv" DESTINATION "${config.binaryFolder}")
 <#list config.executables as executable>
 
 # Create executable
-add_executable(${executable.name} ${executable.source})
+add_executable(${executable.name} ${executable.source} ${config.platformSources})
 # Link executable
 if(WIN32)
-    target_link_libraries(${executable.name} ${config.vulkanLoader} SDL2main SDL2)
+    target_link_libraries(${executable.name} WIN32 ${config.vulkanLoader})
 else()
     # TODO:: Add other deps for linux
     target_link_libraries(${executable.name} ${config.vulkanLoader})

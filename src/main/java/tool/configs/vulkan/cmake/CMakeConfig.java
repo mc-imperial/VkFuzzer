@@ -14,6 +14,7 @@ public class CMakeConfig extends Config {
     private String major = "${MAJOR}";
     private String vulkanLoaderName = "${VULKAN_LOADER_NAME}";
     private String vulkanLoader = "${VULKAN_LOADER}";
+    private String platformSources = "${PLATFORM_SOURCES}";
 
     public Config[] getExecutables() {
         return executables;
@@ -77,5 +78,13 @@ public class CMakeConfig extends Config {
 
     public void setVulkanLoader(String vulkanLoader) {
         this.vulkanLoader = vulkanLoader;
+    }
+
+    public String getPlatformSources() {
+        return platformSources;
+    }
+
+    public void setPlatformSources(String platformSources) {
+        this.platformSources = platformSources;
     }
 }

@@ -5,6 +5,7 @@ import tool.fsm.FuzzerFSM;
 import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.VulkanFSM;
 import tool.fuzzer.vulkan.VulkanCMakeGenerator;
+import tool.fuzzer.vulkan.VulkanDependencyGenerator;
 import tool.fuzzer.vulkan.VulkanShaderGenerator;
 import tool.fuzzer.vulkan.VulkanTestRunnerGenerator;
 
@@ -19,6 +20,7 @@ public class ProgramGenerator {
     private CMakeGenerator cMakeGenerator;
     private TestRunnerGenerator testRunnerGenerator;
     private LibraryDependencyGenerator libraryDependencyGenerator;
+    private DependencyGenerator dependencyGenerator;
     private ShaderGenerator shaderGenerator;
 
     public ProgramGenerator(final Library library) {
@@ -40,7 +42,8 @@ public class ProgramGenerator {
 
         cMakeGenerator.generateCMakeFile(size, outputFolder);
         testRunnerGenerator.generateTestRunner(outputFolder);
-        libraryDependencyGenerator.generateLibraryDependencies(outputFolder);
+        //libraryDependencyGenerator.generateLibraryDependencies(outputFolder);
+        dependencyGenerator.generateDependencies(outputFolder);
         shaderGenerator.generateShaders(outputFolder);
     }
 
@@ -52,6 +55,7 @@ public class ProgramGenerator {
             cMakeGenerator = new VulkanCMakeGenerator();
             testRunnerGenerator = new VulkanTestRunnerGenerator();
             shaderGenerator = new VulkanShaderGenerator();
+            dependencyGenerator = new VulkanDependencyGenerator();
         }
 
         libraryDependencyGenerator = new LibraryDependencyGenerator();

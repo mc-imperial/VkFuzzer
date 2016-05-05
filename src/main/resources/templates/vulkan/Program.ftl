@@ -58,44 +58,12 @@
 
 #include <vulkan/vulkan.h>
 
-#include <SDL.h>
-#include <SDL_syswm.h>
-
 #include <cstring>
 #include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
-
-SDL_Window *window;
-SDL_SysWMinfo windowInfo;
-
-// Initializes SDL
-SDL_bool initSDL()
-{
-    SDL_Init(SDL_INIT_VIDEO);
-
-    window = SDL_CreateWindow("VulkanProgram", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_HIDDEN);
-
-    if (window == NULL)
-    {
-        std::cerr << "Could not initialize window" << std::endl;
-        return SDL_FALSE;
-    }
-
-    SDL_SysWMinfo windowInfo;
-    SDL_VERSION(&windowInfo.version);
-    return SDL_GetWindowWMInfo(window, &windowInfo);
-}
-
-// Shutsdown SDL
-void shutDownSDL()
-{
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
 
 void checkResultOutOfMemory(VkResult result)
 {
@@ -144,19 +112,15 @@ const Vertex triData[] =
     { XYZ1(  0.5,  0.25, 0 ),  XYZ1( 0.f, 0.f, 1.f ) },
 };
 
-int main(int argc, char *argv[])
+void fuzz(const ExitConditionPtr &exitCondition,
+        const display::WindowConfigPtr &config)
 {
     // Set seed for random operations
     srand(static_cast<unsigned>(time(0)));
 
-    // Init SDL
-    if (!initSDL())
-    {
-        return 1;
-    }
-
     // Swapchain instance extension
     std::vector<const char*> instanceExtensions;
+
     instanceExtensions.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
 #ifdef __ANDROID__
     instanceExtensions.push_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
@@ -172,7 +136,5 @@ int main(int argc, char *argv[])
 
 ${config.body}
 
-    shutDownSDL();
-
-    return 0;
+    exitCondition->signalFinish();
 }

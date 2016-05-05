@@ -67,7 +67,7 @@ public class VulkanEntity extends Entity {
 
             MainConfig config = new MainConfig();
             config.setBody(writer.toString());
-            templateEngine.generateCode(VulkanTemplates.MAIN, config, fileWriter);
+            templateEngine.generateCode(VulkanTemplates.PROGRAM, config, fileWriter);
 
             fileWriter.close();
 
