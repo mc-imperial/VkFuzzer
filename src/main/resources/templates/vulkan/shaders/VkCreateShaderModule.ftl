@@ -28,9 +28,8 @@
     ${config.vertexModuleCreateInfo}.codeSize = ${config.vertContents}.size() * sizeof(uint32_t);
     ${config.vertexModuleCreateInfo}.pCode = ${config.vertContents}.data();
 
-    VkShaderModule ${config.vertexShaderModule};
     VkResult ${config.result} = vkCreateShaderModule(${config.device}.device,
-            &${config.vertexModuleCreateInfo}, NULL, &${config.vertexShaderModule});
+            &${config.vertexModuleCreateInfo}, NULL, &${config.vertexPipelineShaderStageCreateInfo}.module);
 
     assert(${config.result} == VK_SUCCESS);
 
@@ -55,9 +54,8 @@
     ${config.fragmentModuleCreateInfo}.codeSize = ${config.fragContents}.size() * sizeof(uint32_t);
     ${config.fragmentModuleCreateInfo}.pCode = ${config.fragContents}.data();
 
-    VkShaderModule ${config.fragmentShaderModule};
     ${config.result} = vkCreateShaderModule(${config.device}.device,
-            &${config.fragmentModuleCreateInfo}, NULL, &${config.fragmentShaderModule});
+            &${config.fragmentModuleCreateInfo}, NULL, &${config.fragmentPipelineShaderStageCreateInfo}.module);
 
     assert((${config.result} == VK_SUCCESS)
             || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
