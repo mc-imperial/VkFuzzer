@@ -7,7 +7,10 @@
     bool found = false;
     for (FuzzerLogicalDevice fuzzerLogicalDevice: ${config.logicalDevices})
     {
-        if (fuzzerLogicalDevice.supportsGraphics)
+        VkBool supportsPresent;
+        vkGetPhysicalDeviceSurfaceSupportKHR(fuzzerLogicalDevice.gpu, fuzzerLogicalDevice.queueFamilyIndex,
+                ${config.surface}, &supportsPresent);
+        if (fuzzerLogicalDevice.supportsGraphics && supportsPresent)
         {
             ${config.device} = fuzzerLogicalDevice;
             found = true;

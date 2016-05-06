@@ -53,6 +53,7 @@ struct FuzzerLogicalDevice
 {
     VkDevice device;
     VkPhysicalDevice gpu;
+    uint32_t gpuQueueFamilyCount;
     uint32_t queueFamilyIndex;
     uint32_t maxQueueCount;
     bool supportsGraphics;
