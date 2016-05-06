@@ -4,6 +4,16 @@
     //ID: ${config.id}
     std::vector<SwapchainBuffer> ${config.swapchainBuffers};
     ${config.swapchainBuffers}.resize(${config.swapchainImageCount});
+    VkResult ${config.result};
+
+    VkCommandBufferBeginInfo ${config.commandBufferBeginInfo} = {};
+    ${config.commandBufferBeginInfo}.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    ${config.commandBufferBeginInfo}.pNext = NULL;
+    ${config.commandBufferBeginInfo}.flags = 0;
+    ${config.commandBufferBeginInfo}.pInheritanceInfo = NULL;
+
+    ${config.result} = vkBeginCommandBuffer(${config.commandBuffer}.data()[0], &${config.commandBufferBeginInfo});
+    assert(${config.result} == VK_SUCCESS);
 
     for (uint32_t i = 0; i < ${config.swapchainImageCount}; i++)
     {
@@ -15,6 +25,10 @@
         ${config.subresourceRange}.layerCount = ${config.layerCount};
 
         VkComponentMapping ${config.components} = {};
+        ${config.components}.a = VK_COMPONENT_SWIZZLE_A;
+        ${config.components}.b = VK_COMPONENT_SWIZZLE_B;
+        ${config.components}.g = VK_COMPONENT_SWIZZLE_G;
+        ${config.components}.r = VK_COMPONENT_SWIZZLE_R;
 
         VkImageViewCreateInfo ${config.vkImageViewCreateInfo} = {};
         ${config.vkImageViewCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -29,7 +43,9 @@
         SwapchainBuffer swapchainBuffer;
         swapchainBuffer.image = ${config.swapchainImages}[i];
 
-        VkResult ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
+
+
+        ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
                 NULL, &swapchainBuffer.view);
 
         assert((${config.result} == VK_SUCCESS)
@@ -42,5 +58,8 @@
 
         ${config.swapchainBuffers}.push_back(swapchainBuffer);
     }
+
+    ${config.result} = vkEndCommandBuffer(${config.commandBuffer}.data()[0]);
+    assert(${config.result} == VK_SUCCESS);
 
     </#if>

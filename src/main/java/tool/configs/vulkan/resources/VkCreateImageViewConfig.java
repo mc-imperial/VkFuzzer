@@ -12,6 +12,8 @@ public class VkCreateImageViewConfig extends Config {
     private String format;
     private String components;
     private String subresourceRange;
+    private String commandBufferBeginInfo;
+    private String commandBuffer;
     private String imageView;
     private String result;
     private String device;
@@ -23,6 +25,22 @@ public class VkCreateImageViewConfig extends Config {
     private int levelCount;
     private int baseArrayLayer;
     private int layerCount;
+
+    public String getCommandBufferBeginInfo() {
+        return commandBufferBeginInfo;
+    }
+
+    public void setCommandBufferBeginInfo(String commandBufferBeginInfo) {
+        this.commandBufferBeginInfo = commandBufferBeginInfo;
+    }
+
+    public String getCommandBuffer() {
+        return commandBuffer;
+    }
+
+    public void setCommandBuffer(String commandBuffer) {
+        this.commandBuffer = commandBuffer;
+    }
 
     public String getSwapchainImages() {
         return swapchainImages;

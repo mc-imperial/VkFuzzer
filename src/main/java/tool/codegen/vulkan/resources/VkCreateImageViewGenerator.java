@@ -5,6 +5,7 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
+import tool.configs.vulkan.commandbuffers.VkAllocateCommandBuffersConfig;
 import tool.configs.vulkan.resources.VkCreateImageConfig;
 import tool.configs.vulkan.resources.VkCreateImageViewConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
@@ -39,6 +40,7 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         "VK_IMAGE_VIEW_TYPE_CUBE_ARRAY"
     };
     private final String SWAPCHAIN_BUFFERS = "swapchainbuffers";
+    private final String COMMAND_BUFFER_BEGIN_INFO = "commandBufferBeginInfo";
     private final String IMAGE_VIEW = "imageView";
     private final String IMAGE_VIEW_CREATE_INFO = "imageViewCreateInfo";
     private final String SUB_RESOURCE_RANGE = "subResourceRange";
@@ -74,6 +76,16 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         InitSwapchainConfig swapchainConfig =
                 (InitSwapchainConfig)configs.get(0);
 
+        // find swapchain config
+        ArrayList<Config> buffers =
+                globalState.getConfig(VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
+
+        VkAllocateCommandBuffersConfig buffer =
+                (VkAllocateCommandBuffersConfig)buffers.get(0);
+
+        config.setCommandBufferBeginInfo(COMMAND_BUFFER_BEGIN_INFO +
+                freshMap.getFreshId(COMMAND_BUFFER_BEGIN_INFO));
+        config.setCommandBuffer(buffer.getBuffers());
         config.setDevice(swapchainConfig.getDevice());
         config.setBaseMipLevel(BASE_MIP_LEVEL);
         config.setLevelCount(1);
