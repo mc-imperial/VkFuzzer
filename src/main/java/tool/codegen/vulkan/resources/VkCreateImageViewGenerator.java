@@ -7,6 +7,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.resources.VkCreateImageConfig;
 import tool.configs.vulkan.resources.VkCreateImageViewConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -37,6 +38,7 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         "VK_IMAGE_VIEW_TYPE_2D_ARRAY",
         "VK_IMAGE_VIEW_TYPE_CUBE_ARRAY"
     };
+    private final String SWAPCHAIN_BUFFERS = "swapchainbuffers";
     private final String IMAGE_VIEW = "imageView";
     private final String IMAGE_VIEW_CREATE_INFO = "imageViewCreateInfo";
     private final String SUB_RESOURCE_RANGE = "subResourceRange";
@@ -65,21 +67,22 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         config.setSubresourceRange(SUB_RESOURCE_RANGE +
                 freshMap.getFreshId(SUB_RESOURCE_RANGE));
 
-        // random image
+        // find swapchain config
         ArrayList<Config> configs =
-                globalState.getConfig(VulkanState.VK_CREATE_IMAGE);
+                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
 
-        VkCreateImageConfig vkImage =
-                (VkCreateImageConfig)
-                configs.get(randomNumberGanerator.randomNumber(configs.size()));
+        InitSwapchainConfig swapchainConfig =
+                (InitSwapchainConfig)configs.get(0);
 
-        config.setImage(vkImage.getImage());
-        config.setDevice(vkImage.getDevice());
+        config.setDevice(swapchainConfig.getDevice());
         config.setBaseMipLevel(BASE_MIP_LEVEL);
-        config.setLevelCount(randomNumberGanerator.randomNumber(vkImage.getMipLevels()));
-        config.setLayerCount(randomNumberGanerator.randomNumber(vkImage.getArrayLayers()));
+        config.setLevelCount(1);
+        config.setLayerCount(1);
         config.setFormat(FORMAT);
         config.setComponents(COMPONENTS + freshMap.getFreshId(COMPONENTS));
+        config.setSwapchainBuffers(SWAPCHAIN_BUFFERS + freshMap.getFreshId(SWAPCHAIN_BUFFERS));
+        config.setSwapchainImageCount(swapchainConfig.getSwapchainImageCount());
+        config.setSwapchainImages(swapchainConfig.getSwapchainImages());
 
         // random creation flags
         ArrayList<String> aspect = new ArrayList<>(Arrays.asList(ASPECT_MASKS));
@@ -89,8 +92,8 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         // random creation flags
         config.setViewType(VIEW_TYPE[1]);
 
-        config.setBad(vkImage.isBad());
-        config.addDependency(vkImage.getId());
+        config.setBad(swapchainConfig.isBad());
+        config.addDependency(swapchainConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_IMAGE_VIEW, config);
 

@@ -9,8 +9,8 @@
     ${config.framebufferCreateInfo}.renderPass = ${config.renderpass};
     ${config.framebufferCreateInfo}.attachmentCount = ${config.attachmentsCount};
     ${config.framebufferCreateInfo}.pAttachments = &${config.attachments};
-    ${config.framebufferCreateInfo}.width = ${config.width};
-    ${config.framebufferCreateInfo}.height = ${config.height};
+    ${config.framebufferCreateInfo}.width = config->width;
+    ${config.framebufferCreateInfo}.height = config->height;
     ${config.framebufferCreateInfo}.layers = ${config.layers};
 
     VkFramebuffer ${config.framebuffer};

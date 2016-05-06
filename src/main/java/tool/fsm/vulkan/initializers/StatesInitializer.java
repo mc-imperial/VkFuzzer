@@ -105,14 +105,18 @@ public class StatesInitializer {
                 VulkanState.VK_GET_DEVICE_QUEUE,
                 VulkanState.VK_CREATE_IMAGE,
                 VulkanState.VK_CREATE_BUFFER,
-                VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
                 VulkanState.VK_CREATE_SHADER_MODULE,
                 VulkanState.DEALLOCATION
         };
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
+                VulkanState.VK_CREATE_IMAGE_VIEW);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CREATE_IMAGE_VIEW,
                 randomStates);
+
         // End of sequential part
 
         // Entering random path
@@ -166,10 +170,6 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_IMAGE,
-                VulkanState.VK_CREATE_IMAGE_VIEW);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_CREATE_IMAGE_VIEW,
                 VulkanState.VK_GET_IMAGE_MEMORY_REQUIREMENTS);
 
         defineTransition(TransitionType.REPEATING,

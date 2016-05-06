@@ -171,7 +171,4 @@
             &${config.swapchainImageCount}, ${config.swapchainImages}.data());
     assert(${config.result} == VK_SUCCESS);
 
-    std::vector<SwapchainBuffer> ${config.swapchainBuffers};
-    ${config.swapchainBuffers}.resize(${config.swapchainImageCount});
-
     </#if>

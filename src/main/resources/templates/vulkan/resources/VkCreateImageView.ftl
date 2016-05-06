@@ -2,34 +2,45 @@
     <#if config.isBad()>
     <#else>
     //ID: ${config.id}
-    VkImageSubresourceRange ${config.subresourceRange} = {};
-    ${config.subresourceRange}.aspectMask = ${config.aspectMask};
-    ${config.subresourceRange}.baseMipLevel = ${config.baseMipLevel};
-    ${config.subresourceRange}.levelCount = ${config.levelCount};
-    ${config.subresourceRange}.baseArrayLayer = ${config.baseArrayLayer};
-    ${config.subresourceRange}.layerCount = ${config.layerCount};
+    std::vector<SwapchainBuffer> ${config.swapchainBuffers};
+    ${config.swapchainBuffers}.resize(${config.swapchainImageCount});
 
-    VkComponentMapping ${config.components} = {};
+    for (uint32_t i = 0; i < ${config.swapchainImageCount}; i++)
+    {
+        VkImageSubresourceRange ${config.subresourceRange} = {};
+        ${config.subresourceRange}.aspectMask = ${config.aspectMask};
+        ${config.subresourceRange}.baseMipLevel = ${config.baseMipLevel};
+        ${config.subresourceRange}.levelCount = ${config.levelCount};
+        ${config.subresourceRange}.baseArrayLayer = ${config.baseArrayLayer};
+        ${config.subresourceRange}.layerCount = ${config.layerCount};
 
-    VkImageViewCreateInfo ${config.vkImageViewCreateInfo} = {};
-    ${config.vkImageViewCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-    ${config.vkImageViewCreateInfo}.pNext = NULL;
-    ${config.vkImageViewCreateInfo}.flags = 0;
-    ${config.vkImageViewCreateInfo}.image = ${config.image};
-    ${config.vkImageViewCreateInfo}.viewType = ${config.viewType};
-    ${config.vkImageViewCreateInfo}.format = ${config.format};
-    ${config.vkImageViewCreateInfo}.components = ${config.components};
-    ${config.vkImageViewCreateInfo}.subresourceRange = ${config.subresourceRange};
+        VkComponentMapping ${config.components} = {};
 
-    VkImageView ${config.imageView};
-    VkResult ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
-            NULL, &${config.imageView});
+        VkImageViewCreateInfo ${config.vkImageViewCreateInfo} = {};
+        ${config.vkImageViewCreateInfo}.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+        ${config.vkImageViewCreateInfo}.pNext = NULL;
+        ${config.vkImageViewCreateInfo}.flags = 0;
+        ${config.vkImageViewCreateInfo}.image = ${config.swapchainImages}[i];
+        ${config.vkImageViewCreateInfo}.viewType = ${config.viewType};
+        ${config.vkImageViewCreateInfo}.format = ${config.format};
+        ${config.vkImageViewCreateInfo}.components = ${config.components};
+        ${config.vkImageViewCreateInfo}.subresourceRange = ${config.subresourceRange};
 
-    assert((${config.result} == VK_SUCCESS)
-            || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
-            || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+        SwapchainBuffer swapchainBuffer;
+        swapchainBuffer.image = ${config.swapchainImages}[i];
 
-    checkResultOutOfMemory(${config.result});
+        VkResult ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
+                NULL, &swapchainBuffer.view);
 
-    assert(${config.result} == VK_SUCCESS);
+        assert((${config.result} == VK_SUCCESS)
+                || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+
+        checkResultOutOfMemory(${config.result});
+
+        assert(${config.result} == VK_SUCCESS);
+
+        ${config.swapchainBuffers}.push_back(swapchainBuffer);
+    }
+
     </#if>

@@ -56,25 +56,11 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
                     (VkCreateImageViewConfig)
                     configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
-            // random VkImage
-            ArrayList<Config> vkImages =
-                    globalState.getConfig(VulkanState.VK_CREATE_IMAGE);
-
-            VkCreateImageConfig vkImage = null;
-
-            for (Config imageConfig : vkImages) {
-                VkCreateImageConfig c = (VkCreateImageConfig) imageConfig;
-                if (c.getImage().equals(vkImageView.getImage())) {
-                    vkImage = c;
-                }
-            }
 
             config.setDevice(vkImageView.getDevice());
             config.setBad(vkImageView.isBad());
             config.addDependency(vkImageView.getId());
             config.setAttachments(vkImageView.getImageView());
-            config.setHeight(vkImage.getHeight());
-            config.setWidth(vkImage.getWidth());
             config.setResult(RESULT + freshMap.getFreshId(RESULT));
             config.setFramebuffer(FRAME_BUFFER + freshMap.getFreshId(FRAME_BUFFER));
             config.setFramebufferCreateInfo(FRAME_BUFFER_CREATE_INFO +

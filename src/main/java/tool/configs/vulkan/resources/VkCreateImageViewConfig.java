@@ -16,10 +16,37 @@ public class VkCreateImageViewConfig extends Config {
     private String result;
     private String device;
     private String aspectMask;
+    private String swapchainImages;
+    private String swapchainImageCount;
+    private String swapchainBuffers;
     private int baseMipLevel;
     private int levelCount;
     private int baseArrayLayer;
     private int layerCount;
+
+    public String getSwapchainImages() {
+        return swapchainImages;
+    }
+
+    public void setSwapchainImages(String swapchainImages) {
+        this.swapchainImages = swapchainImages;
+    }
+
+    public String getSwapchainImageCount() {
+        return swapchainImageCount;
+    }
+
+    public void setSwapchainImageCount(String swapchainImageCount) {
+        this.swapchainImageCount = swapchainImageCount;
+    }
+
+    public String getSwapchainBuffers() {
+        return swapchainBuffers;
+    }
+
+    public void setSwapchainBuffers(String swapchainBuffers) {
+        this.swapchainBuffers = swapchainBuffers;
+    }
 
     public String getVkImageViewCreateInfo() {
         return vkImageViewCreateInfo;
