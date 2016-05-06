@@ -14,8 +14,26 @@ public class VkCreateFrameBufferConfig extends Config {
     private int height;
     private int layers;
     private String framebuffer;
+    private String framebuffers;
+    private String swapchainBuffers;
     private String device;
     private String result;
+
+    public String getSwapchainBuffers() {
+        return swapchainBuffers;
+    }
+
+    public void setSwapchainBuffers(String swapchainBuffers) {
+        this.swapchainBuffers = swapchainBuffers;
+    }
+
+    public String getFramebuffers() {
+        return framebuffers;
+    }
+
+    public void setFramebuffers(String framebuffers) {
+        this.framebuffers = framebuffers;
+    }
 
     public String getFramebufferCreateInfo() {
         return framebufferCreateInfo;

@@ -2,26 +2,34 @@
     <#if config.isBad()>
     <#else>
     //ID: ${config.id}
-    VkFramebufferCreateInfo ${config.framebufferCreateInfo} = {};
-    ${config.framebufferCreateInfo}.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-    ${config.framebufferCreateInfo}.pNext = NULL;
-    ${config.framebufferCreateInfo}.flags = 0;
-    ${config.framebufferCreateInfo}.renderPass = ${config.renderpass};
-    ${config.framebufferCreateInfo}.attachmentCount = ${config.attachmentsCount};
-    ${config.framebufferCreateInfo}.pAttachments = &${config.attachments};
-    ${config.framebufferCreateInfo}.width = config->width;
-    ${config.framebufferCreateInfo}.height = config->height;
-    ${config.framebufferCreateInfo}.layers = ${config.layers};
+    std::vector<VkFramebuffer> ${config.framebuffers};
 
-    VkFramebuffer ${config.framebuffer};
-    VkResult ${config.result} = vkCreateFramebuffer(${config.device}.device,
-            &${config.framebufferCreateInfo}, NULL, &${config.framebuffer});
+    for (SwapchainBuffer swapchainBuffer : ${config.swapchainBuffers})
+    {
+        VkFramebufferCreateInfo ${config.framebufferCreateInfo} = {};
+        ${config.framebufferCreateInfo}.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        ${config.framebufferCreateInfo}.pNext = NULL;
+        ${config.framebufferCreateInfo}.flags = 0;
+        ${config.framebufferCreateInfo}.renderPass = ${config.renderpass};
+        ${config.framebufferCreateInfo}.attachmentCount = ${config.attachmentsCount};
+        ${config.framebufferCreateInfo}.pAttachments = &swapchainBuffer.view;
+        ${config.framebufferCreateInfo}.width = config->width;
+        ${config.framebufferCreateInfo}.height = config->height;
+        ${config.framebufferCreateInfo}.layers = ${config.layers};
 
-    assert((${config.result} == VK_SUCCESS)
-            || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
-            || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
+        VkFramebuffer ${config.framebuffer};
+        VkResult ${config.result} = vkCreateFramebuffer(${config.device}.device,
+        &${config.framebufferCreateInfo}, NULL, &${config.framebuffer});
 
-    checkResultOutOfMemory(${config.result});
+        assert((${config.result} == VK_SUCCESS)
+                || (${config.result} == VK_ERROR_OUT_OF_HOST_MEMORY)
+                || (${config.result} == VK_ERROR_OUT_OF_DEVICE_MEMORY));
 
-    assert(${config.result} == VK_SUCCESS);
+        checkResultOutOfMemory(${config.result});
+
+        assert(${config.result} == VK_SUCCESS);
+
+        ${config.framebuffers}.push_back(${config.framebuffer});
+    }
+
     </#if>

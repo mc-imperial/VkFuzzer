@@ -115,6 +115,14 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.VK_CREATE_IMAGE_VIEW,
+                VulkanState.VK_CREATE_RENDERPASS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CREATE_RENDERPASS,
+                VulkanState.VK_CREATE_FRAMEBUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CREATE_FRAMEBUFFER,
                 randomStates);
 
         // End of sequential part
@@ -182,14 +190,6 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SHADER_MODULE,
-                VulkanState.VK_CREATE_RENDERPASS);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_CREATE_RENDERPASS,
-                VulkanState.VK_CREATE_FRAMEBUFFER);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_CREATE_FRAMEBUFFER,
                 VulkanState.VK_CREATE_PIPELINE_CACHE);
 
         defineTransition(TransitionType.REPEATING,

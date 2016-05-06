@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
     private final String FRAME_BUFFER = "framebuffer";
+    private final String FRAME_BUFFERS = "framebuffers";
     private final String FRAME_BUFFER_CREATE_INFO = "framebufferCreateInfo";
     private final int ATTACHMENT_COUNT = 1;
 
@@ -50,13 +51,16 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
 
             VkCreateRenderpassConfig renderpass =
                     (VkCreateRenderpassConfig)
-                    renderpasses.get(randomNumberGanerator.randomNumber(renderpasses.size()));
+                    renderpasses.get(0);
 
             VkCreateImageViewConfig vkImageView =
                     (VkCreateImageViewConfig)
-                    configs.get(randomNumberGanerator.randomNumber(configs.size()));
+                    configs.get(0);
 
 
+            config.setFramebuffers(FRAME_BUFFERS +
+                    freshMap.getFreshId(FRAME_BUFFERS));
+            config.setSwapchainBuffers(vkImageView.getSwapchainBuffers());
             config.setDevice(vkImageView.getDevice());
             config.setBad(vkImageView.isBad());
             config.addDependency(vkImageView.getId());

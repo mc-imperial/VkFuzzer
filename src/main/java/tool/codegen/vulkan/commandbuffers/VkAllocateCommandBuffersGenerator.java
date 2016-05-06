@@ -23,7 +23,8 @@ public class VkAllocateCommandBuffersGenerator extends VulkanCodeGenerator {
     private final String BUFFERS = "buffers";
     private final String PRIMARY_BUFFER = "VK_COMMAND_BUFFER_LEVEL_PRIMARY";
     private final String SECONDARY_BUFFER = "VK_COMMAND_BUFFER_LEVEL_SECONDARY";
-    private final int MAX_COUNT = 10;
+    private final int MAX_COUNT = 8;
+    private final int MIN_COUNT = 2;
 
     public VkAllocateCommandBuffersGenerator(RandomStringGenerator randomStringGenerator,
                                              RandomNumberGanerator randomNumberGanerator,
@@ -44,7 +45,7 @@ public class VkAllocateCommandBuffersGenerator extends VulkanCodeGenerator {
                 freshMap.getFreshId(CMD_BUFFER_ALLOC_INFO));
         config.setNext(NEXT);
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
-        config.setCount(randomNumberGanerator.randomNumber(MAX_COUNT));
+        config.setCount(MIN_COUNT + randomNumberGanerator.randomNumber(MAX_COUNT));
         config.setBuffers(BUFFERS + freshMap.getFreshId(BUFFERS));
 
         // Use coverage to randomly choose a buffer type
