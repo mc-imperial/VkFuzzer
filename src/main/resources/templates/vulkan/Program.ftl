@@ -57,6 +57,8 @@ void fuzz(const ExitConditionPtr &exitCondition,
     std::vector<const char*> deviceExtensions;
     deviceExtensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
+    uint32_t totalLogicalDevices = 0;
+
 ${config.body}
 
     exitCondition->signalFinish();

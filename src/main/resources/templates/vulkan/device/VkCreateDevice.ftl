@@ -84,8 +84,15 @@
             deviceInfo.ppEnabledLayerNames = NULL;
             deviceInfo.pEnabledFeatures = NULL;
 
+            if (totalLogicalDevices > MAX_LOGICAL_DEVICES)
+            {
+                break;
+            }
+
             VkResult res = vkCreateDevice(${deviceProperties.devices}[i], &deviceInfo,
                     NULL, &(fuzzerLogicalDevice.device));
+
+            totalLogicalDevices++;
 
             // Check result
             assert((res == VK_SUCCESS)
