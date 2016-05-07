@@ -8,6 +8,7 @@ import tool.fsm.vulkan.VulkanEntity;
 import tool.fsm.vulkan.actions.GenerateCodeAction;
 import tool.fsm.vulkan.events.VulkanEvent;
 import tool.fsm.vulkan.states.VulkanState;
+import tool.fsm.vulkan.transitions.BiasedTransition;
 import tool.fsm.vulkan.transitions.SimpleTransition;
 import tool.fsm.vulkan.transitions.TransitionType;
 
@@ -97,12 +98,11 @@ public class StatesInitializer {
                 VulkanState.VK_ALLOCATE_COMMAND_BUFFERS);
 
         // Define random transitions from the VK_ALLOCATE_COMMAND_BUFFERS state
-        VulkanState[] randomStates =
+        VulkanState[] randomStates0 =
         {
                 VulkanState.VK_CREATE_SEMAPHORE,
                 VulkanState.VK_CREATE_EVENT,
                 VulkanState.VK_CREATE_FENCE,
-                VulkanState.VK_GET_DEVICE_QUEUE,
                 VulkanState.VK_CREATE_IMAGE,
                 VulkanState.VK_CREATE_BUFFER,
                 VulkanState.VK_CREATE_SHADER_MODULE,
@@ -122,15 +122,11 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.VK_CREATE_FRAMEBUFFER,
-                randomStates);
+                randomStates0);
 
         // End of sequential part
 
         // Entering random path
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_GET_DEVICE_QUEUE,
-                randomStates);
-
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_EVENT,
                 VulkanState.VK_GET_EVENT_STATUS);
@@ -145,7 +141,7 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_SET_EVENT,
-                randomStates);
+                randomStates0);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_FENCE,
@@ -157,11 +153,11 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_RESET_FENCES,
-                randomStates);
+                randomStates0);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SEMAPHORE,
-                randomStates);
+                randomStates0);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_IMAGE,
@@ -173,7 +169,7 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_IMAGE_SUBRESOURCE_LAYOUT,
-                randomStates);
+                randomStates0);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_SHADER_MODULE,
@@ -189,7 +185,7 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_GRAPHICS_PIPELINES,
-                randomStates);
+                randomStates0);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_BUFFER,
@@ -199,13 +195,51 @@ public class StatesInitializer {
                 VulkanState.VK_CREATE_BUFFER_VIEW,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS);
 
-        defineTransition(TransitionType.SEQUENTIAL,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
                 VulkanState.POPULATE_VERTEX_BUFFER);
 
-        defineTransition(TransitionType.SEQUENTIAL,
+        defineTransition(TransitionType.REPEATING,
                 VulkanState.POPULATE_VERTEX_BUFFER,
-                VulkanState.DEALLOCATION);
+                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR,
+                VulkanState.VK_BEGIN_COMMAND_BUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_BEGIN_COMMAND_BUFFER,
+                VulkanState.VK_CMD_CLEAR_COLOR);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_CMD_CLEAR_COLOR,
+                VulkanState.VK_END_COMMAND_BUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_END_COMMAND_BUFFER,
+                VulkanState.VK_GET_DEVICE_QUEUE);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_DEVICE_QUEUE,
+                VulkanState.VK_QUEUE_SUBMIT);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_QUEUE_SUBMIT,
+                VulkanState.VK_DEVICE_WAIT_IDLE);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_DEVICE_WAIT_IDLE,
+                VulkanState.VK_QUEUE_PRESENT_KHR);
+
+        VulkanState[] randomStates1 =
+        {
+                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR,
+                VulkanState.STOP,
+        };
+
+        defineTransition(TransitionType.BIASED,
+                VulkanState.VK_QUEUE_PRESENT_KHR,
+                randomStates1);
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.DEALLOCATION,
@@ -255,6 +289,14 @@ public class StatesInitializer {
                 break;
             case SEQUENTIAL:
                 fsmState.addTransition(event, nextStates.get(0), generateCodeAction);
+                break;
+            case BIASED:
+                fsmState.addTransition(event,
+                        new BiasedTransition<>(
+                                generateCodeAction,
+                                fsmState,
+                                nextStates));
+                break;
         }
     }
 }

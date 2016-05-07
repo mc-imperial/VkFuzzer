@@ -3,11 +3,12 @@ package tool.fsm.vulkan.initializers;
 import tool.codegen.coverage.CoverageRandomizer;
 import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
+import tool.codegen.vulkan.commandbuffers.VkBeginCommandBufferGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
+import tool.codegen.vulkan.commandbuffers.VkEndCommandBufferGenerator;
+import tool.codegen.vulkan.commands.VkCmdClearColorImageGenerator;
 import tool.codegen.vulkan.deallocation.DeallocationGenerator;
-import tool.codegen.vulkan.device.DevicePropertiesGenerator;
-import tool.codegen.vulkan.device.VkCreateDeviceGenerator;
-import tool.codegen.vulkan.device.VkGetDeviceQueueGenerator;
+import tool.codegen.vulkan.device.*;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesGenerator;
 import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
@@ -22,7 +23,9 @@ import tool.codegen.vulkan.pipelines.VkGetPipelineCacheDataGenerator;
 import tool.codegen.vulkan.resources.*;
 import tool.codegen.vulkan.shaders.VkCreateShaderModuleGenerator;
 import tool.codegen.vulkan.swapchain.InitSwapchainGenerator;
+import tool.codegen.vulkan.swapchain.VkAcquireNextImageKHRGenerator;
 import tool.codegen.vulkan.swapchain.VkCreateSurfaceKHRGenerator;
+import tool.codegen.vulkan.swapchain.VkQueuePresentKHRGenerator;
 import tool.codegen.vulkan.synchronisation.*;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
@@ -376,6 +379,69 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.POPULATE_VERTEX_BUFFER.toString(),
                 new PopulateVertexBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR.toString(),
+                new VkAcquireNextImageKHRGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_BEGIN_COMMAND_BUFFER.toString(),
+                new VkBeginCommandBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_END_COMMAND_BUFFER.toString(),
+                new VkEndCommandBufferGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_QUEUE_SUBMIT.toString(),
+                new VkQueueSubmitGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_DEVICE_WAIT_IDLE.toString(),
+                new VkDeviceWaitIdleGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_QUEUE_PRESENT_KHR.toString(),
+                new VkQueuePresentKHRGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CMD_CLEAR_COLOR.toString(),
+                new VkCmdClearColorImageGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,
