@@ -76,7 +76,9 @@ digraph graphname
 	aae[label="Init swapchain"];
 	aag[label="VkCreateFramebuffer"];
 
-	aah[label="Time to use resources"];
+	aah[label="Create random data and transfer data to buffers"];
+
+	aai[label="Time to use resources"];
 
 	a -> b;
 	b -> c;
@@ -231,5 +233,6 @@ digraph graphname
 	}
 
 	aab -> aah;
+	aah -> aai;
 
 }
