@@ -76,6 +76,8 @@ digraph graphname
     az[label="VkCreateBuffer"];
     aaa[label="VkCreateBufferViews"];
     aab[label="VkGetBufferMemoryRequirements"];
+	aad[label="CreateSurface"];
+	aae[label="Init swapchain"];
 
 	a -> b;
 	b -> c;
@@ -112,7 +114,9 @@ digraph graphname
 		n -> o;
 	}
 
-	o -> p;
+	o -> aad;
+	aad -> aae;
+	aae -> p;
 
 	subgraph cluster_4
 	{
