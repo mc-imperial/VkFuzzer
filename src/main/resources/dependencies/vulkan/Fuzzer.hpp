@@ -38,6 +38,7 @@
 #define EXIT_RUN_OUT_OF_MEMORY -6
 #define ASSERTION_FAILED -7
 #define NO_PRESENT_DEVICE_AVAILABLE -8
+#define MAX_LOGICAL_DEVICES 4
 
 void checkResultOutOfMemory(VkResult result)
 {

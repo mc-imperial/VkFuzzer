@@ -97,27 +97,31 @@ public class VkGetEventStatusGenerator extends VulkanCodeGenerator {
     private VkSetEventConfig isEventSet(ArrayList<Config> setEvents,
                               VkCreateEventConfig createEventConfig)
     {
+        ArrayList<VkSetEventConfig> events = new ArrayList<>();
+
         for (Config config : setEvents) {
             VkSetEventConfig event = (VkSetEventConfig)config;
             if (event.getEvent().equals(createEventConfig.getEvent())) {
-                return  event;
+                events.add(event);
             }
         }
 
-        return null;
+        return events.isEmpty() ? null : events.get(events.size() - 1);
     }
 
     // Checks whether of not the event is set
     private VkResetEventConfig isEventReset(ArrayList<Config> resetEvents,
                               VkCreateEventConfig createEventConfig)
     {
+        ArrayList<VkResetEventConfig> events = new ArrayList<>();
+
         for (Config config : resetEvents) {
             VkResetEventConfig event = (VkResetEventConfig)config;
             if (event.getEvent().equals(createEventConfig.getEvent())) {
-                return  event;
+                events.add(event);
             }
         }
 
-        return null;
+        return events.isEmpty() ? null : events.get(events.size() - 1);
     }
 }
