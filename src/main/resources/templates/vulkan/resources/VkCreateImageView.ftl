@@ -3,7 +3,6 @@
     <#else>
     //ID: ${config.id}
     std::vector<SwapchainBuffer> ${config.swapchainBuffers};
-    ${config.swapchainBuffers}.resize(${config.swapchainImageCount});
     VkResult ${config.result};
 
     VkCommandBufferBeginInfo ${config.commandBufferBeginInfo} = {};

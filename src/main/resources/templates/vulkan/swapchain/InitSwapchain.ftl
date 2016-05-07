@@ -5,6 +5,12 @@
     // Find a suitable device
     FuzzerLogicalDevice ${config.device};
     bool found = false;
+
+    if (${config.logicalDevices}.empty())
+    {
+        exit(EXIT_SUCCESS);
+    }
+
     for (FuzzerLogicalDevice fuzzerLogicalDevice: ${config.logicalDevices})
     {
         VkBool32 supportsPresent;
