@@ -35,10 +35,6 @@ digraph graphname
 	y[label="VkRenderPassCreateInfo"];
 	z[label="vkCreateRenderPass()"];
 
-	x[label="VkSubpassDescription"];
-	y[label="VkRenderPassCreateInfo"];
-	z[label="vkCreateRenderPass()"];
-
 	aa[label="VkPipelineCacheCreateInfo"];
 	ab[label="vkCreatePipelineCache()"];
 
@@ -76,8 +72,11 @@ digraph graphname
     az[label="VkCreateBuffer"];
     aaa[label="VkCreateBufferViews"];
     aab[label="VkGetBufferMemoryRequirements"];
-	aad[label="CreateSurface"];
+	aad[label="VkCreateSurfaceKHR"];
 	aae[label="Init swapchain"];
+	aag[label="VkCreateFramebuffer"];
+
+	aah[label="Time to use resources"];
 
 	a -> b;
 	b -> c;
@@ -103,8 +102,10 @@ digraph graphname
 		h -> i;
 		i -> j;
 		j -> k;
-		k -> l;
 	}
+
+	k -> aad;
+	aad -> l;
 
 	subgraph cluster_3
 	{
@@ -114,50 +115,41 @@ digraph graphname
 		n -> o;
 	}
 
-	o -> aad;
-	aad -> aae;
-	aae -> p;
+	o -> aae;
+	aae -> r;
+
+	subgraph cluster_5
+	{
+		label = "Command Buffer & Command Pool";
+		r -> s;
+		s -> t;
+		t -> u;
+	}
+
+	u -> aq;
+	aq -> x;
+	x -> y;
+	y -> z;
+	z -> aag;
+	aag -> p;
 
 	subgraph cluster_4
 	{
 		label = "Resources";
 		p -> q;
-		p -> r;
 		p -> v;
-		p -> x;
 		p -> ao;
 		p -> ap;
 		p -> ar;
 		p -> av;
 		p -> ay;
-		p -> az;
-
-		subgraph cluster_5
-		{
-			label = "Command Buffer & Command Pool";
-			r -> s;
-			s -> t;
-			t -> u;
-		}
-
-		subgraph cluster_6
-		{
-			label = "Create Shaders";
-			v -> w;
-		}
 
 		subgraph cluster_7
 		{
-			label = "Graphics Pipeline & Renderpasses Resources";
+			label = "Graphics Pipeline";
 
-			subgraph cluster_8
-			{
-				label = "Renderpass";
-				x -> y;
-				y -> z;
-			}
-
-			z -> aa;
+			v -> w;
+			w -> aa;
 
 			subgraph cluster_9
 			{
@@ -204,15 +196,7 @@ digraph graphname
 		subgraph cluster_14
 		{
 			label = "VkImages & VkImageViews";
-			ap -> aq;
-			aq -> aac;
-		}
-
-		subgraph cluster_15
-		{
-			label = "VkBuffers & VkBufferViews";
-			az -> aaa;
-			aaa -> aab;
+			ap -> aac;
 		}
 
 		subgraph cluster_16
@@ -237,5 +221,15 @@ digraph graphname
         }
 	}
 
+	p -> az;
+
+	subgraph cluster_15
+	{
+		label = "VkBuffers & VkBufferViews";
+		az -> aaa;
+		aaa -> aab;
+	}
+
+	aab -> aah;
 
 }

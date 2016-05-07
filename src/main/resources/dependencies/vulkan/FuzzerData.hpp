@@ -9,6 +9,12 @@ struct Vertex
     float r, g, b, a;                // Color
 };
 
+struct VertexBuffer
+{
+    VkBuffer buffer;
+    VkDeviceMemory deviceMemory;
+};
+
 const Vertex triData[] =
 {
     { XYZ1( -0.25, -0.25, 0 ), XYZ1( 1.f, 0.f, 0.f ) },
