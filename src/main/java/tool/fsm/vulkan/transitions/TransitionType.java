@@ -5,5 +5,6 @@ package tool.fsm.vulkan.transitions;
  */
 public enum TransitionType {
     REPEATING,
-    SEQUENTIAL
+    SEQUENTIAL,
+    BIASED
 }

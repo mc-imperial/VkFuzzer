@@ -7,6 +7,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -44,17 +45,15 @@ public class VkGetDeviceQueueGenerator extends VulkanCodeGenerator {
 
         // Find a random device
         ArrayList<Config> configs =
-                globalState.getConfig(VulkanState.VK_CREATE_COMMAND_POOL);
+                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
 
-        VkCreateCommandPoolConfig cmdPoolConfig =
-                (VkCreateCommandPoolConfig)
+        InitSwapchainConfig swapchainConfig =
+                (InitSwapchainConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
-        config.addDependency(cmdPoolConfig.getId());
-        config.setQueueIndex(cmdPoolConfig.getRandomQueueCount());
-        config.setFamilyIndex(cmdPoolConfig.getRandomQueueIndex());
-        config.setDevice(cmdPoolConfig.getRandomDevice());
-        config.setBad(cmdPoolConfig.isBad());
+        config.addDependency(swapchainConfig.getId());
+        config.setDevice(swapchainConfig.getDevice());
+        config.setBad(swapchainConfig.isBad());
 
         globalState.addConfig(VulkanState.VK_GET_DEVICE_QUEUE, config);
 

@@ -82,4 +82,18 @@ public class VulkanTemplates {
             "swapchain/InitSwapchain.ftl";
     public static final String POPULATE_VERTEX_BUFFER =
             "memory/PopulateVertexBuffer.ftl";
+    public static final String VK_ACQUIRE_NEXT_IMAGE_KHR =
+            "swapchain/VkAcquireNextImageKHR.ftl";
+    public static final String VK_BEGIN_COMMAND_BUFFER =
+            "commandbuffers/VkBeginCommandBuffer.ftl";
+    public static final String VK_END_COMMAND_BUFFER =
+            "commandbuffers/VkEndCommandBuffer.ftl";
+    public static final String VK_QUEUE_SUBMIT =
+            "device/VkQueueSubmit.ftl";
+    public static final String VK_DEVICE_WAIT_IDLE =
+            "device/VkDeviceWaitIdle.ftl";
+    public static final String VK_QUEUE_PRESENT_KHR =
+            "swapchain/VkQueuePresentKHR.ftl";
+    public static final String VK_CMD_CLEAR_COLOR_IMAGE =
+            "commands/VkCmdClearColorImage.ftl";
 }
