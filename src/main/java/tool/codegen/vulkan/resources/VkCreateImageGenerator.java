@@ -72,8 +72,8 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
     private final String SHARING_MODE = "VK_SHARING_MODE_EXCLUSIVE";
     private final String FORMAT = "VK_FORMAT_R8G8B8A8_UNORM";
     private final String EXTENT = "extent";
-    private final int MAX_WITDTH = 1080;
-    private final int MAX_HEIGHT = 1920;
+    private final int MAX_WITDTH = 1079;
+    private final int MAX_HEIGHT = 1919;
     private final int DEPTH = 1;
     private final int MIP_LEVELS = 1;
     private final int ARRAY_LEVELS = 1;
@@ -102,8 +102,8 @@ public class VkCreateImageGenerator extends VulkanCodeGenerator {
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
 
         // Random extend values
-        config.setWidth(randomNumberGanerator.randomNumber(MAX_WITDTH));
-        config.setHeight(randomNumberGanerator.randomNumber(MAX_HEIGHT));
+        config.setWidth(randomNumberGanerator.randomNumber(MAX_WITDTH) + 1);
+        config.setHeight(randomNumberGanerator.randomNumber(MAX_HEIGHT) + 1);
         config.setDepth(DEPTH);
 
         // random device

@@ -38,6 +38,7 @@
 #define EXIT_RUN_OUT_OF_MEMORY -6
 #define ASSERTION_FAILED -7
 #define NO_PRESENT_DEVICE_AVAILABLE -8
+#define NO_MEMORY_TYPE_INDEX_FOUND -9
 #define MAX_LOGICAL_DEVICES 4
 
 void checkResultOutOfMemory(VkResult result)
@@ -50,10 +51,30 @@ void checkResultOutOfMemory(VkResult result)
     }
 }
 
+bool memoryTypeFromProperties(VkPhysicalDeviceMemoryProperties &deviceMemoryProperties,
+        uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex)
+{
+     // Search memtypes to find first index with those properties
+     for (uint32_t i = 0; i < 32; i++) {
+         if ((typeBits & 1) == 1) {
+             // Type is available, does it match user properties?
+             if ((deviceMemoryProperties.memoryTypes[i].propertyFlags & requirements_mask)
+                    == requirements_mask) {
+                 *typeIndex = i;
+                 return true;
+             }
+         }
+         typeBits >>= 1;
+     }
+     // No memory types matched, return failure
+     return false;
+}
+
 struct FuzzerLogicalDevice
 {
     VkDevice device;
     VkPhysicalDevice gpu;
+    VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
     uint32_t gpuQueueFamilyCount;
     uint32_t queueFamilyIndex;
     uint32_t maxQueueCount;

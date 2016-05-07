@@ -22,7 +22,7 @@ public class VkCreateBufferViewGenerator extends VulkanCodeGenerator {
     private final String BUFFER_VIEW_CREATE_INFO = "bufferViewCreateInfo";
     private final String OFFSET = "0";
     private final String RANGE = "VK_WHOLE_SIZE";
-    private final String FORMAT = "VK_FORMAT_R8G8B8A8_UNORM";
+    private final String FORMAT = "VK_FORMAT_R32G32B32A32_SFLOAT";
 
     public VkCreateBufferViewGenerator(RandomStringGenerator randomStringGenerator,
                                        RandomNumberGanerator randomNumberGanerator,

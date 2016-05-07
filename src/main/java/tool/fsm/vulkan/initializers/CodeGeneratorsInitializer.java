@@ -14,6 +14,7 @@ import tool.codegen.vulkan.enumeration.VkEnumeratePhysicalDevicesGenerator;
 import tool.codegen.vulkan.instance.VkApplicationInfoGenerator;
 import tool.codegen.vulkan.instance.VkCreateInstanceGenerator;
 import tool.codegen.vulkan.instance.VkInstanceCreateGenerator;
+import tool.codegen.vulkan.memory.PopulateVertexBufferGenerator;
 import tool.codegen.vulkan.pipelines.VkCreateGraphicsPipelinesGenerator;
 import tool.codegen.vulkan.pipelines.VkCreatePipelineCacheGenerator;
 import tool.codegen.vulkan.pipelines.VkCreatePipelineLayoutGenerator;
@@ -366,6 +367,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.INIT_SWAPCHAIN.toString(),
                 new InitSwapchainGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.POPULATE_VERTEX_BUFFER.toString(),
+                new PopulateVertexBufferGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

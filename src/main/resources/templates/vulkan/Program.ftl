@@ -29,6 +29,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <random>
 
 #include "Fuzzer.hpp"
 #include "FuzzerData.hpp"
@@ -40,6 +41,10 @@ void fuzz(const ExitConditionPtr &exitCondition,
 {
     // Set seed for random operations
     srand(static_cast<unsigned>(time(0)));
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
     // Swapchain instance extension
     std::vector<const char*> instanceExtensions;

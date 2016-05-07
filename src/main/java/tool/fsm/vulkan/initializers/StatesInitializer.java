@@ -199,8 +199,12 @@ public class StatesInitializer {
                 VulkanState.VK_CREATE_BUFFER_VIEW,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS);
 
-        defineTransition(TransitionType.REPEATING,
+        defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
+                VulkanState.POPULATE_VERTEX_BUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.POPULATE_VERTEX_BUFFER,
                 VulkanState.DEALLOCATION);
 
         defineTransition(TransitionType.SEQUENTIAL,

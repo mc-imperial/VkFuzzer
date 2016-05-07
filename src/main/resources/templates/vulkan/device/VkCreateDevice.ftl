@@ -17,6 +17,7 @@
             fuzzerLogicalDevice.gpu = ${deviceProperties.devices}[i];
             fuzzerLogicalDevice.queueFamilyIndex = j;
             fuzzerLogicalDevice.maxQueueCount = ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount;
+            fuzzerLogicalDevice.deviceMemoryProperties = ${deviceProperties.deviceMemoryProperties}[i];
 
             if (${deviceProperties.deviceQueueFamilyProperties}[i][j].queueFlags & VK_QUEUE_GRAPHICS_BIT)
             {

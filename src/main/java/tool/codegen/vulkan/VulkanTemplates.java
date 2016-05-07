@@ -80,4 +80,6 @@ public class VulkanTemplates {
             "swapchain/VkCreateSurfaceKHR.ftl";
     public static final String INIT_SWAPCHAIN =
             "swapchain/InitSwapchain.ftl";
+    public static final String POPULATE_VERTEX_BUFFER =
+            "memory/PopulateVertexBuffer.ftl";
 }

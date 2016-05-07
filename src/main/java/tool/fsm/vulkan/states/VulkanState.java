@@ -50,6 +50,8 @@ public enum VulkanState {
     VK_CREATE_SURFACE_KHR,
     INIT_SWAPCHAIN,
 
+    POPULATE_VERTEX_BUFFER,
+
     DEALLOCATION,
 
     STOP

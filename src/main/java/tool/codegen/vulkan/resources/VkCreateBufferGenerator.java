@@ -22,6 +22,7 @@ import java.util.Collections;
 public class VkCreateBufferGenerator extends VulkanCodeGenerator {
     private final String[] FLAGS =
     {
+        "0",
         "VK_BUFFER_CREATE_SPARSE_BINDING_BIT",
         "VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT",
         "VK_BUFFER_CREATE_SPARSE_ALIASED_BIT"
@@ -43,8 +44,9 @@ public class VkCreateBufferGenerator extends VulkanCodeGenerator {
     private final String BUFFER = "buffer";
     private final String BUFFER_CREATE_INFO = "bufferCreateInfo";
     private final int FAMILY_COUNT = 1;
-    private final int MAX_SIZE = 40;
-    private final int FORMAT_SIZE = 4;
+    private final int MAX_SIZE = 39;
+    private final int FORMAT_SIZE = 32;
+    private final int FUZZER_DATA_SIZE = 32;
 
     public VkCreateBufferGenerator(RandomStringGenerator randomStringGenerator,
                                    RandomNumberGanerator randomNumberGanerator,
@@ -63,20 +65,17 @@ public class VkCreateBufferGenerator extends VulkanCodeGenerator {
         config.setpQueueFamilyIndices(QUEUES);
         config.setQueueFamilyIndexCount(FAMILY_COUNT);
         config.setSharingMode(SHARING_MODE);
-        config.setSize(randomNumberGanerator.randomNumber(MAX_SIZE) * FORMAT_SIZE);
+        config.setSize((randomNumberGanerator.randomNumber(MAX_SIZE) + 1)
+                * FORMAT_SIZE * FUZZER_DATA_SIZE);
         config.setBuffer(BUFFER + freshMap.getFreshId(BUFFER));
         config.setBufferCreateInfo(BUFFER_CREATE_INFO +
                 freshMap.getFreshId(BUFFER_CREATE_INFO));
         config.setResult(RESULT + freshMap.getFreshId(RESULT));
 
         // random usage flags
-        ArrayList<String> randomUsageFlags = new ArrayList<>(Arrays.asList(USAGE));
-        Collections.shuffle(randomUsageFlags);
-        int n = -1;
-        while ( n <= 0 || n >= randomUsageFlags.size()) {
-            n = randomNumberGanerator.randomNumber(randomUsageFlags.size());
-        }
-        config.setUsage(new ArrayList<>(randomUsageFlags.subList(0,n)));
+        ArrayList<String> randomUsageFlags = new ArrayList<>();
+        randomUsageFlags.add(USAGE[7]);
+        config.setUsage(randomUsageFlags);
 
         // random creation flags
         ArrayList<String> randomCreationFlags = new ArrayList<>();
