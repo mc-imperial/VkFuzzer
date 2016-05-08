@@ -90,15 +90,15 @@ public class VkCreateImageViewGenerator extends VulkanCodeGenerator {
         config.setBaseMipLevel(BASE_MIP_LEVEL);
         config.setLevelCount(1);
         config.setLayerCount(1);
-        config.setFormat(FORMAT);
+        config.setFormat(swapchainConfig.getFormat());
         config.setComponents(COMPONENTS + freshMap.getFreshId(COMPONENTS));
         config.setSwapchainBuffers(SWAPCHAIN_BUFFERS + freshMap.getFreshId(SWAPCHAIN_BUFFERS));
         config.setSwapchainImageCount(swapchainConfig.getSwapchainImageCount());
         config.setSwapchainImages(swapchainConfig.getSwapchainImages());
 
         // random creation flags
-        ArrayList<String> aspect = new ArrayList<>(Arrays.asList(ASPECT_MASKS));
-        Collections.shuffle(aspect);
+        ArrayList<String> aspect = new ArrayList<>();
+        aspect.add(ASPECT_MASKS[0]);
         config.setAspectMask(aspect.get(0));
 
         // random creation flags

@@ -42,8 +42,6 @@
         SwapchainBuffer swapchainBuffer;
         swapchainBuffer.image = ${config.swapchainImages}[i];
 
-
-
         ${config.result} = vkCreateImageView(${config.device}.device, &${config.vkImageViewCreateInfo},
                 NULL, &swapchainBuffer.view);
 
@@ -56,9 +54,34 @@
         assert(${config.result} == VK_SUCCESS);
 
         ${config.swapchainBuffers}.push_back(swapchainBuffer);
+
+        setImageLayout(${config.commandBuffer}[0], swapchainBuffer.image,
+                VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
+                VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
     }
 
-    ${config.result} = vkEndCommandBuffer(${config.commandBuffer}.data()[0]);
+    ${config.result} = vkEndCommandBuffer(${config.commandBuffer}[0]);
     assert(${config.result} == VK_SUCCESS);
+
+    VkSubmitInfo submit_info = {};
+    submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+    submit_info.pNext = NULL,
+    submit_info.waitSemaphoreCount = 0,
+    submit_info.pWaitSemaphores = NULL,
+    submit_info.pWaitDstStageMask = NULL,
+    submit_info.commandBufferCount = 1,
+    submit_info.pCommandBuffers = ${config.commandBuffer}.data(),
+    submit_info.signalSemaphoreCount = 0,
+    submit_info.pSignalSemaphores = NULL;
+
+    VkQueue bla;
+    vkGetDeviceQueue(${config.device}.device, ${config.device}.queueFamilyIndex,
+            0, &bla);
+
+    ${config.result} = vkQueueSubmit(bla, 1, &submit_info, VK_NULL_HANDLE);
+    assert(!${config.result});
+
+    ${config.result} = vkQueueWaitIdle(bla);
+    assert(!${config.result});
 
     </#if>

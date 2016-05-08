@@ -13,8 +13,8 @@
         ${config.framebufferCreateInfo}.renderPass = ${config.renderpass};
         ${config.framebufferCreateInfo}.attachmentCount = ${config.attachmentsCount};
         ${config.framebufferCreateInfo}.pAttachments = &swapchainBuffer.view;
-        ${config.framebufferCreateInfo}.width = config->width;
-        ${config.framebufferCreateInfo}.height = config->height;
+        ${config.framebufferCreateInfo}.width = ${config.swapchainExtent}.width;
+        ${config.framebufferCreateInfo}.height = ${config.swapchainExtent}.height;
         ${config.framebufferCreateInfo}.layers = ${config.layers};
 
         VkFramebuffer ${config.framebuffer};

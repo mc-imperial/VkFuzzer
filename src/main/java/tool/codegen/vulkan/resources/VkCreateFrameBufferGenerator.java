@@ -9,6 +9,7 @@ import tool.configs.vulkan.resources.VkCreateFrameBufferConfig;
 import tool.configs.vulkan.resources.VkCreateImageConfig;
 import tool.configs.vulkan.resources.VkCreateImageViewConfig;
 import tool.configs.vulkan.resources.VkCreateRenderpassConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -23,7 +24,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
     private final String FRAME_BUFFER = "framebuffer";
     private final String FRAME_BUFFERS = "framebuffers";
     private final String FRAME_BUFFER_CREATE_INFO = "framebufferCreateInfo";
-    private final int ATTACHMENT_COUNT = 1;
+    private final int ATTACHMENT_COUNT = 2;
 
     public VkCreateFrameBufferGenerator(RandomStringGenerator randomStringGenerator,
                                         RandomNumberGanerator randomNumberGanerator,
@@ -73,6 +74,18 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
             config.setAttachmentsCount(ATTACHMENT_COUNT);
             config.setRenderpass(renderpass.getRenderpass());
             config.addDependency(renderpass.getId());
+
+            // swapchain
+            ArrayList<Config> swapchains =
+                    globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
+
+            InitSwapchainConfig initSwapchainConfig =
+                    (InitSwapchainConfig)
+                            swapchains.get(randomNumberGanerator.randomNumber(swapchains.size()));
+
+            config.setSwapchainExtent(initSwapchainConfig.getSwapchainExtent());
+            config.setBad(config.isBad() || initSwapchainConfig.isBad());
+            config.addDependency(initSwapchainConfig.getId());
         } else {
             config.setBad(true);
         }

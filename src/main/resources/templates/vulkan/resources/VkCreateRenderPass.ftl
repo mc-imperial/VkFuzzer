@@ -3,9 +3,9 @@
     <#else>
     //ID: ${config.id}
     VkAttachmentDescription ${config.attachments}[2];
-    ${config.attachments}[0].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+    ${config.attachments}[0].format = ${config.format};
     ${config.attachments}[0].samples = VK_SAMPLE_COUNT_1_BIT;
-    ${config.attachments}[0].loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+    ${config.attachments}[0].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     ${config.attachments}[0].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
     ${config.attachments}[0].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     ${config.attachments}[0].stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
@@ -13,7 +13,7 @@
     ${config.attachments}[0].finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
     ${config.attachments}[0].flags = 0;
 
-    ${config.attachments}[1].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+    ${config.attachments}[1].format = VK_FORMAT_D16_UNORM;
     ${config.attachments}[1].samples = VK_SAMPLE_COUNT_1_BIT;
     ${config.attachments}[1].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     ${config.attachments}[1].storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;

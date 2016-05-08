@@ -14,6 +14,15 @@ public class VkCreateRenderpassConfig extends Config {
     private String renderpass;
     private String device;
     private String result;
+    private String format;
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
     public String getAttachments() {
         return attachments;

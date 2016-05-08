@@ -7,6 +7,7 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.resources.VkCreateRenderpassConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;
@@ -56,9 +57,22 @@ public class VkCreateRenderPassGenerator extends VulkanCodeGenerator {
                 (VkCreateCommandPoolConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
+
+        // swapchain
+        ArrayList<Config> swapchains =
+                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
+
+        InitSwapchainConfig initSwapchainConfig =
+                (InitSwapchainConfig)
+                swapchains.get(randomNumberGanerator.randomNumber(swapchains.size()));
+
+        config.setFormat(initSwapchainConfig.getFormat());
+        config.setBad(config.isBad() || initSwapchainConfig.isBad());
+        config.addDependency(initSwapchainConfig.getId());
+
         config.setDevice(cmdPool.getRandomDevice());
         config.addDependency(cmdPool.getId());
-        config.setBad(cmdPool.isBad());
+        config.setBad(config.isBad() || cmdPool.isBad());
 
         globalState.addConfig(VulkanState.VK_CREATE_RENDERPASS, config);
 

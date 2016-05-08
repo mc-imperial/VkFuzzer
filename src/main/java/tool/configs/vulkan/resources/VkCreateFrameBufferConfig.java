@@ -18,6 +18,15 @@ public class VkCreateFrameBufferConfig extends Config {
     private String swapchainBuffers;
     private String device;
     private String result;
+    private String swapchainExtent;
+
+    public String getSwapchainExtent() {
+        return swapchainExtent;
+    }
+
+    public void setSwapchainExtent(String swapchainExtent) {
+        this.swapchainExtent = swapchainExtent;
+    }
 
     public String getSwapchainBuffers() {
         return swapchainBuffers;
