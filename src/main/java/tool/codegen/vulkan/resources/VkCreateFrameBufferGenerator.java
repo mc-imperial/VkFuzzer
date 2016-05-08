@@ -24,7 +24,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
     private final String FRAME_BUFFER = "framebuffer";
     private final String FRAME_BUFFERS = "framebuffers";
     private final String FRAME_BUFFER_CREATE_INFO = "framebufferCreateInfo";
-    private final int ATTACHMENT_COUNT = 2;
+    private final int ATTACHMENT_COUNT = 1;
 
     public VkCreateFrameBufferGenerator(RandomStringGenerator randomStringGenerator,
                                         RandomNumberGanerator randomNumberGanerator,
@@ -70,7 +70,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
             config.setFramebuffer(FRAME_BUFFER + freshMap.getFreshId(FRAME_BUFFER));
             config.setFramebufferCreateInfo(FRAME_BUFFER_CREATE_INFO +
                     freshMap.getFreshId(FRAME_BUFFER_CREATE_INFO));
-            config.setLayers(config.getLayers());
+            config.setLayers(1);
             config.setAttachmentsCount(ATTACHMENT_COUNT);
             config.setRenderpass(renderpass.getRenderpass());
             config.addDependency(renderpass.getId());
