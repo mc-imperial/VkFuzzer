@@ -96,4 +96,8 @@ public class VulkanTemplates {
             "swapchain/VkQueuePresentKHR.ftl";
     public static final String VK_CMD_CLEAR_COLOR_IMAGE =
             "commands/VkCmdClearColorImage.ftl";
+    public static final String VK_CMD_BEGIN_RENDERPASS =
+            "resources/VkGetImageMemoryRequirements.ftl";
+    public static final String VK_CMD_END_RENDERPASS =
+            "resources/VkGetImageSubResourceLayout.ftl";
 }
