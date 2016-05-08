@@ -449,6 +449,24 @@ public class CodeGeneratorsInitializer {
                         globalState));
 
         generators.put(
+                VulkanState.VK_CMD_BEGIN_RENDERPASS.toString(),
+                new VkCmdBeginRenderPassGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.VK_CMD_END_RENDERPASS.toString(),
+                new VkCmdEndRenderPassGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
                 VulkanState.DEALLOCATION.toString(),
                 new DeallocationGenerator(
                         randomStringGenerator,

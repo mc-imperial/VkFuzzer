@@ -62,7 +62,7 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
                     freshMap.getFreshId(FRAME_BUFFERS));
             config.setSwapchainBuffers(vkImageView.getSwapchainBuffers());
             config.setDevice(vkImageView.getDevice());
-            config.setBad(vkImageView.isBad());
+            config.setBad(vkImageView.isBad() || renderpass.isBad());
             config.addDependency(vkImageView.getId());
             config.setAttachments(vkImageView.getImageView());
             config.setResult(RESULT + freshMap.getFreshId(RESULT));
@@ -76,6 +76,8 @@ public class VkCreateFrameBufferGenerator extends VulkanCodeGenerator {
         } else {
             config.setBad(true);
         }
+
+        globalState.addConfig(VulkanState.VK_CREATE_FRAMEBUFFER, config);
 
         return config;
     }

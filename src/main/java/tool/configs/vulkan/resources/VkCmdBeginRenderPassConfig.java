@@ -11,6 +11,15 @@ public class VkCmdBeginRenderPassConfig extends Config {
     private String renderpass;
     private String framebuffers;
     private String commandBuffer;
+    private String nextImage;
+
+    public String getNextImage() {
+        return nextImage;
+    }
+
+    public void setNextImage(String nextImage) {
+        this.nextImage = nextImage;
+    }
 
     public String getClearValues() {
         return clearValues;

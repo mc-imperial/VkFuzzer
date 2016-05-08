@@ -19,14 +19,18 @@ public class SimpleTransition<T> implements Transition<T> {
     private final State<T> current;
     private final ArrayList<State<T>> next;
     private final Action<T> action;
+    private final boolean RECOUR;
 
-    public SimpleTransition(final Action<T> action,
-                            final State<T> current,
-                            final ArrayList<State<T>> next) {
+    public SimpleTransition(
+                final boolean recour,
+                final Action<T> action,
+                final State<T> current,
+                final ArrayList<State<T>> next) {
         random = new Random();
         this.current = current;
         this.next = next;
         this.action = action;
+        RECOUR = recour;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class SimpleTransition<T> implements Transition<T> {
         State<T> nextState;
 
         double chance = random.nextDouble();
-        if (chance <= RECOUR_CHANCE) {
+        if (RECOUR && (chance <= RECOUR_CHANCE)) {
             nextState = current;
         } else {
             int index = (int)Math.floor(random.nextDouble() * next.size());

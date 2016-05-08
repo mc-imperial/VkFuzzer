@@ -207,12 +207,26 @@ public class StatesInitializer {
                 VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR,
                 VulkanState.VK_BEGIN_COMMAND_BUFFER);
 
-        defineTransition(TransitionType.SEQUENTIAL,
+        VulkanState[] nextStates2 =
+        {
+                VulkanState.VK_CMD_CLEAR_COLOR,
+                VulkanState.VK_CMD_BEGIN_RENDERPASS
+        };
+
+        defineTransition(TransitionType.SEQUENTIAL_MULTI,
                 VulkanState.VK_BEGIN_COMMAND_BUFFER,
-                VulkanState.VK_CMD_CLEAR_COLOR);
+                nextStates2);
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CMD_CLEAR_COLOR,
+                VulkanState.VK_END_COMMAND_BUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CMD_BEGIN_RENDERPASS,
+                VulkanState.VK_CMD_END_RENDERPASS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_CMD_END_RENDERPASS,
                 VulkanState.VK_END_COMMAND_BUFFER);
 
         defineTransition(TransitionType.SEQUENTIAL,
@@ -283,6 +297,7 @@ public class StatesInitializer {
             case REPEATING:
                 fsmState.addTransition(event,
                         new SimpleTransition<>(
+                                true,
                                 generateCodeAction,
                                 fsmState,
                                 nextStates));
@@ -293,6 +308,14 @@ public class StatesInitializer {
             case BIASED:
                 fsmState.addTransition(event,
                         new BiasedTransition<>(
+                                generateCodeAction,
+                                fsmState,
+                                nextStates));
+                break;
+            case SEQUENTIAL_MULTI:
+                fsmState.addTransition(event,
+                        new SimpleTransition<>(
+                                false,
                                 generateCodeAction,
                                 fsmState,
                                 nextStates));
