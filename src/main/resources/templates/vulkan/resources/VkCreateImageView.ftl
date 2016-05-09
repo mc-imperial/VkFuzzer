@@ -78,7 +78,7 @@
     vkGetDeviceQueue(${config.device}.device, ${config.device}.queueFamilyIndex,
             0, &theQueue);
 
-    ${config.result} = vkQueueSubmit(theQueue, 1, &submit_info, VK_NULL_HANDLE);
+    ${config.result} = vkQueueSubmit(theQueue, 1, &submitInfo, VK_NULL_HANDLE);
     assert(!${config.result});
 
     ${config.result} = vkQueueWaitIdle(theQueue);
