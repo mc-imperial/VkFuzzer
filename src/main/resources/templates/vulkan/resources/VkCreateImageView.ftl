@@ -63,25 +63,25 @@
     ${config.result} = vkEndCommandBuffer(${config.commandBuffer}[0]);
     assert(${config.result} == VK_SUCCESS);
 
-    VkSubmitInfo submit_info = {};
-    submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
-    submit_info.pNext = NULL,
-    submit_info.waitSemaphoreCount = 0,
-    submit_info.pWaitSemaphores = NULL,
-    submit_info.pWaitDstStageMask = NULL,
-    submit_info.commandBufferCount = 1,
-    submit_info.pCommandBuffers = ${config.commandBuffer}.data(),
-    submit_info.signalSemaphoreCount = 0,
-    submit_info.pSignalSemaphores = NULL;
+    VkSubmitInfo submitInfo = {};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+    submitInfo.pNext = NULL,
+    submitInfo.waitSemaphoreCount = 0,
+    submitInfo.pWaitSemaphores = NULL,
+    submitInfo.pWaitDstStageMask = NULL,
+    submitInfo.commandBufferCount = 1,
+    submitInfo.pCommandBuffers = ${config.commandBuffer}.data(),
+    submitInfo.signalSemaphoreCount = 0,
+    submitInfo.pSignalSemaphores = NULL;
 
-    VkQueue bla;
+    VkQueue theQueue;
     vkGetDeviceQueue(${config.device}.device, ${config.device}.queueFamilyIndex,
-            0, &bla);
+            0, &theQueue);
 
-    ${config.result} = vkQueueSubmit(bla, 1, &submit_info, VK_NULL_HANDLE);
+    ${config.result} = vkQueueSubmit(theQueue, 1, &submit_info, VK_NULL_HANDLE);
     assert(!${config.result});
 
-    ${config.result} = vkQueueWaitIdle(bla);
+    ${config.result} = vkQueueWaitIdle(theQueue);
     assert(!${config.result});
 
     </#if>

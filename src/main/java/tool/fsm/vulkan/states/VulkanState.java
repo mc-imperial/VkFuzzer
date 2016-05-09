@@ -62,6 +62,7 @@ public enum VulkanState {
     VK_CMD_CLEAR_COLOR,
     VK_CMD_BEGIN_RENDERPASS,
     VK_CMD_END_RENDERPASS,
+    DRAW_BUFFERS,
 
     DEALLOCATION,
 

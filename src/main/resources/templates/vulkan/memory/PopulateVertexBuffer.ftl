@@ -58,7 +58,7 @@
 
     memcpy(${config.dataPointer}, ${config.randomData}.data(), ${config.randomData}.size());
 
-    vkUnmapMemory(${config.device}.device, ${config.vertexbuffer}.deviceMemory);
+    <#--vkUnmapMemory(${config.device}.device, ${config.vertexbuffer}.deviceMemory);-->
 
     ${config.result} = vkBindBufferMemory(${config.device}.device,
             ${config.vertexbuffer}.buffer, ${config.vertexbuffer}.deviceMemory, 0);

@@ -223,6 +223,10 @@ public class StatesInitializer {
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.VK_CMD_BEGIN_RENDERPASS,
+                VulkanState.DRAW_BUFFERS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.DRAW_BUFFERS,
                 VulkanState.VK_CMD_END_RENDERPASS);
 
         defineTransition(TransitionType.SEQUENTIAL,

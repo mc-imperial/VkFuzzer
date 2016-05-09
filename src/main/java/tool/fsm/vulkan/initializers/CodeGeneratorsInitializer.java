@@ -6,6 +6,7 @@ import tool.codegen.vulkan.commandbuffers.VkAllocateCommandBuffersGenerator;
 import tool.codegen.vulkan.commandbuffers.VkBeginCommandBufferGenerator;
 import tool.codegen.vulkan.commandbuffers.VkCreateCommandPoolGenerator;
 import tool.codegen.vulkan.commandbuffers.VkEndCommandBufferGenerator;
+import tool.codegen.vulkan.commands.DrawBuffersGenerator;
 import tool.codegen.vulkan.commands.VkCmdClearColorImageGenerator;
 import tool.codegen.vulkan.deallocation.DeallocationGenerator;
 import tool.codegen.vulkan.device.*;
@@ -460,6 +461,15 @@ public class CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.VK_CMD_END_RENDERPASS.toString(),
                 new VkCmdEndRenderPassGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.DRAW_BUFFERS.toString(),
+                new DrawBuffersGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,
