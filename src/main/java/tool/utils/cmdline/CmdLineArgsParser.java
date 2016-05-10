@@ -69,7 +69,12 @@ public class CmdLineArgsParser {
                 minimization = true;
             }
 
-            return new CmdLineOptions(library, outputFolder, samples, input, minimization, id);
+            if (minimization) {
+                return new CmdLineOptions(library, input, id);
+
+            } else {
+                return new CmdLineOptions(library, outputFolder, samples);
+            }
         } catch (ParseException parseException) {
             System.err.println(PARSE_EXCEPTION_MSG + parseException.getMessage());
         }
