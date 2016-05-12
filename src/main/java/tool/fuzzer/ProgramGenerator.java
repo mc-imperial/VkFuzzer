@@ -20,7 +20,6 @@ public class ProgramGenerator {
     private Entity entity;
     private CMakeGenerator cMakeGenerator;
     private TestRunnerGenerator testRunnerGenerator;
-    private LibraryDependencyGenerator libraryDependencyGenerator;
     private DependencyGenerator dependencyGenerator;
     private ShaderGenerator shaderGenerator;
 
@@ -44,7 +43,6 @@ public class ProgramGenerator {
 
         cMakeGenerator.generateCMakeFile(size, outputFolder);
         testRunnerGenerator.generateTestRunner(outputFolder);
-        //libraryDependencyGenerator.generateLibraryDependencies(outputFolder);
         dependencyGenerator.generateDependencies(outputFolder);
         shaderGenerator.generateShaders(outputFolder);
     }
@@ -54,12 +52,10 @@ public class ProgramGenerator {
         if (library == Library.VULKAN) {
             entity = new VulkanEntity();
             fsm = new VulkanFSM((VulkanEntity)entity);
-            cMakeGenerator = new VulkanCMakeGenerator();
+            cMakeGenerator = new VulkanCMakeGenerator(component);
             testRunnerGenerator = new VulkanTestRunnerGenerator();
             shaderGenerator = new VulkanShaderGenerator();
             dependencyGenerator = new VulkanDependencyGenerator();
         }
-
-        libraryDependencyGenerator = new LibraryDependencyGenerator();
     }
 }

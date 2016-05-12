@@ -2,7 +2,9 @@
 #define _FUZZER_FUZZER_HPP_
 
 #ifdef _WIN32
-//#pragma comment(linker, "/subsystem:console")
+#ifdef _FUZZER_FUZZER_HPP_
+#pragma comment(linker, "/subsystem:console")
+#endif
 #include "platform/windows/ExitCondition.hpp"
 #include "platform/windows/WindowConfig.hpp"
 #ifndef WIN32_LEAN_AND_MEAN

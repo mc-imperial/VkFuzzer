@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import tool.fuzzer.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class VulkanCMakeGeneratorTest {
 
     @Before
     public void setup() {
-        cMakeGenerator = new VulkanCMakeGenerator();
+        cMakeGenerator = new VulkanCMakeGenerator(Component.EVERYTHING);
     }
 
     @Test

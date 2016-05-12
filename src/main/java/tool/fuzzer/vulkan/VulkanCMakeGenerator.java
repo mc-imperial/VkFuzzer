@@ -5,6 +5,7 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.vulkan.cmake.CMakeConfig;
 import tool.configs.vulkan.cmake.ExecutableConfig;
 import tool.fuzzer.CMakeGenerator;
+import tool.fuzzer.Component;
 import tool.utils.TemplateEngine;
 
 import java.io.*;
@@ -19,10 +20,12 @@ public class VulkanCMakeGenerator implements CMakeGenerator {
     private final String TEMPLATE_NAME = "CMakeLists.ftl";
     private final String CMAKE_NAME = "CMakeLists.txt";
     private final TemplateEngine templateEngine;
+    private final Component component;
 
-    public VulkanCMakeGenerator() {
+    public VulkanCMakeGenerator(final Component component) {
         templateEngine = new TemplateEngine(VulkanTemplates.TEMPLATE_FOLDER,
                 Main.class);
+        this.component = component;
     }
 
     @Override
@@ -43,6 +46,10 @@ public class VulkanCMakeGenerator implements CMakeGenerator {
 
         CMakeConfig cMakeConfig = new CMakeConfig();
         cMakeConfig.setExecutables(configs);
+
+        if (component != Component.COMPUTE) {
+            cMakeConfig.setEverything(true);
+        }
 
         try {
             Writer writer = new FileWriter(new File(path + "/" + CMAKE_NAME));
