@@ -2,7 +2,7 @@
 #define _FUZZER_FUZZER_HPP_
 
 #ifdef _WIN32
-#ifdef _FUZZER_FUZZER_HPP_
+#ifdef _FUZZER_COMPUTE_ONLY_
 #pragma comment(linker, "/subsystem:console")
 #endif
 #include "platform/windows/ExitCondition.hpp"

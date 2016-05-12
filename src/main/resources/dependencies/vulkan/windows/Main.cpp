@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "WindowConfig.hpp"
+#include "ExitCondition.hpp"
 
 #ifndef _FUZZER_COMPUTE_ONLY_
 #include "AppWindow.hpp"

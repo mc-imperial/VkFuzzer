@@ -22,15 +22,17 @@ else()
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-sign-compare -std=c++11")
 endif()
+</#noparse>
 
 <#if !config.isEverything()>
+    <#noparse>
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_FUZZER_COMPUTE_ONLY_")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_FUZZER_COMPUTE_ONLY_")
+    </#noparse>
 </#if>
 
 include_directories(include/)
 
-</#noparse>
 
 <#if config.isEverything()>
 if(UNIX)
@@ -60,16 +62,17 @@ else()
         platform/linux/WindowConfig.hpp
         platform/linux/ExitCondition.hpp
         platform/linux/ExitCondition.cpp)
-
+</#noparse>
     <#if config.isEverything()>
-    SET(PLATFORM_SOURCES
-        ${PLATFORM_SOURCES}
-        platform/linux/AppWindow.cpp
-        platform/linux/AppWindow.hpp)
+        SET(PLATFORM_SOURCES
+            <#noparse>
+            ${PLATFORM_SOURCES}
+            </#noparse>
+            platform/linux/AppWindow.cpp
+            platform/linux/AppWindow.hpp)
     </#if>
+<#noparse>
 endif()
-
-add_library(fuzzerlib SHARED ${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS})
 
 # Find vulkan library
 if(WIN32)
@@ -92,13 +95,23 @@ file(COPY "simple-frag.spv" DESTINATION "${CMAKE_BINARY_DIR}")
 # Create executable
 # Link executable
 if(WIN32)
-    add_executable(${executable.name} WIN32 ${executable.source})
-    target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} fuzzerlib </#noparse>)
+    add_executable(${executable.name} WIN32 ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+    target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} </#noparse>)
 else()
-    add_executable(${executable.name} ${executable.source})
-    target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} fuzzerlib pthread</#noparse>)
+    add_executable(${executable.name} ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+    target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} pthread</#noparse>)
     <#if config.everything>
     target_link_libraries(${executable.name} <#noparse>${XCB_LIBRARIES}</#noparse>)
     </#if>
 endif()
+
+<#--# Set target properties-->
+<#--set_target_properties(${executable.name}-->
+    <#--PROPERTIES-->
+    <#--<#noparse>-->
+    <#--ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"-->
+    <#--LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"-->
+    <#--RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")-->
+    <#--</#noparse>-->
+
 </#list>
