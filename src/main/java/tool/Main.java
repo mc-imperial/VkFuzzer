@@ -21,14 +21,15 @@ public class Main {
             System.exit(1);
         }
 
-        if (options.isMinimize()) {
+        if (options.doMinimize()) {
             // Minimize program
             ProgramMinimizer minimiser = new ProgramMinimizer(options.getLibrary());
             minimiser.minimizeProgram(options.getInputMetaFile(),
                     options.getId());
         } else {
             // Generate program
-            ProgramGenerator generator = new ProgramGenerator(options.getLibrary());
+            ProgramGenerator generator = new ProgramGenerator(options.getLibrary(),
+                    options.getComponent());
             generator.generatePrograms(options.getSamples(),
                     options.getOutputFolder());
         }

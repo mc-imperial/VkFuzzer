@@ -15,6 +15,7 @@ import tool.fuzzer.vulkan.VulkanTestRunnerGenerator;
  */
 public class ProgramGenerator {
     private final Library library;
+    private final Component component;
     private FuzzerFSM fsm;
     private Entity entity;
     private CMakeGenerator cMakeGenerator;
@@ -23,8 +24,9 @@ public class ProgramGenerator {
     private DependencyGenerator dependencyGenerator;
     private ShaderGenerator shaderGenerator;
 
-    public ProgramGenerator(final Library library) {
+    public ProgramGenerator(final Library library, final Component component) {
         this.library = library;
+        this.component = component;
         reset();
     }
 

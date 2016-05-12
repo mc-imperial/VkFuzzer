@@ -6,7 +6,6 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.resources.VkCreateFrameBufferConfig;
-import tool.configs.vulkan.resources.VkCreateImageConfig;
 import tool.configs.vulkan.resources.VkCreateImageViewConfig;
 import tool.configs.vulkan.resources.VkCreateRenderpassConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;

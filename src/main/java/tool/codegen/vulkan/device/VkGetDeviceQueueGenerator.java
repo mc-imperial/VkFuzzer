@@ -5,7 +5,6 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
 import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;

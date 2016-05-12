@@ -8,7 +8,6 @@ import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkBeginCommandBufferConfig;
 import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
 import tool.configs.vulkan.device.VkQueueSubmitConfig;
-import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
 import tool.utils.RandomNumberGanerator;

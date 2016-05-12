@@ -7,7 +7,6 @@ import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.device.DevicesConfig;
 import tool.configs.vulkan.device.VkCreateDeviceConfig;
-import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.configs.vulkan.swapchain.VkCreateSurfaceKHRConfig;
 import tool.fsm.vulkan.states.VulkanState;

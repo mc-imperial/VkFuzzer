@@ -6,8 +6,6 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
-import tool.configs.vulkan.device.DevicesConfig;
-import tool.configs.vulkan.device.VkCreateDeviceConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;

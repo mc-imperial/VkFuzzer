@@ -6,7 +6,6 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkAllocateCommandBuffersConfig;
-import tool.configs.vulkan.resources.VkCreateImageConfig;
 import tool.configs.vulkan.resources.VkCreateImageViewConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
@@ -15,8 +14,6 @@ import tool.utils.RandomNumberGanerator;
 import tool.utils.RandomStringGenerator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by constantinos on 22/04/2016.

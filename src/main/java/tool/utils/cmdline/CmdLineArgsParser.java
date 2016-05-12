@@ -1,6 +1,7 @@
 package tool.utils.cmdline;
 
 import org.apache.commons.cli.*;
+import tool.fuzzer.Component;
 import tool.fuzzer.Library;
 
 /**
@@ -13,6 +14,9 @@ public class CmdLineArgsParser {
     private final String LIBRARY_OPTION = "library";
     private final String INPUT_OPTION = "input";
     private final String ID_OPTION = "id";
+    private final String COMPUTE_OPTION = "compute";
+    private final String GRAPHICS_OPTION = "graphics";
+    private final String EVERYTHING_OPTION = "everything";
     private final String NUMBER_FORMAT_EXCEPTION_MSG =
             "Argument option is not a number";
     private final String ILLEGAL_ARGUMENT_MSG =
@@ -33,6 +37,12 @@ public class CmdLineArgsParser {
     private final String LIBRARY_ARG_NAME = "library";
     private final String LIBRARY_OPTION_DESC =
             "Specifies the library used for fuzzing (vulkan)";
+    private final String GRAPHICS_OPTION_DESC =
+            "Specifies specifies whether to fuzz the graphics api";
+    private final String COMPUTE_OPTION_DESC =
+            "Specifies specifies whether to fuzz the compute api";
+    private final String EVERYTHING_OPTION_DESC =
+            "Specifies specifies that both graphics and compute apis are fuzzed";
     private final String PARSE_EXCEPTION_MSG = "Invalid arguments.  Reason: ";
     private final String ILLIGAL_COMBINATION_MSG =
             "Illegal combination of arguments";
@@ -53,8 +63,10 @@ public class CmdLineArgsParser {
             checkArguments(cmdLine);
 
             Library library = parseLibrary(cmdLine);
+            Component component = Component.EVERYTHING;
             String outputFolder = "";
             String input = "";
+
             int samples = 0;
             int id  = 0;
             boolean minimization = false;
@@ -62,6 +74,8 @@ public class CmdLineArgsParser {
             // Identify if its a minimization or a generation
             if (cmdLine.getOptionValue(OUTPUT_OPTION) != null) {
                 outputFolder = cmdLine.getOptionValue(OUTPUT_OPTION);
+                component = cmdLine.hasOption(GRAPHICS_OPTION) ? Component.GRAPHICS : component;
+                component = cmdLine.hasOption(COMPUTE_OPTION) ? Component.COMPUTE : component;
                 samples = parseInt(cmdLine, SAMPLE_OPTION);
             } else {
                 input = cmdLine.getOptionValue(INPUT_OPTION);
@@ -73,7 +87,7 @@ public class CmdLineArgsParser {
                 return new CmdLineOptions(library, input, id);
 
             } else {
-                return new CmdLineOptions(library, outputFolder, samples);
+                return new CmdLineOptions(library, outputFolder, samples, component);
             }
         } catch (ParseException parseException) {
             System.err.println(PARSE_EXCEPTION_MSG + parseException.getMessage());
@@ -125,8 +139,22 @@ public class CmdLineArgsParser {
                 .desc(ID_OPTION_DESC)
                 .build();
 
+        Option graphics = Option.builder(GRAPHICS_OPTION)
+                .required()
+                .desc(GRAPHICS_OPTION_DESC)
+                .build();
+
+        Option compute = Option.builder(COMPUTE_OPTION)
+                .desc(COMPUTE_OPTION_DESC)
+                .build();
+
+        Option everything = Option.builder(EVERYTHING_OPTION)
+                .desc(EVERYTHING_OPTION_DESC)
+                .build();
+
         options.addOptionGroup(new OptionGroup().addOption(output).addOption(inputFile));
         options.addOptionGroup(new OptionGroup().addOption(samples).addOption(id));
+        options.addOptionGroup(new OptionGroup().addOption(graphics).addOption(compute));
         options.addOption(library);
     }
 

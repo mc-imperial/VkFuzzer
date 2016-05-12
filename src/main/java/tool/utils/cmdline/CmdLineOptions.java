@@ -1,5 +1,6 @@
 package tool.utils.cmdline;
 
+import tool.fuzzer.Component;
 import tool.fuzzer.Library;
 
 /**
@@ -7,14 +8,13 @@ import tool.fuzzer.Library;
  * A class that stores the command line options
  */
 public class CmdLineOptions {
-    private Library library;
-    private String outputFolder;
-    private String inputMetaFile;
-    private int id;
-    private int samples;
-    private boolean minimize;
-    private boolean graphics;
-    private boolean compute;
+    private final Library library;
+    private final String outputFolder;
+    private final String inputMetaFile;
+    private final int id;
+    private final int samples;
+    private final boolean minimize;
+    private final Component component;
 
     private CmdLineOptions(final Library library,
                           final String outputFolder,
@@ -22,32 +22,29 @@ public class CmdLineOptions {
                           final String inputMetaFile,
                           final boolean minimize,
                           final int id,
-                          final boolean graphics,
-                          final boolean compute) {
+                          final Component component) {
         this.library = library;
         this.outputFolder = outputFolder;
         this.samples = samples;
         this.id = id;
         this.minimize = minimize;
         this.inputMetaFile = inputMetaFile;
-        this.graphics = graphics;
-        this.compute = compute;
+        this.component = component;
     }
 
     public CmdLineOptions(final Library library,
                           final String outputFolder,
                           final int samples,
-                          final boolean graphics,
-                          final boolean compute) {
+                          final Component component) {
         this(library,outputFolder, samples, null,
-                false, 0, graphics, compute);
+                false, 0, component);
     }
 
     public CmdLineOptions(final Library library,
                           final String inputMetaFile,
                           final int id) {
         this(library, null, 0, inputMetaFile,
-                true, id, false, false);
+                true, id, Component.EVERYTHING);
     }
 
     public Library getLibrary() {
@@ -70,23 +67,9 @@ public class CmdLineOptions {
         return id;
     }
 
-    public boolean isMinimize() {
+    public boolean doMinimize() {
         return minimize;
     }
 
-    public boolean isGraphics() {
-        return graphics;
-    }
-
-    public void setGraphics(boolean graphics) {
-        this.graphics = graphics;
-    }
-
-    public boolean isCompute() {
-        return compute;
-    }
-
-    public void setCompute(boolean compute) {
-        this.compute = compute;
-    }
+    public Component getComponent() {return component; }
 }
