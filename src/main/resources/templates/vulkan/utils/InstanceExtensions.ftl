@@ -1,8 +1,6 @@
 
     //ID: ${config.id}
     // Swapchain instance extension
-    std::vector<const char*> instanceExtensions;
-
     instanceExtensions.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
 #ifdef __ANDROID__
     instanceExtensions.push_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
