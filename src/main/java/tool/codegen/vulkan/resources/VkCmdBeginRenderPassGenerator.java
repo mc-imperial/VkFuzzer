@@ -66,7 +66,7 @@ public class VkCmdBeginRenderPassGenerator extends VulkanCodeGenerator {
         config.addDependency(beginCommandBufferConfig.getId());
         config.setBad(config.isBad() || beginCommandBufferConfig.isBad());
 
-        // command buffer
+        // framebuffer
         ArrayList<Config> framebuffers =
                 globalState.getConfig(VulkanState.VK_CREATE_FRAMEBUFFER);
 
@@ -74,11 +74,12 @@ public class VkCmdBeginRenderPassGenerator extends VulkanCodeGenerator {
                 (VkCreateFrameBufferConfig)
                 framebuffers.get(framebuffers.size() - 1);
 
+        config.setSwapchainExtent(framebuffer.getSwapchainExtent());
         config.setFramebuffers(framebuffer.getFramebuffers());
         config.addDependency(framebuffer.getId());
         config.setBad(config.isBad() || framebuffer.isBad());
 
-        // command buffer
+        // renderpass
         ArrayList<Config> renderpasses =
                 globalState.getConfig(VulkanState.VK_CREATE_RENDERPASS);
 

@@ -12,6 +12,15 @@ public class VkCmdBeginRenderPassConfig extends Config {
     private String framebuffers;
     private String commandBuffer;
     private String nextImage;
+    private String swapchainExtent;
+
+    public String getSwapchainExtent() {
+        return swapchainExtent;
+    }
+
+    public void setSwapchainExtent(String swapchainExtent) {
+        this.swapchainExtent = swapchainExtent;
+    }
 
     public String getNextImage() {
         return nextImage;
