@@ -9,12 +9,12 @@ import tool.fsm.vulkan.states.VulkanState;
 /**
  * Created by constantinos on 31/03/2016.
  */
-public class CodeGeneratorsInitializerTest {
-    private CodeGeneratorsInitializer initializer;
+public class MixedCodeGeneratorsInitializerTest {
+    private MixedCodeGeneratorsInitializer initializer;
 
     @Before
     public void setup() {
-        initializer = new CodeGeneratorsInitializer(new VulkanGlobalState());
+        initializer = new MixedCodeGeneratorsInitializer(new VulkanGlobalState());
     }
 
     @Test

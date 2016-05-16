@@ -8,7 +8,10 @@ import tool.configs.vulkan.MainConfig;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
 import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
+import tool.fsm.vulkan.initializers.ComputeCodeGeneratorsInitializer;
+import tool.fsm.vulkan.initializers.MixedCodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
+import tool.fuzzer.Component;
 import tool.serialization.vulkan.VulkanStateSerializer;
 
 import java.io.File;
@@ -24,14 +27,16 @@ import java.util.HashMap;
 public class VulkanEntity extends Entity {
     private HashMap<String, VulkanCodeGenerator> codeGenerators;
 
-    public VulkanEntity() {
-        super(VulkanTemplates.TEMPLATE_FOLDER, new VulkanGlobalState());
+    public VulkanEntity(final Component component) {
+        super(VulkanTemplates.TEMPLATE_FOLDER, new VulkanGlobalState(), component);
         initCodeGenerators();
     }
 
-    public VulkanEntity(GlobalState globalState,
-                        ArrayList<String> visitedStates) {
-        super(VulkanTemplates.TEMPLATE_FOLDER, globalState, visitedStates);
+    public VulkanEntity(final GlobalState globalState,
+                        final Component component,
+                        final ArrayList<String> visitedStates) {
+        super(VulkanTemplates.TEMPLATE_FOLDER, globalState, component,
+                visitedStates);
         initCodeGenerators();
     }
 
@@ -105,8 +110,19 @@ public class VulkanEntity extends Entity {
 
     // Initalizes code generators
     private void initCodeGenerators() {
-        CodeGeneratorsInitializer initializer =
-                new CodeGeneratorsInitializer((VulkanGlobalState)globalState);
+        CodeGeneratorsInitializer initializer = null;
+
+        if (component == Component.COMPUTE) {
+            initializer =
+                    new ComputeCodeGeneratorsInitializer((VulkanGlobalState)globalState);
+        } else if (component == Component.GRAPHICS) {
+            throw new RuntimeException("Component " + component +
+                    " is not available for fuzzing yet.");
+        } else {
+            initializer =
+                    new MixedCodeGeneratorsInitializer((VulkanGlobalState)globalState);
+        }
+
         codeGenerators = initializer.initializeCodeGenerators();
     }
 }

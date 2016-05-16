@@ -43,6 +43,8 @@
 #define NO_MEMORY_TYPE_INDEX_FOUND -9
 #define MAX_LOGICAL_DEVICES 4
 
+uint32_t totalLogicalDevices = 0;
+
 void checkResultOutOfMemory(VkResult result)
 {
     if ((result == VK_ERROR_OUT_OF_HOST_MEMORY)

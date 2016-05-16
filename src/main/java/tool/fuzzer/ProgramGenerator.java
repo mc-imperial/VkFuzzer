@@ -50,8 +50,8 @@ public class ProgramGenerator {
     // Initialise platform specific classes
     private void reset() {
         if (library == Library.VULKAN) {
-            entity = new VulkanEntity();
-            fsm = new VulkanFSM((VulkanEntity)entity);
+            entity = new VulkanEntity(component);
+            fsm = new VulkanFSM((VulkanEntity)entity, component);
             cMakeGenerator = new VulkanCMakeGenerator(component);
             testRunnerGenerator = new VulkanTestRunnerGenerator();
             shaderGenerator = new VulkanShaderGenerator();

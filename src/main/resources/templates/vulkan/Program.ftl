@@ -39,31 +39,6 @@ using namespace fuzzer;
 void fuzz(const ExitConditionPtr &exitCondition,
         const display::WindowConfigPtr &config)
 {
-    // Set seed for random operations
-    srand(static_cast<unsigned>(time(0)));
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
-
-    // Swapchain instance extension
-    std::vector<const char*> instanceExtensions;
-
-    instanceExtensions.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
-#ifdef __ANDROID__
-    instanceExtensions.push_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
-#elif defined(_WIN32)
-    instanceExtensions.push_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
-#else
-    instanceExtensions.push_back(VK_KHR_XCB_SURFACE_EXTENSION_NAME);
-#endif
-
-    // Swapchain device extension
-    std::vector<const char*> deviceExtensions;
-    deviceExtensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
-
-    uint32_t totalLogicalDevices = 0;
-
 ${config.body}
 
     exitCondition->signalFinish();

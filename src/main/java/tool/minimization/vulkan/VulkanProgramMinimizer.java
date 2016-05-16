@@ -3,6 +3,7 @@ package tool.minimization.vulkan;
 import tool.configs.Config;
 import tool.configs.GlobalState;
 import tool.fsm.vulkan.VulkanEntity;
+import tool.fuzzer.Component;
 import tool.minimization.Minimizer;
 import tool.serialization.vulkan.VulkanStateDeserializer;
 
@@ -46,7 +47,7 @@ public class VulkanProgramMinimizer implements Minimizer {
 
         // Generate minimized program
         Stack<Config> dependencies = generateDependencies(globalState, config);
-        VulkanEntity entity = new VulkanEntity(globalState, visitedStates);
+        VulkanEntity entity = new VulkanEntity(globalState, Component.EVERYTHING, visitedStates);
 
         while (!dependencies.isEmpty()) {
             entity.generateStateCode(visitedStates.get(dependencies.peek().getId()),

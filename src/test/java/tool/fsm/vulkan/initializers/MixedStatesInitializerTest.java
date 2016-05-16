@@ -8,12 +8,12 @@ import tool.fsm.ExitCondition;
 /**
  * Created by constantinos on 31/03/2016.
  */
-public class StatesInitializerTest {
-    private StatesInitializer initializer;
+public class MixedStatesInitializerTest {
+    private MixedStatesInitializer initializer;
 
     @Before
     public void setup() {
-        initializer = new StatesInitializer(new ExitCondition());
+        initializer = new MixedStatesInitializer(new ExitCondition());
     }
 
     @Test

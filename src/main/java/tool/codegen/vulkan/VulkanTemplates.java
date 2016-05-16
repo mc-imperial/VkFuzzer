@@ -102,4 +102,10 @@ public class VulkanTemplates {
             "resources/VkCmdBeginRenderPass.ftl";
     public static final String VK_CMD_END_RENDERPASS =
             "resources/VkCmdEndRenderPass.ftl";
+    public static final String RANDOM_SEED = "utils/RandomSeed.ftl";
+    public static final String INSTANCE_EXTENSIONS =
+            "utils/InstanceExtensions.ftl";
+    public static final String DEVICE_EXTENSIONS =
+            "utils/DeviceExtensions.ftl";
+
 }
