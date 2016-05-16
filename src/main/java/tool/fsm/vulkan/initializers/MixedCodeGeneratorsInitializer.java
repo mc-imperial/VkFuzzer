@@ -28,6 +28,9 @@ import tool.codegen.vulkan.swapchain.VkAcquireNextImageKHRGenerator;
 import tool.codegen.vulkan.swapchain.VkCreateSurfaceKHRGenerator;
 import tool.codegen.vulkan.swapchain.VkQueuePresentKHRGenerator;
 import tool.codegen.vulkan.synchronisation.*;
+import tool.codegen.vulkan.utils.DeviceExtensionsGenerator;
+import tool.codegen.vulkan.utils.InstanceExtensionsGenerator;
+import tool.codegen.vulkan.utils.RandomSeedGenerator;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
@@ -470,6 +473,33 @@ public class MixedCodeGeneratorsInitializer extends CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.DEALLOCATION.toString(),
                 new DeallocationGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.RANDOM_SEED.toString(),
+                new RandomSeedGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.INSTANCE_EXTENSIONS.toString(),
+                new InstanceExtensionsGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.DEVICE_EXTENSIONS.toString(),
+                new DeviceExtensionsGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

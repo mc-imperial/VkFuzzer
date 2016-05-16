@@ -39,6 +39,18 @@ public class MixedStatesInitializer extends StatesInitializer {
         // Start of sequential  part of the fsm
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.START,
+                VulkanState.RANDOM_SEED);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.RANDOM_SEED,
+                VulkanState.INSTANCE_EXTENSIONS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.INSTANCE_EXTENSIONS,
+                VulkanState.DEVICE_EXTENSIONS);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.DEVICE_EXTENSIONS,
                 VulkanState.VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES);
 
         defineTransition(TransitionType.REPEATING,
