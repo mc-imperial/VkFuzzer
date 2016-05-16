@@ -18,8 +18,8 @@
     ${config.renderpassBeginInfo}.framebuffer = ${config.framebuffers}[${config.nextImage}];
     ${config.renderpassBeginInfo}.renderArea.offset.x = 0;
     ${config.renderpassBeginInfo}.renderArea.offset.y = 0;
-    ${config.renderpassBeginInfo}.renderArea.extent.width = ${swapchainExtent}.width;
-    ${config.renderpassBeginInfo}.renderArea.extent.height = ${swapchainExtent}.height;
+    ${config.renderpassBeginInfo}.renderArea.extent.width = ${config.swapchainExtent}.width;
+    ${config.renderpassBeginInfo}.renderArea.extent.height = ${config.swapchainExtent}.height;
     ${config.renderpassBeginInfo}.clearValueCount = 2;
     ${config.renderpassBeginInfo}.pClearValues = ${config.clearValues};
 

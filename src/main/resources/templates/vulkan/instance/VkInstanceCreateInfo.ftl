@@ -8,5 +8,5 @@
     ${config.variableName}.pApplicationInfo = &${config.applicationInfo};
     ${config.variableName}.enabledExtensionCount = instanceExtensions.size();
     ${config.variableName}.ppEnabledExtensionNames = instanceExtensions.data();
-    ${config.variableName}.enabledLayerCount = 1;
+    ${config.variableName}.enabledLayerCount = 0;
     ${config.variableName}.ppEnabledLayerNames = VALIDATION_LAYERS;

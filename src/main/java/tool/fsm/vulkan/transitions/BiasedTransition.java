@@ -13,7 +13,7 @@ import java.util.Random;
  * Created by Constantinos on 07/05/2016.
  */
 public class BiasedTransition<T>implements Transition<T> {
-    private final double BIAS = 0.999;
+    private final double BIAS = 0.8;
     private final Random random;
     private final State<T> current;
     private final ArrayList<State<T>> next;

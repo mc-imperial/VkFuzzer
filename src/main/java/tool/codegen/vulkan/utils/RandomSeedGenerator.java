@@ -17,7 +17,7 @@ import java.util.Random;
  * Created by constantinos on 16/05/2016.
  */
 public class RandomSeedGenerator extends VulkanCodeGenerator {
-    private final long UINT32_MAX = ((long)2 << 32) - 1;
+    private final long UINT32_MAX = ((long)2 << 31) - 1;
 
     public RandomSeedGenerator(RandomStringGenerator randomStringGenerator,
                                RandomNumberGanerator randomNumberGanerator,
@@ -35,7 +35,7 @@ public class RandomSeedGenerator extends VulkanCodeGenerator {
         config.setId(generateConfigId());
 
         Random random = new Random();
-        config.setRandomSeed(random.nextLong() % UINT32_MAX);
+        config.setRandomSeed(Math.abs(random.nextLong() % UINT32_MAX));
 
         globalState.addConfig(VulkanState.RANDOM_SEED, config);
 

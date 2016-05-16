@@ -10,10 +10,10 @@
     ${config.subresourceRange}.layerCount = VK_REMAINING_ARRAY_LAYERS;
 
     VkClearColorValue ${config.clearColor}[1];
-    ${config.clearColor}[0].float32[0] = dis(gen);
-    ${config.clearColor}[0].float32[1] = dis(gen);
-    ${config.clearColor}[0].float32[2] = dis(gen);
-    ${config.clearColor}[0].float32[3] = dis(gen);
+    ${config.clearColor}[0].float32[0] = randomFloat();
+    ${config.clearColor}[0].float32[1] = randomFloat();
+    ${config.clearColor}[0].float32[2] = randomFloat();
+    ${config.clearColor}[0].float32[3] = randomFloat();
 
     vkCmdClearColorImage(${config.commandBuffer},
             ${config.swapchainBuffers}[${config.nextImage}].image,

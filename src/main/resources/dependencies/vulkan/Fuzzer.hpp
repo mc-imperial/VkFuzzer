@@ -45,7 +45,7 @@
 
 uint32_t totalLogicalDevices = 0;
 
-const char* const* VALIDATION_LAYERS = {"VK_LAYER_LUNARG_standard_validation"};
+char* VALIDATION_LAYERS[1] = {"VK_LAYER_LUNARG_standard_validation"};
 
 void checkResultOutOfMemory(VkResult result)
 {
