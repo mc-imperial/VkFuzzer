@@ -57,6 +57,11 @@ void checkResultOutOfMemory(VkResult result)
     }
 }
 
+float randomFloat()
+{
+    return (double)rand() / (double)RAND_MAX;
+}
+
 bool memoryTypeFromProperties(VkPhysicalDeviceMemoryProperties &deviceMemoryProperties,
         uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex)
 {

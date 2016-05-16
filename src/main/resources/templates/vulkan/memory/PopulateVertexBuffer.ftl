@@ -53,7 +53,7 @@
     // Generate random data
     for (uint32_t i = 0; i < ${config.randomData}.size(); ++i)
     {
-        ${config.randomData}[i] = dis(gen);
+        ${config.randomData}[i] = randomFloat();
     }
 
     memcpy(${config.dataPointer}, ${config.randomData}.data(), ${config.randomData}.size());

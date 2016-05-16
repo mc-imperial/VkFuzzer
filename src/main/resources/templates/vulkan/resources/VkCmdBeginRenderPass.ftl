@@ -4,12 +4,12 @@
     //ID: ${config.id}
 
     VkClearValue ${config.clearValues}[2];
-    ${config.clearValues}[0].color.float32[0] = dis(gen);
-    ${config.clearValues}[0].color.float32[1] = dis(gen);
-    ${config.clearValues}[0].color.float32[2] = dis(gen);
-    ${config.clearValues}[0].color.float32[3] = dis(gen);
-    ${config.clearValues}[1].depthStencil.depth = dis(gen);
-    ${config.clearValues}[1].depthStencil.stencil = dis(gen);
+    ${config.clearValues}[0].color.float32[0] = randomFloat();
+    ${config.clearValues}[0].color.float32[1] = randomFloat();
+    ${config.clearValues}[0].color.float32[2] = randomFloat();
+    ${config.clearValues}[0].color.float32[3] = randomFloat();
+    ${config.clearValues}[1].depthStencil.depth = randomFloat();
+    ${config.clearValues}[1].depthStencil.stencil = randomFloat();
 
     VkRenderPassBeginInfo ${config.renderpassBeginInfo} = {};
     ${config.renderpassBeginInfo}.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
