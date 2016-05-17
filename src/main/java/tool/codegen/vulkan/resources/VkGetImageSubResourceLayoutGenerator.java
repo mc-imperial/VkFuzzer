@@ -51,8 +51,8 @@ public class VkGetImageSubResourceLayoutGenerator extends VulkanCodeGenerator {
                 (VkCreateImageConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
-        config.setMipLevel(vkImage.getMipLevels());
-        config.setArrayLayer(vkImage.getArrayLayers());
+        config.setMipLevel(vkImage.getMipLevels() - 1);
+        config.setArrayLayer(vkImage.getArrayLayers() - 1);
         config.setAspectMask(ASPECT);
         config.setImage(vkImage.getImage());
         config.setDevice(vkImage.getDevice());
