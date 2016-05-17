@@ -1,7 +1,7 @@
 
     //ID: ${config.id}
     FuzzerLogicalDevice ${config.device};
-    bool found = false;
+    bool ${config.found} = false;
 
     if (${config.logicalDevices}.empty())
     {
@@ -14,7 +14,7 @@
         if (fuzzerLogicalDevice.supportsCompute)
         {
             ${config.device} = fuzzerLogicalDevice;
-            found = true;
+            ${config.found} = true;
             break;
         }
 #else
@@ -24,13 +24,13 @@
         if (fuzzerLogicalDevice.supportsGraphics && supportsPresent)
         {
             ${config.device} = fuzzerLogicalDevice;
-            found = true;
+            ${config.found} = true;
             break;
         }
 #endif
     }
 
-    if (!found)
+    if (!${config.found})
     {
         std::cerr << "No suitable device found. Exiting." << std::endl;
         exit(NO_SUITABLE_DEVICE_AVAILABLE);

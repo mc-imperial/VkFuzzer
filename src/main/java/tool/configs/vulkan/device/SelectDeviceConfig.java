@@ -9,6 +9,15 @@ public class SelectDeviceConfig extends Config {
     private String device;
     private String logicalDevices;
     private String surface;
+    private String found;
+
+    public String getFound() {
+        return found;
+    }
+
+    public void setFound(String found) {
+        this.found = found;
+    }
 
     public String getSurface() {
         return surface;

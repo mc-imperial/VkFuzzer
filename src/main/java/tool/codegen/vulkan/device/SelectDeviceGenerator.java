@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class SelectDeviceGenerator extends VulkanCodeGenerator {
     private final String DEVICE = "device";
     private final String NULL_SURFACE = "NULL";
+    private final String FOUND = "found";
 
     public SelectDeviceGenerator(RandomStringGenerator randomStringGenerator,
                                  RandomNumberGanerator randomNumberGanerator,
@@ -38,6 +39,7 @@ public class SelectDeviceGenerator extends VulkanCodeGenerator {
 
         config.setId(generateConfigId());
         config.setDevice(DEVICE + freshMap.getFreshId(DEVICE));
+        config.setFound(FOUND + freshMap.getFreshId(FOUND));
 
         //
         ArrayList<Config> surfaces =
