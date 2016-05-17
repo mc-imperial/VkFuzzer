@@ -1,4 +1,6 @@
 
+    <#if config.isBad()>
+    <#else>
     //ID: ${config.id}
     FuzzerLogicalDevice ${config.device};
     bool ${config.found} = false;
@@ -35,3 +37,5 @@
         std::cerr << "No suitable device found. Exiting." << std::endl;
         exit(NO_SUITABLE_DEVICE_AVAILABLE);
     }
+
+    </#if>
