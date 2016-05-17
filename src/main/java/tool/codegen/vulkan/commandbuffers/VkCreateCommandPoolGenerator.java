@@ -6,6 +6,7 @@ import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
+import tool.configs.vulkan.device.SelectDeviceConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.utils.FreshMap;
@@ -54,14 +55,14 @@ public class VkCreateCommandPoolGenerator extends VulkanCodeGenerator {
 
         // Select the logical device
         ArrayList<Config> initSwapchains =
-                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
+                globalState.getConfig(VulkanState.SELECT_DEVICE);
 
-        InitSwapchainConfig swapchainConfig =
-                (InitSwapchainConfig)initSwapchains.get(0);
+        SelectDeviceConfig selectDeviceConfig =
+                (SelectDeviceConfig)initSwapchains.get(0);
 
-        config.setRandomDevice(swapchainConfig.getDevice());
-        config.setBad(swapchainConfig.isBad());
-        config.addDependency(swapchainConfig.getId());
+        config.setRandomDevice(selectDeviceConfig.getDevice());
+        config.setBad(selectDeviceConfig.isBad());
+        config.addDependency(selectDeviceConfig.getId());
 
         globalState.addConfig(VulkanState.VK_CREATE_COMMAND_POOL, config);
 
