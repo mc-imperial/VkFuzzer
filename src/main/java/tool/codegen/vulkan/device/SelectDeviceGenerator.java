@@ -49,6 +49,8 @@ public class SelectDeviceGenerator extends VulkanCodeGenerator {
             VkCreateSurfaceKHRConfig surface = (VkCreateSurfaceKHRConfig)
                     surfaces.get(randomNumberGanerator.randomNumber(surfaces.size()));
             config.setSurface(surface.getSurface());
+            config.setBad(surface.isBad());
+            config.addDependency(surface.getId());
         } else {
             config.setSurface(NULL_SURFACE);
         }
