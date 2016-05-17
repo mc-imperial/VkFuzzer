@@ -33,9 +33,6 @@ import tool.codegen.vulkan.utils.InstanceExtensionsGenerator;
 import tool.codegen.vulkan.utils.RandomSeedGenerator;
 import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.vulkan.states.VulkanState;
-import tool.utils.FreshMap;
-import tool.utils.RandomNumberGanerator;
-import tool.utils.RandomStringGenerator;
 
 import java.util.HashMap;
 
@@ -500,6 +497,15 @@ public class MixedCodeGeneratorsInitializer extends CodeGeneratorsInitializer {
         generators.put(
                 VulkanState.DEVICE_EXTENSIONS.toString(),
                 new DeviceExtensionsGenerator(
+                        randomStringGenerator,
+                        randomNumberGanerator,
+                        freshMap,
+                        randomizer.randomCoverage(),
+                        globalState));
+
+        generators.put(
+                VulkanState.SELECT_DEVICE.toString(),
+                new SelectDeviceGenerator(
                         randomStringGenerator,
                         randomNumberGanerator,
                         freshMap,

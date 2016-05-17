@@ -107,5 +107,6 @@ public class VulkanTemplates {
             "utils/InstanceExtensions.ftl";
     public static final String DEVICE_EXTENSIONS =
             "utils/DeviceExtensions.ftl";
-
+    public static final String SELECT_DEVICE =
+            "device/SelectDevice.ftl";
 }

@@ -5,8 +5,7 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
-import tool.configs.vulkan.device.DevicesConfig;
-import tool.configs.vulkan.device.VkCreateDeviceConfig;
+import tool.configs.vulkan.device.SelectDeviceConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.configs.vulkan.swapchain.VkCreateSurfaceKHRConfig;
 import tool.fsm.vulkan.states.VulkanState;
@@ -90,23 +89,14 @@ public class InitSwapchainGenerator extends VulkanCodeGenerator {
         config.addDependency(surface.getId());
         config.setBad(surface.isBad());
 
-        // Get random device
-        // Select a random logical device
-        ArrayList<Config> vkCreateDeviceConfigs =
-                globalState.getConfig(VulkanState.VK_CREATE_DEVICE);
+        // Get surface
+        ArrayList<Config> selectedDevices =
+                globalState.getConfig(VulkanState.SELECT_DEVICE);
+        SelectDeviceConfig device = (SelectDeviceConfig)selectedDevices.get(
+                randomNumberGanerator.randomNumber(selectedDevices.size()));
 
-        int random1 = randomNumberGanerator.randomNumber(vkCreateDeviceConfigs.size());
-        VkCreateDeviceConfig randomConfig = (VkCreateDeviceConfig)
-                vkCreateDeviceConfigs.get(random1);
-
-        // Randomly find an index for logical device and queue index
-        int random2 = randomNumberGanerator.randomNumber(randomConfig.getDevicePropertiesConfigs().size());
-        DevicesConfig devicePropertiesConfigs = (DevicesConfig)randomConfig.getDevicePropertiesConfigs().get(random2);
-        int random3 = randomNumberGanerator.randomNumber(devicePropertiesConfigs.getDevices().size());
-
-        config.setLogicalDevices(randomConfig.getLogicalDevices() + random2 + random3);
-        config.addDependency(randomConfig.getId());
-        config.setBad(config.isBad() || randomConfig.isBad());
+        config.setDevice(device.getDevice());
+        config.setBad(device.isBad());
 
         globalState.addConfig(VulkanState.INIT_SWAPCHAIN, config);
 

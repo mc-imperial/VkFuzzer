@@ -2,11 +2,12 @@ package tool.fsm.vulkan;
 
 import org.statefulj.fsm.FSM;
 import org.statefulj.fsm.TooBusyException;
-import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.ExitCondition;
 import tool.fsm.FuzzerFSM;
 import tool.fsm.vulkan.events.VulkanEvent;
-import tool.fsm.vulkan.initializers.*;
+import tool.fsm.vulkan.initializers.ComputeStatesInitializer;
+import tool.fsm.vulkan.initializers.MixedStatesInitializer;
+import tool.fsm.vulkan.initializers.StatesInitializer;
 import tool.fuzzer.Component;
 
 /**

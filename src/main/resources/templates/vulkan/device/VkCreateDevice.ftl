@@ -46,7 +46,7 @@
             float sum = 0.0f;
             for (unsigned int k = 0; k < ${deviceProperties.deviceQueueFamilyProperties}[i][j].queueCount; ++k)
             {
-                float priority = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+                float priority = randomFloat();
                 queuePriorities.push_back(priority);
                 sum += priority;
             }

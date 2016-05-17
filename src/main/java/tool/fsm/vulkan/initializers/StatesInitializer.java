@@ -14,7 +14,6 @@ import tool.fsm.vulkan.transitions.TransitionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**

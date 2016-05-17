@@ -1,19 +1,12 @@
 package tool.fsm.vulkan.initializers;
 
 import org.statefulj.fsm.model.State;
-import org.statefulj.fsm.model.impl.StateImpl;
 import org.statefulj.persistence.memory.MemoryPersisterImpl;
 import tool.fsm.ExitCondition;
 import tool.fsm.vulkan.VulkanEntity;
-import tool.fsm.vulkan.actions.GenerateCodeAction;
-import tool.fsm.vulkan.events.VulkanEvent;
 import tool.fsm.vulkan.states.VulkanState;
-import tool.fsm.vulkan.transitions.BiasedTransition;
-import tool.fsm.vulkan.transitions.SimpleTransition;
 import tool.fsm.vulkan.transitions.TransitionType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -87,6 +80,10 @@ public class MixedStatesInitializer extends StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_DEVICE,
+                VulkanState.SELECT_DEVICE);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.SELECT_DEVICE,
                 VulkanState.INIT_SWAPCHAIN);
 
         defineTransition(TransitionType.SEQUENTIAL,

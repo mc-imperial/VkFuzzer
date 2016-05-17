@@ -67,6 +67,7 @@ public enum VulkanState {
     RANDOM_SEED,
     INSTANCE_EXTENSIONS,
     DEVICE_EXTENSIONS,
+    SELECT_DEVICE,
 
     DEALLOCATION,
 

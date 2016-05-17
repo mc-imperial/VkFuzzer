@@ -1,35 +1,6 @@
 
     <#if config.isBad()>
     <#else>
-    //ID: ${config.id}
-    // Find a suitable device
-    FuzzerLogicalDevice ${config.device};
-    bool found = false;
-
-    if (${config.logicalDevices}.empty())
-    {
-        exit(EXIT_SUCCESS);
-    }
-
-    for (FuzzerLogicalDevice fuzzerLogicalDevice: ${config.logicalDevices})
-    {
-        VkBool32 supportsPresent;
-        vkGetPhysicalDeviceSurfaceSupportKHR(fuzzerLogicalDevice.gpu, fuzzerLogicalDevice.queueFamilyIndex,
-                ${config.surface}, &supportsPresent);
-        if (fuzzerLogicalDevice.supportsGraphics && supportsPresent)
-        {
-            ${config.device} = fuzzerLogicalDevice;
-            found = true;
-            break;
-        }
-    }
-
-    if (!found)
-    {
-        std::cerr << "No device found that supports presenting. Exitting." << std::endl;
-        exit(NO_PRESENT_DEVICE_AVAILABLE);
-    }
-
     // Get the list of VkFormats that are supported:
     uint32_t ${config.formatCount};
     VkResult ${config.result} = vkGetPhysicalDeviceSurfaceFormatsKHR(${config.device}.gpu, ${config.surface},
