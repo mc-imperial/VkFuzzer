@@ -81,29 +81,18 @@ public class ComputeStatesInitializer extends StatesInitializer {
 
         // Define random transitions from the VK_ALLOCATE_COMMAND_BUFFERS state
         VulkanState[] randomStates0 =
-                {
-                        VulkanState.VK_CREATE_SEMAPHORE,
-                        VulkanState.VK_CREATE_EVENT,
-                        VulkanState.VK_CREATE_FENCE,
-                        VulkanState.VK_CREATE_IMAGE,
-                        VulkanState.VK_CREATE_BUFFER,
-                        VulkanState.VK_CREATE_SHADER_MODULE,
-                };
+        {
+            VulkanState.VK_CREATE_SEMAPHORE,
+            VulkanState.VK_CREATE_EVENT,
+            VulkanState.VK_CREATE_FENCE,
+            VulkanState.VK_CREATE_IMAGE,
+            VulkanState.VK_CREATE_BUFFER,
+            VulkanState.VK_CREATE_SHADER_MODULE,
+            VulkanState.DEALLOCATION
+        };
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_ALLOCATE_COMMAND_BUFFERS,
-                VulkanState.VK_CREATE_IMAGE_VIEW);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CREATE_IMAGE_VIEW,
-                VulkanState.VK_CREATE_RENDERPASS);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CREATE_RENDERPASS,
-                VulkanState.VK_CREATE_FRAMEBUFFER);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CREATE_FRAMEBUFFER,
                 randomStates0);
 
         // End of sequential part
@@ -179,67 +168,7 @@ public class ComputeStatesInitializer extends StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
-                VulkanState.POPULATE_VERTEX_BUFFER);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.POPULATE_VERTEX_BUFFER,
-                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR,
-                VulkanState.VK_BEGIN_COMMAND_BUFFER);
-
-        VulkanState[] nextStates2 =
-                {
-                        VulkanState.VK_CMD_CLEAR_COLOR,
-                        VulkanState.VK_CMD_BEGIN_RENDERPASS
-                };
-
-        defineTransition(TransitionType.SEQUENTIAL_MULTI,
-                VulkanState.VK_BEGIN_COMMAND_BUFFER,
-                nextStates2);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_CMD_CLEAR_COLOR,
-                VulkanState.VK_END_COMMAND_BUFFER);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CMD_BEGIN_RENDERPASS,
-                VulkanState.DRAW_BUFFERS);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.DRAW_BUFFERS,
-                VulkanState.VK_CMD_END_RENDERPASS);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CMD_END_RENDERPASS,
-                VulkanState.VK_END_COMMAND_BUFFER);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_END_COMMAND_BUFFER,
-                VulkanState.VK_GET_DEVICE_QUEUE);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_GET_DEVICE_QUEUE,
-                VulkanState.VK_QUEUE_SUBMIT);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_QUEUE_SUBMIT,
-                VulkanState.VK_DEVICE_WAIT_IDLE);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_DEVICE_WAIT_IDLE,
-                VulkanState.VK_QUEUE_PRESENT_KHR);
-
-        VulkanState[] randomStates1 =
-                {
-                        VulkanState.VK_ACQUIRE_NEXT_IMAGE_KHR,
-                        VulkanState.STOP,
-                };
-
-        defineTransition(TransitionType.BIASED,
-                VulkanState.VK_QUEUE_PRESENT_KHR,
-                randomStates1);
+                randomStates0);
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.DEALLOCATION,
