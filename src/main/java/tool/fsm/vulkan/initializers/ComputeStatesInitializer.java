@@ -53,10 +53,6 @@ public class ComputeStatesInitializer extends StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_INSTANCE,
-                VulkanState.VK_CREATE_SURFACE_KHR);
-
-        defineTransition(TransitionType.SEQUENTIAL,
-                VulkanState.VK_CREATE_SURFACE_KHR,
                 VulkanState.VK_ENUMERATE_PHYSICAL_DEVICES);
 
         defineTransition(TransitionType.REPEATING,
@@ -152,10 +148,6 @@ public class ComputeStatesInitializer extends StatesInitializer {
 
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_CREATE_PIPELINE_LAYOUT,
-                VulkanState.VK_CREATE_GRAPHICS_PIPELINES);
-
-        defineTransition(TransitionType.REPEATING,
-                VulkanState.VK_CREATE_GRAPHICS_PIPELINES,
                 randomStates0);
 
         defineTransition(TransitionType.REPEATING,
