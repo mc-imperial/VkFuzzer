@@ -37,9 +37,9 @@ You can optionally supply the -compute parameter to generate only calls to the c
 
 or to minimise a program
 
-* java -jar Fuzzer-1.0-SNAPSHOT.jar -library vulkan -input /path/to/metaFile.meta -id <id>
+* java -jar Fuzzer-1.0-SNAPSHOT.jar -library vulkan -input /path/to/metaFile.meta -id id-of-code
 
-The id represents the //ID: <id> value of the comment that identifies a code section
+The id represents the //ID: id value of the comment that identifies a code section
 
 You can get help about how to use the program by typing java -jar Fuzzer-1.0-SNAPSHOT.jar
 

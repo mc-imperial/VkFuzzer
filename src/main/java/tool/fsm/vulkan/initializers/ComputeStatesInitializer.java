@@ -84,6 +84,7 @@ public class ComputeStatesInitializer extends StatesInitializer {
             VulkanState.VK_CREATE_IMAGE,
             VulkanState.VK_CREATE_BUFFER,
             VulkanState.VK_CREATE_SHADER_MODULE,
+            VulkanState.VK_BEGIN_COMMAND_BUFFER,
             VulkanState.DEALLOCATION
         };
 
@@ -161,6 +162,32 @@ public class ComputeStatesInitializer extends StatesInitializer {
         defineTransition(TransitionType.REPEATING,
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
                 randomStates0);
+
+        defineTransition(TransitionType.SEQUENTIAL_MULTI,
+                VulkanState.VK_BEGIN_COMMAND_BUFFER,
+                VulkanState.VK_END_COMMAND_BUFFER);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_END_COMMAND_BUFFER,
+                VulkanState.VK_GET_DEVICE_QUEUE);
+
+        defineTransition(TransitionType.REPEATING,
+                VulkanState.VK_GET_DEVICE_QUEUE,
+                VulkanState.VK_QUEUE_SUBMIT);
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_QUEUE_SUBMIT,
+                VulkanState.VK_DEVICE_WAIT_IDLE);
+
+        VulkanState[] randomStates1 =
+        {
+            VulkanState.VK_BEGIN_COMMAND_BUFFER,
+            VulkanState.DEALLOCATION
+        };
+
+        defineTransition(TransitionType.SEQUENTIAL,
+                VulkanState.VK_DEVICE_WAIT_IDLE,
+                randomStates1);
 
         defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.DEALLOCATION,
