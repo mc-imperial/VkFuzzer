@@ -4,24 +4,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import tool.configs.vulkan.commandbuffers.VkAllocateCommandBuffersConfig;
+import tool.configs.vulkan.commandbuffers.VkBeginCommandBufferConfig;
 import tool.configs.vulkan.commandbuffers.VkCreateCommandPoolConfig;
-import tool.configs.vulkan.device.DevicePropertiesConfig;
-import tool.configs.vulkan.device.DevicesConfig;
-import tool.configs.vulkan.device.VkCreateDeviceConfig;
-import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
+import tool.configs.vulkan.commandbuffers.VkEndCommandBufferConfig;
+import tool.configs.vulkan.commands.DrawBuffersConfig;
+import tool.configs.vulkan.commands.VkCmdClearColorImageConfig;
+import tool.configs.vulkan.device.*;
 import tool.configs.vulkan.enumeration.VkEnumerateInstanceExtensionPropertiesConfig;
 import tool.configs.vulkan.enumeration.VkEnumerateInstanceLayerPropertiesConfig;
 import tool.configs.vulkan.enumeration.VkEnumeratePhysicalDevicesConfig;
 import tool.configs.vulkan.instance.VkApplicationInfoConfig;
 import tool.configs.vulkan.instance.VkCreateInstanceConfig;
 import tool.configs.vulkan.instance.VkInstanceCreateInfoConfig;
+import tool.configs.vulkan.memory.PopulateVertexBufferConfig;
 import tool.configs.vulkan.pipelines.VkCreateGraphicsPipelinesConfig;
 import tool.configs.vulkan.pipelines.VkCreatePipelineCacheConfig;
 import tool.configs.vulkan.pipelines.VkCreatePipelineLayoutConfig;
 import tool.configs.vulkan.pipelines.VkGetPipelineCacheDataConfig;
 import tool.configs.vulkan.resources.*;
 import tool.configs.vulkan.shaders.VkCreateShaderModuleConfig;
+import tool.configs.vulkan.swapchain.InitSwapchainConfig;
+import tool.configs.vulkan.swapchain.VkAcquireNextImageKHRConfig;
+import tool.configs.vulkan.swapchain.VkCreateSurfaceKHRConfig;
+import tool.configs.vulkan.swapchain.VkQueuePresentKHRConfig;
 import tool.configs.vulkan.synchronisation.*;
+import tool.configs.vulkan.utils.DeviceExtensionsConfig;
+import tool.configs.vulkan.utils.InstanceExtensionsConfig;
+import tool.configs.vulkan.utils.RandomSeedConfig;
 
 import java.util.ArrayList;
 
@@ -102,7 +111,41 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = VkCreatePipelineLayoutConfig.class,
                 name = "VkCreatePipelineLayoutConfig"),
         @JsonSubTypes.Type(value = VkGetPipelineCacheDataConfig.class,
-                name = "VkGetPipelineCacheDataConfig")
+                name = "VkGetPipelineCacheDataConfig"),
+        @JsonSubTypes.Type(value = VkBeginCommandBufferConfig.class,
+                name = "VkBeginCommandBufferConfig"),
+        @JsonSubTypes.Type(value = VkEndCommandBufferConfig.class,
+                name = "VkEndCommandBufferConfig"),
+        @JsonSubTypes.Type(value = DrawBuffersConfig.class,
+                name = "DrawBuffersConfig"),
+        @JsonSubTypes.Type(value = VkCmdClearColorImageConfig.class,
+                name = "VkClearColorImageConfig"),
+        @JsonSubTypes.Type(value = SelectDeviceConfig.class,
+                name = "SelectDeviceConfig"),
+        @JsonSubTypes.Type(value = VkDeviceWaitIdleConfig.class,
+                name = "VkDeviceWaitIdleConfig"),
+        @JsonSubTypes.Type(value = VkQueueSubmitConfig.class,
+                name = "VkQueueSubmitConfig"),
+        @JsonSubTypes.Type(value = PopulateVertexBufferConfig.class,
+                name = "PopulateVertexBufferConfig"),
+        @JsonSubTypes.Type(value = VkCmdBeginRenderPassConfig.class,
+                name = "VkCmdBeginRenderPassConfig"),
+        @JsonSubTypes.Type(value = VkCreateFrameBufferConfig.class,
+                name = "VkCreateFrameBufferConfig"),
+        @JsonSubTypes.Type(value = InitSwapchainConfig.class,
+                name = "InitSwapchainConfig"),
+        @JsonSubTypes.Type(value = VkAcquireNextImageKHRConfig.class,
+                name = "VkAcquireNextImageKHRConfig"),
+        @JsonSubTypes.Type(value = VkCreateSurfaceKHRConfig.class,
+                name = "VkCreateSurfaceKHRConfig"),
+        @JsonSubTypes.Type(value = VkQueuePresentKHRConfig.class,
+                name = "VkQueuePresentKHRConfig"),
+        @JsonSubTypes.Type(value = DeviceExtensionsConfig.class,
+                name = "DeviceExtensionsConfig"),
+        @JsonSubTypes.Type(value = InstanceExtensionsConfig.class,
+                name = "InstanceExtensionsConfig"),
+        @JsonSubTypes.Type(value = RandomSeedConfig.class,
+                name = "RandomSeedConfig")
 })
 public class Config {
     private ArrayList<Integer> dependencies;
