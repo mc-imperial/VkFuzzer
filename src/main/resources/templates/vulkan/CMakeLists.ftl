@@ -38,6 +38,8 @@ include_directories(include/)
 if(UNIX)
 find_package(XCB REQUIRED)
 endif()
+
+set(TYPE WIN32)
 </#if>
 
 <#noparse>
@@ -95,7 +97,7 @@ file(COPY "simple-frag.spv" DESTINATION "${CMAKE_BINARY_DIR}")
 # Create executable
 # Link executable
 if(WIN32)
-    add_executable(${executable.name} WIN32 ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+    add_executable(${executable.name} <#noparse>${TYPE}</#noparse> ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
     target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} </#noparse>)
 else()
     add_executable(${executable.name} ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
