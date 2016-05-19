@@ -10,8 +10,8 @@
     <#list config.shaders as shader>
         <#if shader.isBad()>
         <#else>
-        vkDestroyShaderModule(${shader.device}.device, ${shader.vertexShaderModule}, NULL);
-        vkDestroyShaderModule(${shader.device}.device, ${shader.fragmentShaderModule}, NULL);
+        vkDestroyShaderModule(${shader.device}.device, ${shader.vertexPipelineShaderStageCreateInfo}.module, NULL);
+        vkDestroyShaderModule(${shader.device}.device, ${shader.fragmentPipelineShaderStageCreateInfo}.module, NULL);
         </#if>
     </#list>
 
