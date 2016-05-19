@@ -5,6 +5,7 @@
 #endif
 
 #include "WindowConfig.hpp"
+#include "ExitCondition.hpp"
 
 #define WIDTH 640
 #define HEIGHT 480
