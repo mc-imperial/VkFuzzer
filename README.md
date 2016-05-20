@@ -4,17 +4,17 @@ Requirements to create, build and run the Fuzzer and the generated programs
 ---------------------------------------------------------------------------
 * Java 8
 * Python 2.7
-* Git
 * Gradle
 * CMake 2.6 or newer
 * LunarG Vulkan Loader
 * A Vulkan ICD
 
-Supported Systems
------------
+Tested Systems
+--------------
 These are the operating systems that the Fuzzer tool has been tested on.
 
-* OS: Linux (Ubuntu), Windows 10
+* Linux (Ubuntu 15.10)
+* Windows 10
 
 How to build the Fuzzer
 -----------------------
@@ -74,10 +74,6 @@ Once you have generated the project open it through Visual Studio.
 * Select the Debug configuration
 * Select Build Solution from the Build section of the menu bar
 * python TestRunner.py
-
-It might be required to switch to the Release configuration of the project
-due to incompatibilities of the installed Vulkan loader library with the latest
-version of Visual Studio (2015).
 
 The Finite State Machine that generates code
 -----------
