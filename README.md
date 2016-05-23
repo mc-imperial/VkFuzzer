@@ -6,7 +6,7 @@ Requirements to create, build and run the Fuzzer and the generated programs
 * Python 2.7
 * Gradle
 * CMake 2.6 or newer
-* LunarG Vulkan Loader
+* LunarG Vulkan Loader v1.0.13.0
 * A Vulkan ICD
 
 Tested Systems
@@ -47,6 +47,10 @@ You can get help about how to use the program by typing java -jar Fuzzer-1.0-SNA
 How to build and run the generated programs
 -------------------------------------------
 The tests will be generated in the specified folder along with the Test Runner.
+
+For Linux, before you run CMake you must make sure that you have set the VULKAN_SDK
+environment variable to the path of your local SDK as shown in the LunarG documentation
+under the Set up the Runtime Environment section.
 
 ### Linux
 While in the folder of the generated programs execute the following commands:
