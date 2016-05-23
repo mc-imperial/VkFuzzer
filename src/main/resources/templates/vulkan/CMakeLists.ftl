@@ -83,7 +83,7 @@ else()
     set (VULKAN_LOADER_NAME "vulkan")
 endif()
 
-find_library(VULKAN_LOADER NAMES ${VULKAN_LOADER_NAME})
+find_library(VULKAN_LOADER NAMES ${VULKAN_LOADER_NAME} HINTS "$ENV{VULKAN_SDK}/lib")
 
 # Copy test runner and shaders
 file(COPY "TestRunner.py" DESTINATION "${CMAKE_BINARY_DIR}")

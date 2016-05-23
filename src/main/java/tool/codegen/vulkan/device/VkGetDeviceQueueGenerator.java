@@ -5,6 +5,7 @@ import tool.codegen.vulkan.VulkanCodeGenerator;
 import tool.codegen.vulkan.VulkanTemplates;
 import tool.configs.Config;
 import tool.configs.vulkan.VulkanGlobalState;
+import tool.configs.vulkan.device.SelectDeviceConfig;
 import tool.configs.vulkan.device.VkGetDeviceQueueConfig;
 import tool.configs.vulkan.swapchain.InitSwapchainConfig;
 import tool.fsm.vulkan.states.VulkanState;
@@ -44,15 +45,15 @@ public class VkGetDeviceQueueGenerator extends VulkanCodeGenerator {
 
         // Find a random device
         ArrayList<Config> configs =
-                globalState.getConfig(VulkanState.INIT_SWAPCHAIN);
+                globalState.getConfig(VulkanState.SELECT_DEVICE);
 
-        InitSwapchainConfig swapchainConfig =
-                (InitSwapchainConfig)
+        SelectDeviceConfig selectDeviceConfig =
+                (SelectDeviceConfig)
                 configs.get(randomNumberGanerator.randomNumber(configs.size()));
 
-        config.addDependency(swapchainConfig.getId());
-        config.setDevice(swapchainConfig.getDevice());
-        config.setBad(swapchainConfig.isBad());
+        config.addDependency(selectDeviceConfig.getId());
+        config.setDevice(selectDeviceConfig.getDevice());
+        config.setBad(selectDeviceConfig.isBad());
 
         globalState.addConfig(VulkanState.VK_GET_DEVICE_QUEUE, config);
 

@@ -163,7 +163,7 @@ public class ComputeStatesInitializer extends StatesInitializer {
                 VulkanState.VK_GET_BUFFER_MEMORY_REQUIREMENTS,
                 randomStates0);
 
-        defineTransition(TransitionType.SEQUENTIAL_MULTI,
+        defineTransition(TransitionType.SEQUENTIAL,
                 VulkanState.VK_BEGIN_COMMAND_BUFFER,
                 VulkanState.VK_END_COMMAND_BUFFER);
 
@@ -185,7 +185,7 @@ public class ComputeStatesInitializer extends StatesInitializer {
             VulkanState.DEALLOCATION
         };
 
-        defineTransition(TransitionType.SEQUENTIAL,
+        defineTransition(TransitionType.SEQUENTIAL_MULTI,
                 VulkanState.VK_DEVICE_WAIT_IDLE,
                 randomStates1);
 
