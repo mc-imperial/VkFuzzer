@@ -58,7 +58,7 @@ if(WIN32)
         platform/windows/ExitCondition.hpp
         platform/windows/ExitCondition.cpp)
 else()
-    include_directories("/usr/include/vulkan" platform/linux)
+    include_directories("$ENV{VULKAN_SDK}/include" platform/linux)
     SET(PLATFORM_SOURCES
         platform/linux/Main.cpp
         platform/linux/WindowConfig.hpp
@@ -83,7 +83,7 @@ else()
     set (VULKAN_LOADER_NAME "vulkan")
 endif()
 
-find_library(VULKAN_LOADER NAMES ${VULKAN_LOADER_NAME})
+find_library(VULKAN_LOADER NAMES ${VULKAN_LOADER_NAME} HINTS "$ENV{VULKAN_SDK}/lib")
 
 # Copy test runner and shaders
 file(COPY "TestRunner.py" DESTINATION "${CMAKE_BINARY_DIR}")
