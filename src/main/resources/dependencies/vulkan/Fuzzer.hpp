@@ -24,6 +24,7 @@
 #include "vulkan_wrapper.h" // Include Vulkan_wrapper and dynamically load symbols.
 #else //__ANDROID__
 #include <unistd.h>
+#include "vulkan/vk_sdk_platform.h"
 #include "../platform/linux/ExitCondition.hpp"
 #include "../platform/linux/WindowConfig.hpp"
 #ifndef VK_USE_PLATFORM_XCB_KHR
