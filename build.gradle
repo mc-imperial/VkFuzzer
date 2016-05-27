@@ -6,6 +6,9 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'dependencies'
+    }
 }
 
 dependencies {
@@ -17,6 +20,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
     compile 'org.slf4j:log4j-over-slf4j:1.7.21'
     compile 'org.slf4j:slf4j-nop:1.7.21'
+    compile name: 'jdistlib-0.4.4-bin.jar'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
