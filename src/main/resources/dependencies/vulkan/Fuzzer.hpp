@@ -33,6 +33,9 @@
 #endif // _WIN32
 
 #include <vulkan/vulkan.h>
+#include <ctime>
+#include <string>
+#include <iostream>
 
 #define assert(C) if(!(C)) { std::cerr << "Assertion failed at line " << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
 
@@ -79,6 +82,12 @@ bool memoryTypeFromProperties(VkPhysicalDeviceMemoryProperties &deviceMemoryProp
      }
      // No memory types matched, return failure
      return false;
+}
+
+void printTime(const std::string &tag)
+{
+    std::cout << "Tag: " << tag << std::endl;
+    std::cout << "Time: " << std::time(nullptr) << std::endl;
 }
 
 void setImageLayout(
