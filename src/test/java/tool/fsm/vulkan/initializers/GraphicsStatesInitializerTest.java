@@ -8,12 +8,12 @@ import tool.fsm.ExitCondition;
 /**
  * Created by constantinos on 31/03/2016.
  */
-public class MixedStatesInitializerTest {
-    private MixedStatesInitializer initializer;
+public class GraphicsStatesInitializerTest {
+    private GraphicsStatesInitializer initializer;
 
     @Before
     public void setup() {
-        initializer = new MixedStatesInitializer(new ExitCondition());
+        initializer = new GraphicsStatesInitializer(new ExitCondition());
     }
 
     @Test

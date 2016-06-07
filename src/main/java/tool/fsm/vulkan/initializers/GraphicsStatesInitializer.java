@@ -14,13 +14,13 @@ import java.util.Map;
  * Created by constantinos on 30/03/2016.
  * Initializes states
  */
-public class MixedStatesInitializer extends StatesInitializer {
-    public MixedStatesInitializer(final ExitCondition exitCondition) {
+public class GraphicsStatesInitializer extends StatesInitializer {
+    public GraphicsStatesInitializer(final ExitCondition exitCondition) {
         super(exitCondition);
     }
 
-    public MixedStatesInitializer(final ExitCondition exitCondition,
-                                  final Map<VulkanState, State<VulkanEntity>> states) {
+    public GraphicsStatesInitializer(final ExitCondition exitCondition,
+                                     final Map<VulkanState, State<VulkanEntity>> states) {
         super(exitCondition, states);
     }
 

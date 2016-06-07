@@ -40,8 +40,8 @@ import java.util.HashMap;
  * Created by constantinos on 30/03/2016.
  * Initializes code generators
  */
-public class MixedCodeGeneratorsInitializer extends CodeGeneratorsInitializer {
-    public MixedCodeGeneratorsInitializer(final VulkanGlobalState globalState) {
+public class GraphicsCodeGeneratorsInitializer extends CodeGeneratorsInitializer {
+    public GraphicsCodeGeneratorsInitializer(final VulkanGlobalState globalState) {
         super(globalState);
     }
 

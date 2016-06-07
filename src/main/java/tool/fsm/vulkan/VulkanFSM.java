@@ -6,7 +6,7 @@ import tool.fsm.ExitCondition;
 import tool.fsm.FuzzerFSM;
 import tool.fsm.vulkan.events.VulkanEvent;
 import tool.fsm.vulkan.initializers.ComputeStatesInitializer;
-import tool.fsm.vulkan.initializers.MixedStatesInitializer;
+import tool.fsm.vulkan.initializers.GraphicsStatesInitializer;
 import tool.fsm.vulkan.initializers.StatesInitializer;
 import tool.fuzzer.Component;
 
@@ -51,7 +51,7 @@ public class VulkanFSM implements FuzzerFSM {
             throw new RuntimeException("Component " + component +
                     " is not available for fuzzing yet.");
         } else {
-            initializer = new MixedStatesInitializer(exitCondition);
+            initializer = new GraphicsStatesInitializer(exitCondition);
         }
 
         initializer.initializeStates();

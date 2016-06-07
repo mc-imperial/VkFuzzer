@@ -9,7 +9,7 @@ import tool.configs.vulkan.VulkanGlobalState;
 import tool.fsm.Entity;
 import tool.fsm.vulkan.initializers.CodeGeneratorsInitializer;
 import tool.fsm.vulkan.initializers.ComputeCodeGeneratorsInitializer;
-import tool.fsm.vulkan.initializers.MixedCodeGeneratorsInitializer;
+import tool.fsm.vulkan.initializers.GraphicsCodeGeneratorsInitializer;
 import tool.fsm.vulkan.states.VulkanState;
 import tool.fuzzer.Component;
 import tool.serialization.vulkan.VulkanStateSerializer;
@@ -120,7 +120,7 @@ public class VulkanEntity extends Entity {
                     " is not available for fuzzing yet.");
         } else {
             initializer =
-                    new MixedCodeGeneratorsInitializer((VulkanGlobalState)globalState);
+                    new GraphicsCodeGeneratorsInitializer((VulkanGlobalState)globalState);
         }
 
         codeGenerators = initializer.initializeCodeGenerators();
