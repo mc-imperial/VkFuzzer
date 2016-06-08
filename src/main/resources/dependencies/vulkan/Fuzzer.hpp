@@ -36,6 +36,8 @@
 #include <ctime>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <chrono>
 
 #define assert(C) if(!(C)) { std::cerr << "Assertion failed at line " << __LINE__ << std::endl; exit(ASSERTION_FAILED);}
 
@@ -82,12 +84,6 @@ bool memoryTypeFromProperties(VkPhysicalDeviceMemoryProperties &deviceMemoryProp
      }
      // No memory types matched, return failure
      return false;
-}
-
-void printTime(const std::string &tag)
-{
-    std::cout << "Tag: " << tag << std::endl;
-    std::cout << "Time: " << std::time(nullptr) << std::endl;
 }
 
 void setImageLayout(
@@ -175,6 +171,32 @@ struct SwapchainBuffer
 {
     VkImage image;
     VkImageView view;
+};
+
+class Statistics
+{
+public:
+    Statistics()
+    {
+        _statisticsFile.open("statistics.txt", std::ios::app);
+        _statisticsFile << "Start new entry" << std::endl;
+    }
+
+    ~Statistics()
+    {
+        _statisticsFile << "End new entry" << std::endl;
+        _statisticsFile.close();
+    }
+
+    void print(const std::string &tag)
+    {
+        std::chrono::high_resolution_clock::time_point t =
+                std::chrono::high_resolution_clock::now();
+
+        _statisticsFile << tag << "," << t.time_since_epoch().count() << std::endl;
+    }
+private:
+    std::ofstream _statisticsFile;
 };
 
 #endif // _FUZZER_FUZZER_HPP_

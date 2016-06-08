@@ -39,6 +39,7 @@ using namespace fuzzer;
 void fuzz(const ExitConditionPtr &exitCondition,
         const display::WindowConfigPtr &config)
 {
+    Statistics stats;
     std::vector<const char*> deviceExtensions;
     std::vector<const char*> instanceExtensions;
 

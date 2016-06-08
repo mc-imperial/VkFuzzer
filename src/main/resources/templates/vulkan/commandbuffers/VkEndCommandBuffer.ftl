@@ -12,4 +12,6 @@
 
     assert(${config.result} == VK_SUCCESS);
 
+    stats.print("vkCommandBuffer recording");
+
     </#if>

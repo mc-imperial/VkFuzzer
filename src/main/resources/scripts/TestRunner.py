@@ -89,10 +89,78 @@ def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGenerat
 		for program in failed:
 			print str(program)
 
-		print "==================="
+		print "===================\n"
+
+	collectStatistics()
+
+def collectStatistics():
+	stats = open("statistics.txt", "r")
+	tagsCount = {}
+	tagsTotal = {}
+	tagsAlt = {}
+
+	tempTagsCount = {}
+	tempTagsTotal = {}
+	tempTagsAlt = {}
+
+	for line in stats:
+		if line == "Start new entry\n":
+			tempTagsCount = {}
+			tempTagsTotal = {}
+			tempTagsAlt = {}
+			continue
+		elif line == "End new entry\n":
+			bad = False
+			for (tag,count) in tempTagsCount.iteritems():
+				if (count % 2) != 0:
+					bad = True
+
+			if not bad:
+				for (tag,count) in tempTagsCount.iteritems():
+					if tag in tagsCount:
+						tagsCount[tag] += count
+					else:
+						tagsCount[tag] = count
+
+				for (tag,total) in tempTagsTotal.iteritems():
+					if tag in tagsTotal:
+						tagsTotal[tag] += total
+					else:
+						tagsTotal[tag] = total
+			continue
+
+		contents = line.split(",")
+		tag = contents[0]
+		if tag in tempTagsCount:
+			tempTagsCount[tag] += 1
+		else:
+			tempTagsCount[tag] = 1
+
+		time = contents[1]
+		if tag in tempTagsTotal:
+			if tempTagsAlt[tag]:
+				tempTagsTotal[tag] -= long(time)
+				tempTagsAlt[tag] = False
+			else:
+				tempTagsTotal[tag] += long(time)
+				tempTagsAlt[tag] = True
+		else:
+			tempTagsTotal[tag] = -long(time)
+			tempTagsAlt[tag] = False
+
+	print "Statistics"
+	print "==================="
+	for (tag,count) in tagsCount.iteritems():
+		print(tag + ": Avg " + str(tagsTotal[tag]/count) + "ns")
 
 
 if __name__ == "__main__":
+	# Delete previous stats file
+	try:
+		os.remove("statistics.txt")
+	except OSError:
+		pass
+
 	# Get all files in directory
 	files = []
 	executables = []
