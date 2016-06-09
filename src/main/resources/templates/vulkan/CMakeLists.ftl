@@ -90,9 +90,9 @@ file(COPY "simple-frag.spv" DESTINATION "${CMAKE_BINARY_DIR}")
 
 </#noparse>
 
-<#list config.executables as executable>
-
 add_library(FuzzerLib <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+
+<#list config.executables as executable>
 
 # Create executable
 # Link executable
