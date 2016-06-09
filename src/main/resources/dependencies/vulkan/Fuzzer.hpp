@@ -67,6 +67,11 @@ float randomFloat()
     return (double)rand() / (double)RAND_MAX;
 }
 
+float randomFloat(float min, float max)
+{
+    return (((double)rand() / (double)RAND_MAX) * (max - min)) - ((max - min)/2);
+}
+
 bool memoryTypeFromProperties(VkPhysicalDeviceMemoryProperties &deviceMemoryProperties,
         uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex)
 {
