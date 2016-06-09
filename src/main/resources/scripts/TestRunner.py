@@ -5,7 +5,6 @@ import sys
 from subprocess import Popen, PIPE
 import shutil
 import numpy as np
-from scipy import stats
 
 PROGRAM_NAME = r'Program*'
 WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
@@ -92,9 +91,7 @@ def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGenerat
 
 		print "===================\n"
 
-	collectStatistics()
-
-def collectStatistics():
+def collectStatistics(values):
 	stats = open("statistics.txt", "r")
 	tagsCount = {}
 	tagsTotal = {}
@@ -125,11 +122,8 @@ def collectStatistics():
 				for (tag,total) in tempTagsTotal.iteritems():
 					if tag in tagsTotal:
 						tagsTotal[tag] += total
-						tagsTotalx[tag].append(total)
 					else:
 						tagsTotal[tag] = total
-						tagsTotalx[tag] = []
-						tagsTotalx[tag].append(total)
 
 
 			continue
@@ -153,26 +147,28 @@ def collectStatistics():
 			tempTagsTotal[tag] = -long(time)
 			tempTagsAlt[tag] = False
 
+	for (tag,total) in tagsTotal.iteritems():
+		if tag in values:
+			values[tag].append(total)
+		else:
+			values[tag] = []
+			values[tag].append(total)
 
+
+def printStatistics(stats):
 	print "Statistics"
 	print "==================="
-	for (tag,values) in tagsTotalx.iteritems():
+	for (tag,values) in stats.iteritems():
 		nparray = np.array(values)
+		print nparray
 		print tag + ": Mean " + str(np.mean(nparray)) + "ns, ",
 		print "Median " + str(np.median(nparray)) + "ns, ",
-		print "Mode " + str(stats.mode(nparray)) + "ns, ",
 		print "s.d " + str(np.std(nparray)) + "ns"
 
 	print "==================="
 
 
 if __name__ == "__main__":
-	# Delete previous stats file
-	try:
-		os.remove("statistics.txt")
-	except OSError:
-		pass
-
 	# Get all files in directory
 	files = []
 	executables = []
@@ -195,8 +191,21 @@ if __name__ == "__main__":
 		files = os.listdir(".")
 		executables = [x for x in files if re.match(PROGRAM_NAME, x)]
 
-	# Run programs
-	(succeeded, failed, outOfMemory, invalidCodeGeneration) = runPrograms(executables)
+	times = sys.argv[1]
+	values = {}
+	for i in range(times):
+		# Delete previous stats file
+		try:
+			os.remove("statistics.txt")
+		except OSError:
+			pass
 
-	# Print Summary
-	printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration)
+		# Run programs
+		(succeeded, failed, outOfMemory, invalidCodeGeneration) = runPrograms(executables)
+
+		# Print Summary
+		printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration)
+
+		collectStatistics(values)
+
+	printStatistics(values)
