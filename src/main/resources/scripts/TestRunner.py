@@ -191,7 +191,7 @@ if __name__ == "__main__":
 		files = os.listdir(".")
 		executables = [x for x in files if re.match(PROGRAM_NAME, x)]
 
-	times = sys.argv[1]
+	times = int(sys.argv[1])
 	values = {}
 	for i in range(times):
 		# Delete previous stats file
