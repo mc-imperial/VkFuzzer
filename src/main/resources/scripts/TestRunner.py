@@ -4,7 +4,8 @@ import re
 import sys
 from subprocess import Popen, PIPE
 import shutil
-
+import numpy as np
+from scipy import stats
 
 PROGRAM_NAME = r'Program*'
 WINDOWS_PROGRAM_NAME = r'[a-zA-Z0-9]*.exe'
@@ -99,9 +100,7 @@ def collectStatistics():
 	tagsTotal = {}
 	tagsAlt = {}
 
-	tempTagsCount = {}
-	tempTagsTotal = {}
-	tempTagsAlt = {}
+	tagsTotalx = {}
 
 	for line in stats:
 		if line == "Start new entry\n":
@@ -117,6 +116,7 @@ def collectStatistics():
 
 			if not bad:
 				for (tag,count) in tempTagsCount.iteritems():
+
 					if tag in tagsCount:
 						tagsCount[tag] += count
 					else:
@@ -125,8 +125,13 @@ def collectStatistics():
 				for (tag,total) in tempTagsTotal.iteritems():
 					if tag in tagsTotal:
 						tagsTotal[tag] += total
+						tagsTotalx[tag].append(total)
 					else:
 						tagsTotal[tag] = total
+						tagsTotalx[tag] = []
+						tagsTotalx[tag].append(total)
+
+
 			continue
 
 		contents = line.split(",")
@@ -148,10 +153,17 @@ def collectStatistics():
 			tempTagsTotal[tag] = -long(time)
 			tempTagsAlt[tag] = False
 
+
 	print "Statistics"
 	print "==================="
-	for (tag,count) in tagsCount.iteritems():
-		print(tag + ": Avg " + str(tagsTotal[tag]/count) + "ns")
+	for (tag,values) in tagsTotalx.iteritems():
+		nparray = np.array(values)
+		print tag + ": Mean " + str(np.mean(nparray)) + "ns, ",
+		print "Median " + str(np.median(nparray)) + "ns, ",
+		print "Mode " + str(stats.mode(nparray)) + "ns, ",
+		print "s.d " + str(np.std(nparray)) + "ns"
+
+	print "==================="
 
 
 if __name__ == "__main__":
