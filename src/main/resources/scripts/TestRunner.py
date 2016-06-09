@@ -17,12 +17,14 @@ SHADERS = r'[a-zA-Z0-9]*.spv'
 SUCCESS = 0;
 INVALID_CODE_GENERATION = -5
 RUN_OUT_OF_MEMORY = -6
+ASSERTION_FAILED = -7
 
 # Runs the programs
 def runPrograms(executables):
 	results = open(RESULTS_FILE, "w")
 	succeeded = []
 	failed = []
+	crashes = []
 	outOfMemory = []
 	invalidCodeGeneration = []
 
@@ -48,9 +50,12 @@ def runPrograms(executables):
 		elif process.returncode == RUN_OUT_OF_MEMORY:
 			resultMessage = "SUCCESS"
 			outOfMemory.append(executables[i])
-		else:
+		elif process.returncode == ASSERTION_FAILED:
 			resultMessage = "FAILURE"
 			failed.append(executables[i])
+		else:
+			resultMessage = "FAILURE"
+			crashes.append(executables[i])
 
 		results.write(resultMessage + "\n\n")
 		print resultMessage
@@ -62,14 +67,15 @@ def runPrograms(executables):
 		results.write(stderr + "\n")
 
 	print "===================\n"
-	return (succeeded, failed, outOfMemory, invalidCodeGeneration)
+	return (succeeded, failed, crashes, outOfMemory, invalidCodeGeneration)
 
 # Prints the test summary
-def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration):
+def printSummary(executables, succeeded, failed, crashes, outOfMemory, invalidCodeGeneration):
 	# Calculate statistics
 	numberOfExecutables = len(executables)
 	prcntSucceed = float(len(succeeded))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 	prcntFailed = float(len(failed))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
+	prcntCrashes = float(len(crashes))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 	prcntOutOfMemory = float(len(outOfMemory))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 	prcntInvalidCodeGeneration = float(len(invalidCodeGeneration))/numberOfExecutables * 100.0 if numberOfExecutables !=0 else 0
 
@@ -77,7 +83,8 @@ def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGenerat
 	print "==================="
 	print "Total tests: " + str(numberOfExecutables)
 	print "Succeeded: " + str(len(succeeded)) + "/" + str(numberOfExecutables) + " (" + str(prcntSucceed) + "%)"
-	print "Failed: " + str(len(failed)) + "/" + str(numberOfExecutables) + " (" + str(prcntFailed) + "%)"
+	print "Failed assertions: " + str(len(failed)) + "/" + str(numberOfExecutables) + " (" + str(prcntFailed) + "%)"
+	print "Crashes: " + str(len(crashes)) + "/" + str(numberOfExecutables) + " (" + str(prcntCrashes) + "%)"
 	print "Out of Memory: " + str(len(outOfMemory)) + "/" + str(numberOfExecutables) + " (" + str(prcntOutOfMemory) + "%)"
 	print "Invalid Code Generation: " + str(len(invalidCodeGeneration)) + "/" + str(numberOfExecutables) + " (" + str(prcntInvalidCodeGeneration) + "%)"
 	print "===================\n"
@@ -87,6 +94,8 @@ def printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGenerat
 		print "==================="
 
 		for program in failed:
+			print str(program)
+		for program in crashes:
 			print str(program)
 
 		print "===================\n"
@@ -201,10 +210,10 @@ if __name__ == "__main__":
 			pass
 
 		# Run programs
-		(succeeded, failed, outOfMemory, invalidCodeGeneration) = runPrograms(executables)
+		(succeeded, failed, crashes, outOfMemory, invalidCodeGeneration) = runPrograms(executables)
 
 		# Print Summary
-		printSummary(executables, succeeded, failed, outOfMemory, invalidCodeGeneration)
+		printSummary(executables, succeeded, failed, crashes, outOfMemory, invalidCodeGeneration)
 
 		collectStatistics(values)
 
