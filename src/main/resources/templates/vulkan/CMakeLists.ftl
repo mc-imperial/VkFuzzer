@@ -52,7 +52,6 @@ if(WIN32)
     SET(PLATFORM_SOURCES
         platform/windows/AppWindow.cpp
         platform/windows/AppWindow.hpp
-        platform/windows/Main.cpp
         platform/windows/stdafx.h
         platform/windows/WindowConfig.hpp
         platform/windows/ExitCondition.hpp
@@ -60,7 +59,6 @@ if(WIN32)
 else()
     include_directories("$ENV{VULKAN_SDK}/include" platform/linux)
     SET(PLATFORM_SOURCES
-        platform/linux/Main.cpp
         platform/linux/WindowConfig.hpp
         platform/linux/ExitCondition.hpp
         platform/linux/ExitCondition.cpp)
@@ -94,16 +92,18 @@ file(COPY "simple-frag.spv" DESTINATION "${CMAKE_BINARY_DIR}")
 
 <#list config.executables as executable>
 
+add_library(FuzzerLib <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+
 # Create executable
 # Link executable
 if(WIN32)
-    add_executable(${executable.name} <#noparse>${TYPE}</#noparse> ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
-    target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} </#noparse>)
+    add_executable(${executable.name} <#noparse>${TYPE}</#noparse> ${executable.source} platform/windows/Main.cpp)
+    target_link_libraries(${executable.name} FuzzerLib <#noparse>${VULKAN_LOADER} </#noparse>)
 else()
-    add_executable(${executable.name} ${executable.source} <#noparse>${PLATFORM_SOURCES} ${PLATFORM_INDEPENDENT_HEADERS}</#noparse>)
+    add_executable(${executable.name} ${executable.source} platform/linux/Main.cpp)
     target_link_libraries(${executable.name} <#noparse>${VULKAN_LOADER} pthread</#noparse>)
     <#if config.everything>
-    target_link_libraries(${executable.name} <#noparse>${XCB_LIBRARIES}</#noparse>)
+    target_link_libraries(${executable.name} FuzzerLib <#noparse>${XCB_LIBRARIES}</#noparse>)
     </#if>
 endif()
 
